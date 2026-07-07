@@ -872,7 +872,7 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 }
 
 /* ─── IPHONE ARCOS ─── */
-.iphone-orbit { position:relative; width:320px; height:640px; display:flex; align-items:center; justify-content:center; }
+.iphone-orbit { position:relative; width:360px; height:720px; display:flex; align-items:center; justify-content:center; }
 
 /* Arcos orbitais */
 .arc {
@@ -918,54 +918,200 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 .dot-4 { animation-duration:24s; animation-direction:reverse; margin-left:310px; margin-top:-3px; background:rgba(21,195,160,.3); width:5px; height:5px; }
 @keyframes dotOrbit { to { transform:rotate(360deg); } }
 
-/* iPhone body */
+/* ── iPhone 15 Pro realista ── */
 .iphone-body {
   position:relative; z-index:10;
-  width:160px; height:320px;
-  background:linear-gradient(160deg,#1a1f1e,#0d1210);
-  border-radius:36px;
-  border:2px solid rgba(21,195,160,.25);
+  width:175px; height:370px;
+  border-radius:46px;
+  /* Titanium frame */
+  background:linear-gradient(145deg,#3a3a3c,#2c2c2e 30%,#1c1c1e 60%,#2a2a2c);
   box-shadow:
-    0 0 0 1px rgba(0,0,0,.8),
-    0 0 40px rgba(0,0,0,.6),
-    0 0 60px rgba(21,195,160,.06),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  display:flex; flex-direction:column; align-items:center; padding:14px 10px 16px;
-  box-sizing:border-box;
+    /* frame brilho */
+    inset 0 0 0 2px rgba(255,255,255,.14),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    /* sombra profunda */
+    0 30px 80px rgba(0,0,0,.75),
+    0 8px 24px rgba(0,0,0,.5),
+    /* glow teal ambiente */
+    0 0 60px rgba(21,195,160,.08),
+    0 0 120px rgba(21,195,160,.04);
 }
-.iphone-notch {
-  width:60px; height:10px;
-  background:#0a0a0a;
-  border-radius:0 0 10px 10px;
-  margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.05);
+/* Vidro da frente */
+.iphone-body::before {
+  content:'';
+  position:absolute; inset:3px;
+  border-radius:43px;
+  background:linear-gradient(160deg,#0d0d0e,#0a0a0b);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.6);
 }
+/* Reflexo de vidro diagonal */
+.iphone-body::after {
+  content:'';
+  position:absolute; inset:3px;
+  border-radius:43px;
+  background:linear-gradient(130deg,
+    rgba(255,255,255,.07) 0%,
+    rgba(255,255,255,.03) 20%,
+    transparent 45%,
+    transparent 100%);
+  pointer-events:none; z-index:20;
+}
+/* Botão power (direita) */
+.iphone-btn-power {
+  position:absolute; right:-3px; top:100px;
+  width:3px; height:56px;
+  background:linear-gradient(180deg,#4a4a4c,#3a3a3c,#4a4a4c);
+  border-radius:0 3px 3px 0;
+  box-shadow:1px 0 3px rgba(0,0,0,.4);
+}
+/* Botões volume (esquerda) */
+.iphone-btn-vol-up {
+  position:absolute; left:-3px; top:88px;
+  width:3px; height:36px;
+  background:linear-gradient(180deg,#4a4a4c,#3a3a3c,#4a4a4c);
+  border-radius:3px 0 0 3px;
+}
+.iphone-btn-vol-dn {
+  position:absolute; left:-3px; top:134px;
+  width:3px; height:36px;
+  background:linear-gradient(180deg,#4a4a4c,#3a3a3c,#4a4a4c);
+  border-radius:3px 0 0 3px;
+}
+.iphone-btn-mute {
+  position:absolute; left:-3px; top:66px;
+  width:3px; height:16px;
+  background:linear-gradient(180deg,#4a4a4c,#3a3a3c,#4a4a4c);
+  border-radius:3px 0 0 3px;
+}
+/* Camera bump (verso — simulado como sombra no canto) */
+.iphone-cam {
+  position:absolute; top:14px; left:12px; z-index:25;
+  width:48px; height:48px;
+  background:linear-gradient(135deg,#1a1a1c,#0e0e10);
+  border-radius:14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.1),
+    0 2px 8px rgba(0,0,0,.5);
+  display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:3px; padding:6px;
+}
+.iphone-lens {
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #2a2a40, #0a0a12);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.12),
+    inset 0 1px 2px rgba(255,255,255,.08);
+  position:relative;
+}
+.iphone-lens::after {
+  content:''; position:absolute; top:2px; left:2px;
+  width:4px; height:4px; border-radius:50%;
+  background:rgba(255,255,255,.25);
+}
+.iphone-lens-flash {
+  border-radius:50%;
+  background:radial-gradient(circle, #fff8d0, #e8c84a);
+  box-shadow:0 0 6px rgba(255,220,80,.4);
+}
+/* Tela */
 .iphone-screen {
-  flex:1; width:100%;
-  background:linear-gradient(160deg,#070c0a,#0b1410);
-  border-radius:20px;
-  border:1px solid rgba(21,195,160,.15);
-  overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
+  position:absolute; inset:3px;
+  border-radius:43px;
+  background:linear-gradient(160deg,#080c0a,#060a08);
+  overflow:hidden; z-index:5;
+  display:flex; flex-direction:column; align-items:center;
 }
-.iphone-screen-content { text-align:center; }
-.iphone-app-dot {
-  width:36px; height:36px; border-radius:10px; margin:0 auto;
-  box-shadow:0 0 16px rgba(21,195,160,.6);
+/* Dynamic Island */
+.iphone-island {
+  width:72px; height:22px;
+  background:#000;
+  border-radius:0 0 14px 14px;
+  margin-top:0; flex-shrink:0;
+  position:relative;
+  box-shadow:0 2px 8px rgba(0,0,0,.6);
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.iphone-island-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:radial-gradient(circle at 40% 35%, #1a1a2e, #0a0a12);
+  border:1px solid rgba(255,255,255,.06);
+}
+/* Conteúdo da tela */
+.iphone-ui {
+  flex:1; width:100%; display:flex; flex-direction:column;
+  padding:8px 14px 14px; box-sizing:border-box; gap:7px;
+}
+.iphone-status {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 2px;
+}
+.iphone-time {
+  font-family:var(--f-display); font-size:.85rem; letter-spacing:1px;
+  color:#F2F7F5; opacity:.9;
+}
+.iphone-status-icons { display:flex; gap:4px; align-items:center; }
+.iphone-status-icons span {
+  font-size:8px; color:rgba(242,247,245,.7);
+}
+.iphone-app-card {
+  background:linear-gradient(135deg,rgba(21,195,160,.12),rgba(14,124,102,.08));
+  border:1px solid rgba(21,195,160,.2);
+  border-radius:14px; padding:10px 12px;
+  flex-shrink:0;
+}
+.iphone-app-header { display:flex; align-items:center; gap:8px; margin-bottom:7px; }
+.iphone-app-icon {
+  width:24px; height:24px; border-radius:7px;
   background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  flex-shrink:0; box-shadow:0 0 8px rgba(21,195,160,.4);
 }
-.iphone-home {
-  width:40px; height:4px; background:rgba(255,255,255,.15); border-radius:99px; margin-top:10px;
+.iphone-app-name { font-family:var(--f-display); font-size:.65rem; letter-spacing:1.5px; color:var(--tx-1); }
+.iphone-metric {
+  font-family:var(--f-display); font-size:1.3rem; letter-spacing:2px;
+  color:var(--teal); text-shadow:0 0 10px rgba(21,195,160,.5);
 }
+.iphone-metric-label { font-size:8px; color:rgba(242,247,245,.4); margin-top:1px; letter-spacing:.5px; }
+.iphone-bar-row { display:flex; flex-direction:column; gap:4px; }
+.iphone-bar-label { display:flex; justify-content:space-between; }
+.iphone-bar-label span { font-size:7px; color:rgba(242,247,245,.4); }
+.iphone-bar-track {
+  height:3px; border-radius:99px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+}
+.iphone-bar-fill {
+  height:100%; border-radius:99px;
+  background:linear-gradient(90deg,var(--teal),var(--teal-glow));
+  box-shadow:0 0 4px rgba(21,195,160,.5);
+}
+.iphone-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+.iphone-mini-card {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px; padding:7px 8px;
+}
+.iphone-mini-val { font-family:var(--f-display); font-size:.75rem; letter-spacing:1px; color:var(--tx-1); }
+.iphone-mini-key { font-size:7px; color:rgba(242,247,245,.35); margin-top:1px; }
+/* Barra home */
+.iphone-home-bar {
+  width:50px; height:4px; border-radius:99px;
+  background:rgba(255,255,255,.2); margin:auto auto 0; flex-shrink:0; margin-bottom:6px;
+}
+/* Pulse ring animado */
 .iphone-pulse-ring {
-  width:48px; height:48px; border-radius:50%;
-  border:2px solid rgba(21,195,160,.4);
-  position:absolute; margin-top:12px;
-  animation:iphonePulse 2s ease-out infinite;
+  position:absolute; bottom:80px; left:50%; transform:translateX(-50%);
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid rgba(21,195,160,.5);
+  animation:iphonePulse 2.4s ease-out infinite;
+}
+.iphone-pulse-ring2 {
+  position:absolute; bottom:80px; left:50%; transform:translateX(-50%);
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid rgba(21,195,160,.3);
+  animation:iphonePulse 2.4s ease-out infinite .8s;
 }
 @keyframes iphonePulse {
-  0% { transform:scale(.8); opacity:.8; }
-  100% { transform:scale(1.6); opacity:0; }
+  0%   { transform:translateX(-50%) scale(.6); opacity:.9; }
+  100% { transform:translateX(-50%) scale(2);  opacity:0; }
 }
 /* ─── /IPHONE ARCOS ─── */
 </style>
@@ -1963,19 +2109,68 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
         <div class="arc-dot dot-2"></div>
         <div class="arc-dot dot-3"></div>
         <div class="arc-dot dot-4"></div>
-        <!-- iPhone mockup -->
+        <!-- iPhone 15 Pro realista -->
         <div class="iphone-body">
-          <div class="iphone-notch"></div>
-          <div class="iphone-screen">
-            <div class="iphone-screen-content">
-              <div class="iphone-app-dot" style="background:rgba(21,195,160,.8);"></div>
-              <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:1px;color:rgba(21,195,160,.7);margin-top:8px;">LIGUELEAD</div>
-              <div style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:2px;color:#F2F7F5;margin-top:6px;text-align:center;">18M LIGAÇÕES</div>
-              <div style="font-size:9px;color:rgba(242,247,245,.4);margin-top:2px;">por dia</div>
-              <div class="iphone-pulse-ring"></div>
-            </div>
+          <!-- Câmera traseira (visível pelo reflexo do frame) -->
+          <div class="iphone-cam">
+            <div class="iphone-lens"></div>
+            <div class="iphone-lens"></div>
+            <div class="iphone-lens"></div>
+            <div class="iphone-lens-flash"></div>
           </div>
-          <div class="iphone-home"></div>
+          <!-- Botões laterais -->
+          <div class="iphone-btn-power"></div>
+          <div class="iphone-btn-mute"></div>
+          <div class="iphone-btn-vol-up"></div>
+          <div class="iphone-btn-vol-dn"></div>
+          <!-- Tela -->
+          <div class="iphone-screen">
+            <!-- Dynamic Island -->
+            <div class="iphone-island">
+              <div class="iphone-island-dot"></div>
+              <div class="iphone-island-dot"></div>
+            </div>
+            <!-- UI -->
+            <div class="iphone-ui">
+              <div class="iphone-status">
+                <span class="iphone-time">9:41</span>
+                <div class="iphone-status-icons">
+                  <span>▲▲▲</span>
+                  <span>WiFi</span>
+                  <span>■</span>
+                </div>
+              </div>
+              <div class="iphone-app-card">
+                <div class="iphone-app-header">
+                  <div class="iphone-app-icon"></div>
+                  <span class="iphone-app-name">LIGUELEAD</span>
+                </div>
+                <div class="iphone-metric">18M</div>
+                <div class="iphone-metric-label">LIGAÇÕES HOJE</div>
+              </div>
+              <div class="iphone-bar-row">
+                <div class="iphone-bar-label"><span>Atendimento</span><span>70%</span></div>
+                <div class="iphone-bar-track"><div class="iphone-bar-fill" style="width:70%;"></div></div>
+              </div>
+              <div class="iphone-bar-row">
+                <div class="iphone-bar-label"><span>Presença live</span><span>35%</span></div>
+                <div class="iphone-bar-track"><div class="iphone-bar-fill" style="width:35%;"></div></div>
+              </div>
+              <div class="iphone-mini-grid">
+                <div class="iphone-mini-card">
+                  <div class="iphone-mini-val">25K</div>
+                  <div class="iphone-mini-key">clientes</div>
+                </div>
+                <div class="iphone-mini-card">
+                  <div class="iphone-mini-val">150K</div>
+                  <div class="iphone-mini-key">lançamentos</div>
+                </div>
+              </div>
+              <div class="iphone-pulse-ring"></div>
+              <div class="iphone-pulse-ring2"></div>
+            </div>
+            <div class="iphone-home-bar"></div>
+          </div>
         </div>
       </div>
 
