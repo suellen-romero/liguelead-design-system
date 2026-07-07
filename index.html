@@ -1,0 +1,1527 @@
+<title>LigueLead Design System</title>
+<style>
+/* ─── TOKENS ───────────────────────────────────────────── */
+:root {
+  --green:        #00C9A7;
+  --green-dark:   #00A88E;
+  --green-mint:   #7DDFC3;
+  --green-glow:   rgba(0,201,167,0.18);
+  --green-subtle: rgba(0,201,167,0.08);
+
+  --bg:      #0A0A0A;
+  --surface: #131313;
+  --card:    #1B1B1B;
+  --border:  #262626;
+  --border-2:#333333;
+
+  --tx-1: #F2F2F2;
+  --tx-2: #9A9A9A;
+  --tx-3: #5A5A5A;
+
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:    'SFMono-Regular', Consolas, 'Courier New', monospace;
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 32px rgba(0,201,167,0.25), 0 0 80px rgba(0,201,167,0.1);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:      #F4FDFB;
+    --surface: #FFFFFF;
+    --card:    #FFFFFF;
+    --border:  #DFF5F0;
+    --border-2:#C8EDE7;
+    --tx-1:    #0F1A18;
+    --tx-2:    #4A6560;
+    --tx-3:    #8AABA5;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+    --shadow-glow: 0 0 32px rgba(0,201,167,0.2), 0 0 80px rgba(0,201,167,0.08);
+    --green-glow:   rgba(0,201,167,0.12);
+    --green-subtle: rgba(0,201,167,0.06);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0A0A0A; --surface:#131313; --card:#1B1B1B;
+  --border:#262626; --border-2:#333333;
+  --tx-1:#F2F2F2; --tx-2:#9A9A9A; --tx-3:#5A5A5A;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
+  --shadow-glow:0 0 32px rgba(0,201,167,0.25),0 0 80px rgba(0,201,167,0.1);
+  --green-glow:rgba(0,201,167,0.18); --green-subtle:rgba(0,201,167,0.08);
+}
+:root[data-theme="light"] {
+  --bg:#F4FDFB; --surface:#FFFFFF; --card:#FFFFFF;
+  --border:#DFF5F0; --border-2:#C8EDE7;
+  --tx-1:#0F1A18; --tx-2:#4A6560; --tx-3:#8AABA5;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.12);
+  --shadow-glow:0 0 32px rgba(0,201,167,0.2),0 0 80px rgba(0,201,167,0.08);
+  --green-glow:rgba(0,201,167,0.12); --green-subtle:rgba(0,201,167,0.06);
+}
+
+/* ─── RESET & BASE ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--tx-1);
+  font-family: var(--font-ui);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--green); color: #0A0A0A; }
+
+/* ─── NAV ──────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 32px; height: 56px; gap: 0;
+}
+:root[data-theme="light"] .nav { background: rgba(244,253,251,0.85); }
+@media(prefers-color-scheme:light){.nav{background:rgba(244,253,251,0.85);}}
+.nav-logo {
+  font-family: var(--font-ui); font-weight: 900; font-size: 15px;
+  letter-spacing: -0.3px; color: var(--tx-1); margin-right: 40px; white-space: nowrap;
+}
+.nav-logo span { color: var(--green); }
+.nav-links {
+  display: flex; gap: 2px; flex: 1;
+  list-style: none; overflow-x: auto; scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  display: block; padding: 6px 14px;
+  font-size: 13px; font-weight: 500; color: var(--tx-2);
+  text-decoration: none; border-radius: var(--r-sm);
+  transition: color var(--dur-fast), background var(--dur-fast);
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--tx-1); background: var(--green-subtle); }
+.nav-links a.active { color: var(--green); }
+.nav-end { display: flex; align-items: center; gap: 8px; margin-left: auto; padding-left: 24px; }
+.theme-toggle {
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  border: 1px solid var(--border); background: transparent;
+  cursor: pointer; color: var(--tx-2); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--dur-fast);
+}
+.theme-toggle:hover { color: var(--tx-1); border-color: var(--border-2); }
+
+/* ─── HERO ─────────────────────────────────────────────── */
+.hero {
+  position: relative; overflow: hidden;
+  min-height: 88vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(70px); opacity: 0.7;
+}
+.orb-1 {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(0,201,167,0.28) 0%, transparent 65%);
+  top: -160px; left: -80px;
+  animation: orbDrift1 14s ease-in-out infinite;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,168,142,0.2) 0%, transparent 65%);
+  bottom: -100px; right: 0;
+  animation: orbDrift2 18s ease-in-out infinite;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(125,223,195,0.15) 0%, transparent 65%);
+  top: 40%; left: 55%;
+  animation: orbDrift3 11s ease-in-out infinite;
+}
+@keyframes orbDrift1 {
+  0%,100%{transform:translate(0,0);} 33%{transform:translate(60px,-40px);} 66%{transform:translate(-30px,50px);}
+}
+@keyframes orbDrift2 {
+  0%,100%{transform:translate(0,0);} 40%{transform:translate(-50px,30px);} 70%{transform:translate(40px,-60px);}
+}
+@keyframes orbDrift3 {
+  0%,100%{transform:translate(0,0);} 50%{transform:translate(-40px,-30px);}
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,201,167,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,201,167,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: gridMove 24s linear infinite;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+@keyframes gridMove { from{background-position:0 0;} to{background-position:48px 48px;} }
+.hero-grain {
+  position: absolute; inset: 0; opacity: 0.035;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/></filter><rect width='256' height='256' filter='url(%23g)'/></svg>");
+  background-size: 256px 256px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 760px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 28px;
+  padding: 5px 14px; border: 1px solid rgba(0,201,167,0.3);
+  border-radius: var(--r-full); background: rgba(0,201,167,0.06);
+  animation: fadeUp 0.8s var(--ease-out-expo) both;
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.5; transform:scale(0.7);} }
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.03em;
+  color: var(--tx-1); text-wrap: balance; margin-bottom: 24px;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.1s both;
+}
+.hero h1 .accent { color: var(--green); font-style: italic; }
+.hero-sub {
+  font-size: 1.1rem; color: var(--tx-2); max-width: 520px;
+  margin: 0 auto 48px; line-height: 1.7;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.2s both;
+}
+.hero-stats {
+  display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.3s both;
+}
+.hero-stat { text-align: center; }
+.hero-stat-n {
+  font-family: var(--font-mono); font-size: 2rem; font-weight: 700;
+  color: var(--green); letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+.hero-stat-l { font-size: 12px; color: var(--tx-3); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.hero-divider { width: 1px; height: 40px; background: var(--border); align-self: center; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+/* ─── SECTION LAYOUT ───────────────────────────────────── */
+.section {
+  padding: 96px 24px;
+  border-top: 1px solid var(--border);
+}
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-header { margin-bottom: 64px; }
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700; letter-spacing: -0.025em; color: var(--tx-1);
+  line-height: 1.15; text-wrap: balance;
+}
+.section-desc {
+  font-size: 15px; color: var(--tx-2); margin-top: 12px; max-width: 480px;
+}
+
+/* ─── COLORS ───────────────────────────────────────────── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.color-swatch {
+  border-radius: var(--r-lg); overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform var(--dur-base) var(--ease-out-expo), box-shadow var(--dur-base);
+  cursor: default;
+}
+.color-swatch:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.swatch-block { height: 88px; }
+.swatch-info { padding: 14px 16px; background: var(--card); }
+.swatch-name { font-size: 13px; font-weight: 700; color: var(--tx-1); }
+.swatch-hex {
+  font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); margin-top: 3px;
+}
+.swatch-use { font-size: 11px; color: var(--tx-3); margin-top: 4px; }
+.swatch-featured { position: relative; overflow: visible; }
+.swatch-featured .swatch-block {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  height: 120px; border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.swatch-featured::after {
+  content: 'Brand';
+  position: absolute; top: 12px; right: 12px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: rgba(0,0,0,0.3); color: rgba(255,255,255,0.9);
+  padding: 3px 9px; border-radius: var(--r-full);
+}
+
+/* ─── TYPOGRAPHY ───────────────────────────────────────── */
+.type-scale { display: flex; flex-direction: column; gap: 32px; }
+.type-row {
+  display: flex; align-items: baseline; gap: 24px;
+  padding-bottom: 32px; border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; }
+.type-meta {
+  flex: 0 0 120px; font-family: var(--font-mono);
+  font-size: 11px; color: var(--tx-3); line-height: 1.5;
+}
+.type-meta strong { display: block; color: var(--green); font-size: 11px; }
+.type-sample { flex: 1; min-width: 0; }
+.t-display { font-family: var(--font-display); font-size: 3.5rem; font-weight: 700; letter-spacing: -0.04em; color: var(--tx-1); line-height: 1; }
+.t-h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; color: var(--tx-1); line-height: 1.1; }
+.t-h2 { font-family: var(--font-ui); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--tx-1); }
+.t-h3 { font-family: var(--font-ui); font-size: 1.1rem; font-weight: 700; color: var(--tx-1); }
+.t-body { font-size: 1rem; color: var(--tx-2); line-height: 1.7; max-width: 52ch; }
+.t-sm { font-size: 0.875rem; color: var(--tx-2); }
+.t-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
+.t-mono { font-family: var(--font-mono); font-size: 0.875rem; color: var(--green); background: var(--green-subtle); padding: 2px 8px; border-radius: 4px; }
+
+/* ─── BUTTONS ──────────────────────────────────────────── */
+.component-row {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  padding: 32px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  margin-bottom: 16px;
+}
+.component-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--tx-3); margin-bottom: 8px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--r-sm);
+  font-family: var(--font-ui); font-size: 14px; font-weight: 700;
+  cursor: pointer; border: none; outline: none;
+  transition: all var(--dur-base) var(--ease-out-expo);
+  text-decoration: none; user-select: none;
+  position: relative; overflow: hidden;
+}
+.btn:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(rgba(255,255,255,0.15), transparent);
+  opacity: 0; transition: opacity var(--dur-fast);
+}
+.btn:hover::after { opacity: 1; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  color: #0A0A0A; box-shadow: 0 4px 16px rgba(0,201,167,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,201,167,0.45); }
+.btn-primary:active { transform: translateY(0); }
+.btn-secondary {
+  background: var(--green-subtle); color: var(--green);
+  border: 1px solid rgba(0,201,167,0.25);
+}
+.btn-secondary:hover { background: rgba(0,201,167,0.14); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent; color: var(--tx-1);
+  border: 1px solid var(--border-2);
+}
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+.btn-danger {
+  background: rgba(231,76,60,0.1); color: #E74C3C;
+  border: 1px solid rgba(231,76,60,0.2);
+}
+.btn-danger:hover { background: rgba(231,76,60,0.18); }
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+.btn-lg { padding: 14px 28px; font-size: 15px; border-radius: var(--r-md); }
+.btn-icon { width: 38px; height: 38px; padding: 0; justify-content: center; }
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ─── TAGS / PILLS ─────────────────────────────────────── */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: var(--r-full);
+  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+}
+.tag-green { background: var(--green); color: #0A0A0A; }
+.tag-outline { background: transparent; color: var(--green); border: 1px solid rgba(0,201,167,0.35); }
+.tag-dark { background: rgba(255,255,255,0.08); color: var(--tx-2); border: 1px solid var(--border); }
+.tag-dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: var(--r-full);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+}
+.badge-green { background: rgba(0,201,167,0.15); color: var(--green); }
+.badge-red { background: rgba(231,76,60,0.12); color: #E74C3C; }
+.badge-gray { background: var(--border); color: var(--tx-2); }
+
+/* ─── CARDS ────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.card-base {
+  border-radius: var(--r-lg); padding: 28px;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-out-expo),
+              box-shadow var(--dur-base) var(--ease-out-expo);
+}
+.card-dark-v {
+  background: linear-gradient(160deg, #111 0%, #1a1a1a 100%);
+  border-color: #2a2a2a;
+}
+.card-green-v {
+  background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 100%);
+  color: #0A0A0A; border-color: transparent;
+}
+.card-green-v .card-title, .card-green-v .card-body { color: #0A1A17; }
+.card-accent-v {
+  background: linear-gradient(160deg, #0f1f1a 0%, #132b23 100%);
+  border-color: rgba(0,201,167,0.2);
+}
+.card-glass-v {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border-color: rgba(255,255,255,0.1);
+}
+:root[data-theme="light"] .card-glass-v,
+@media(prefers-color-scheme:light){ .card-glass-v { background: rgba(0,201,167,0.04); border-color: rgba(0,201,167,0.15); } }
+.card-wm {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px; font-weight: 900; opacity: 0.04;
+  color: #FFF; pointer-events: none; user-select: none;
+  line-height: 1; white-space: nowrap;
+}
+.card-green-v .card-wm { color: #003; }
+.card-tag { margin-bottom: 16px; }
+.card-title { font-size: 1.25rem; font-weight: 800; color: var(--tx-1); margin-bottom: 10px; line-height: 1.25; }
+.card-body { font-size: 14px; color: var(--tx-2); line-height: 1.6; }
+.card-metric { font-family: var(--font-mono); font-size: 2.4rem; font-weight: 900; color: var(--green); letter-spacing: -2px; margin: 16px 0 4px; font-variant-numeric: tabular-nums; }
+.card-green-v .card-metric { color: #003; }
+.card-foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--tx-3); }
+.card-green-v .card-foot { border-color: rgba(0,0,0,0.15); color: rgba(0,30,25,0.55); }
+.card-base:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+/* ─── 3D TILT CARD ─────────────────────────────────────── */
+.tilt-wrap {
+  perspective: 900px;
+  display: flex; justify-content: center;
+  padding: 40px 0;
+}
+.tilt-card {
+  width: 100%; max-width: 420px;
+  border-radius: 24px; padding: 36px;
+  background: linear-gradient(160deg, #0f1f1a 0%, #132b23 100%);
+  border: 1px solid rgba(0,201,167,0.25);
+  transform-style: preserve-3d;
+  transition: transform 0.08s linear, box-shadow 0.3s;
+  will-change: transform;
+  position: relative; overflow: hidden;
+  cursor: none;
+}
+.tilt-card:hover { box-shadow: var(--shadow-glow); }
+.tilt-inner { transform: translateZ(30px); }
+.tilt-bg-line {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,201,167,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,201,167,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.tilt-glow {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,201,167,0.3) 0%, transparent 70%);
+  width: 300px; height: 300px;
+  top: -80px; right: -80px;
+  filter: blur(40px); pointer-events: none;
+  transition: all 0.2s;
+}
+.tilt-card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+.tilt-number {
+  font-family: var(--font-display); font-size: 4.5rem;
+  font-weight: 700; color: var(--tx-1); letter-spacing: -4px;
+  line-height: 1; margin-bottom: 12px; transform: translateZ(20px);
+}
+.tilt-number span { color: var(--green); }
+.tilt-desc { font-size: 14px; color: var(--tx-2); line-height: 1.6; transform: translateZ(10px); }
+.tilt-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; transform: translateZ(15px); }
+.tilt-chip {
+  font-family: var(--font-mono); font-size: 11px; padding: 4px 12px;
+  border-radius: var(--r-full); border: 1px solid rgba(0,201,167,0.25);
+  color: var(--green-mint); letter-spacing: 0.5px;
+}
+.tilt-cursor {
+  position: fixed; width: 20px; height: 20px;
+  border: 2px solid var(--green); border-radius: 50%;
+  pointer-events: none; transform: translate(-50%,-50%);
+  transition: transform 0.08s, opacity 0.2s;
+  z-index: 9999; display: none;
+}
+
+/* ─── METRICS ──────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.metric-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 24px 20px;
+  transition: border-color var(--dur-base), box-shadow var(--dur-base);
+}
+.metric-card:hover { border-color: rgba(0,201,167,0.3); box-shadow: 0 0 0 1px rgba(0,201,167,0.1); }
+.metric-n {
+  font-family: var(--font-mono); font-size: 2.4rem; font-weight: 900;
+  color: var(--green); letter-spacing: -2px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.metric-label { font-size: 12px; color: var(--tx-2); margin-top: 8px; line-height: 1.4; }
+.metric-delta { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; margin-top: 10px; }
+.delta-up { color: var(--green); }
+.delta-down { color: #E74C3C; }
+.bar-wrap { margin-top: 12px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--green-dark), var(--green)); border-radius: 2px; transition: width 1.2s var(--ease-out-expo); }
+
+/* ─── INPUTS ───────────────────────────────────────────── */
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field-label { font-size: 12px; font-weight: 700; color: var(--tx-2); letter-spacing: 0.5px; }
+.input {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  font-size: 14px; color: var(--tx-1); font-family: var(--font-ui);
+  outline: none; transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  width: 100%;
+}
+.input::placeholder { color: var(--tx-3); }
+.input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0,201,167,0.15);
+}
+.input-prefix {
+  display: flex; border: 1px solid var(--border); border-radius: var(--r-sm); overflow: hidden;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.input-prefix:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,201,167,0.15); }
+.prefix-label { padding: 10px 14px; background: var(--card); font-size: 14px; color: var(--tx-3); border-right: 1px solid var(--border); white-space: nowrap; }
+.input-prefix .input { border: none; box-shadow: none; }
+.input-prefix .input:focus { box-shadow: none; }
+.select {
+  appearance: none;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9A9A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+}
+
+/* ─── GRADIENT BORDER DEMO ─────────────────────────────── */
+.grad-border-wrap {
+  padding: 2px; border-radius: var(--r-xl);
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 50%, var(--green-mint) 100%);
+  background-size: 200% 200%;
+  animation: gradShift 4s ease infinite;
+  display: inline-block;
+}
+@keyframes gradShift { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
+.grad-border-inner {
+  background: var(--card); border-radius: calc(var(--r-xl) - 2px);
+  padding: 24px 32px; font-size: 15px; color: var(--tx-1);
+}
+
+/* ─── MOTION TOKENS ────────────────────────────────────── */
+.motion-grid { display: flex; flex-direction: column; gap: 20px; }
+.motion-row {
+  display: flex; align-items: center; gap: 20px;
+  padding: 16px 20px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+}
+.motion-label { font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); flex: 0 0 200px; }
+.motion-track {
+  flex: 1; height: 40px; background: var(--surface);
+  border-radius: var(--r-sm); position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.motion-dot {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--green); left: 8px;
+  transition: left 0.6s;
+}
+.motion-track:hover .motion-dot { left: calc(100% - 32px); }
+.m-fast .motion-dot { transition-duration: 0.15s; }
+.m-slow .motion-dot { transition-duration: 0.8s; }
+.m-spring .motion-dot { transition-timing-function: cubic-bezier(0.34,1.56,0.64,1); }
+.m-expo .motion-dot { transition-timing-function: cubic-bezier(0.16,1,0.3,1); }
+
+/* ─── PLATFORM PREVIEW ─────────────────────────────────── */
+.platform-preview {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.platform-topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+}
+.topbar-dots { display: flex; gap: 6px; }
+.topbar-dots span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+.topbar-dots span:nth-child(1) { background: #E74C3C; }
+.topbar-dots span:nth-child(2) { background: #F39C12; }
+.topbar-dots span:nth-child(3) { background: var(--green); }
+.topbar-title { font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); margin-left: 12px; }
+.topbar-badge { margin-left: auto; }
+.platform-body { padding: 24px; }
+.platform-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi-tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px;
+}
+.kpi-label { font-size: 11px; color: var(--tx-3); letter-spacing: 0.5px; }
+.kpi-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 900; color: var(--tx-1); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.kpi-value.green { color: var(--green); }
+.kpi-delta { font-size: 11px; color: var(--green); margin-top: 4px; }
+.platform-row2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+.platform-chart {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 16px;
+}
+.chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.chart-title { font-size: 13px; font-weight: 700; color: var(--tx-1); }
+.chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar-v { border-radius: 3px 3px 0 0; width: 100%; background: var(--border); position: relative; overflow: hidden; }
+.bar-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%); transform: scaleY(0); transform-origin: bottom; transition: transform 1s var(--ease-out-expo); border-radius: inherit; }
+.bar-v.animate::after { transform: scaleY(1); }
+.bar-label-v { font-family: var(--font-mono); font-size: 9px; color: var(--tx-3); }
+.platform-activity {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 16px;
+}
+.activity-title { font-size: 13px; font-weight: 700; color: var(--tx-1); margin-bottom: 12px; }
+.activity-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.activity-item:last-child { border-bottom: none; }
+.activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.activity-text { font-size: 12px; color: var(--tx-2); flex: 1; }
+.activity-time { font-family: var(--font-mono); font-size: 10px; color: var(--tx-3); }
+
+/* ─── SPACING & RADIUS TOKENS ──────────────────────────── */
+.token-grid { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.token-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.space-box { background: var(--green-subtle); border: 1px solid rgba(0,201,167,0.2); }
+.token-val { font-family: var(--font-mono); font-size: 10px; color: var(--tx-3); }
+.radius-box { background: var(--card); border: 2px solid var(--green); width: 64px; height: 48px; }
+.shadow-box {
+  width: 80px; height: 56px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+}
+.sh-sm { box-shadow: var(--shadow-sm); }
+.sh-md { box-shadow: var(--shadow-md); }
+.sh-lg { box-shadow: var(--shadow-lg); }
+.sh-glow { box-shadow: var(--shadow-glow); border-color: rgba(0,201,167,0.2); }
+
+/* ─── DIVIDER ──────────────────────────────────────────── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ─── INTEGRATION STRIP ────────────────────────────────── */
+.integration-strip {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+}
+.integration-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  font-size: 13px; font-weight: 700; color: var(--tx-2);
+  transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+.integration-chip:hover { border-color: rgba(0,201,167,0.35); color: var(--tx-1); }
+.integration-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+/* ─── FOOTER ───────────────────────────────────────────── */
+.ds-footer {
+  padding: 48px 24px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  max-width: 1120px; margin: 0 auto;
+}
+.footer-brand { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--tx-1); }
+.footer-brand span { color: var(--green); font-style: italic; }
+.footer-meta { font-family: var(--font-mono); font-size: 11px; color: var(--tx-3); letter-spacing: 1px; }
+
+/* ─── ANIMATIONS ───────────────────────────────────────── */
+@keyframes float {
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-8px);}
+}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .platform-kpi-row { grid-template-columns: 1fr 1fr; }
+  .platform-row2 { grid-template-columns: 1fr; }
+  .type-row { flex-direction: column; gap: 8px; }
+  .type-meta { flex: none; }
+  .input-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2.4rem; }
+}
+</style>
+
+<!-- Custom cursor -->
+<div class="tilt-cursor" id="cursor"></div>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-logo">Ligue<span>Lead</span> DS</div>
+  <ul class="nav-links">
+    <li><a href="#tokens">Tokens</a></li>
+    <li><a href="#typography">Tipografia</a></li>
+    <li><a href="#components">Componentes</a></li>
+    <li><a href="#cards">Cards</a></li>
+    <li><a href="#3d">3D</a></li>
+    <li><a href="#platform">Plataforma</a></li>
+    <li><a href="#motion">Motion</a></li>
+    <li><a href="#integrations">Integrações</a></li>
+  </ul>
+  <div class="nav-end">
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-grain"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Design System — v2.0</div>
+    <h1>Infraestrutura.<br><span class="accent">Visual.</span></h1>
+    <p class="hero-sub">Tokens, componentes e padrões que comunicam escala, confiança e resultado — a identidade da LigueLead em código.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n" data-count="12">0</div>
+        <div class="hero-stat-l">Design Tokens</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-n" data-count="30">0</div>
+        <div class="hero-stat-l">Componentes</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-n" data-count="6">0</div>
+        <div class="hero-stat-l">Card Variants</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOKENS — COLORS ─────────────────────────────────────── -->
+<section class="section" id="tokens">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">01 — Design Tokens</div>
+      <h2 class="section-title">Paleta de Cores</h2>
+      <p class="section-desc">Cada cor tem uma função específica. Verde é hierarquicamente especial — use pra destacar, não pra preencher.</p>
+    </div>
+    <div class="color-grid reveal">
+      <div class="color-swatch swatch-featured">
+        <div class="swatch-block"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Verde LigueLead</div>
+          <div class="swatch-hex">--green · #00C9A7</div>
+          <div class="swatch-use">CTAs, highlights, ícones, marca</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#00A88E;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Verde Escuro</div>
+          <div class="swatch-hex">--green-dark · #00A88E</div>
+          <div class="swatch-use">Gradient pair, hover, sombra</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#7DDFC3;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Verde Menta</div>
+          <div class="swatch-hex">--green-mint · #7DDFC3</div>
+          <div class="swatch-use">Acento suave, decorativo, badges</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#0A0A0A; border: 1px solid #222;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Dark</div>
+          <div class="swatch-hex">--bg · #0A0A0A</div>
+          <div class="swatch-use">Background principal (dark)</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#1B1B1B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Card Surface</div>
+          <div class="swatch-hex">--card · #1B1B1B</div>
+          <div class="swatch-use">Superfície de cards</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#F5F5F5;"></div>
+        <div class="swatch-info" style="background:var(--card);">
+          <div class="swatch-name">Off-White</div>
+          <div class="swatch-hex">--tx-1 · #F2F2F2</div>
+          <div class="swatch-use">Texto primário em fundo escuro</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#9A9A9A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Cinza Médio</div>
+          <div class="swatch-hex">--tx-2 · #9A9A9A</div>
+          <div class="swatch-use">Texto secundário, legendas</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#E74C3C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Red Alert</div>
+          <div class="swatch-hex">--red · #E74C3C</div>
+          <div class="swatch-use">Objeção, problema, alerta. Parcimonioso.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gradient -->
+    <div style="margin-top:40px;" class="reveal">
+      <div class="component-label">Gradient Institucional · 135°</div>
+      <div style="height:80px; border-radius:var(--r-lg); background:linear-gradient(135deg,#00C9A7 0%,#00A88E 100%); margin-top:8px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; font-weight:700; color:rgba(0,0,0,0.6); letter-spacing:2px;">
+        #00C9A7 → #00A88E · 135deg
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TYPOGRAPHY ──────────────────────────────────────────── -->
+<section class="section" id="typography">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">02 — Tipografia</div>
+      <h2 class="section-title">Sistema Tipográfico</h2>
+      <p class="section-desc">Display em Georgia cria tensão editorial com a estrutura sans-serif da plataforma. Dados em mono.</p>
+    </div>
+    <div class="type-scale">
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>Display</strong>Georgia, serif<br>700 · −0.04em</div>
+        <div class="type-sample t-display">Infraestrutura.</div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>H1</strong>Georgia, serif<br>700 · −0.03em</div>
+        <div class="type-sample t-h1">Feita para quem não pode falhar.</div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>H2</strong>System UI<br>800 · −0.02em</div>
+        <div class="type-sample t-h2">De 8% para 35% de presença na live.</div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>H3</strong>System UI<br>700</div>
+        <div class="type-sample t-h3">Bina Inteligente — DDD local do lead.</div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>Body</strong>System UI<br>400 · 1.7 leading</div>
+        <div class="type-sample t-body">A LigueLead existe porque nenhum lançamento deveria depender da memória do lead. Você captou 30 mil leads. Preparou semanas de conteúdo. A pessoa não desistiu — ela simplesmente esqueceu.</div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>Label</strong>DM Mono<br>700 · 2px tracking</div>
+        <div class="type-sample">
+          <span class="t-label">Resultado comprovado</span>&nbsp;&nbsp;
+          <span class="t-label" style="color:var(--tx-2);">25K+ clientes</span>
+        </div>
+      </div>
+      <div class="type-row reveal">
+        <div class="type-meta"><strong>Mono</strong>DM Mono<br>dados, labels, código</div>
+        <div class="type-sample" style="display:flex;gap:12px;flex-wrap:wrap;">
+          <span class="t-mono">#00C9A7</span>
+          <span class="t-mono">3M lig/hora</span>
+          <span class="t-mono">ANATEL</span>
+          <span class="t-mono">98%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPACING + RADII + SHADOWS ──────────────────────────── -->
+<section class="section">
+  <div class="section-inner">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; flex-wrap:wrap;">
+      <div class="reveal">
+        <div class="section-eyebrow">Espaçamento</div>
+        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Spacing Scale</h3>
+        <div class="token-grid" style="flex-direction:column; align-items:flex-start;">
+          <div style="display:flex;align-items:center;gap:12px;" class="token-item">
+            <div class="space-box" style="width:4px;height:4px;"></div>
+            <span class="token-val">4px · xs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:8px;height:8px;"></div>
+            <span class="token-val">8px · sm</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:16px;height:16px;"></div>
+            <span class="token-val">16px · md</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:24px;height:24px;"></div>
+            <span class="token-val">24px · lg</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:32px;height:32px;"></div>
+            <span class="token-val">32px · xl</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:48px;height:48px;"></div>
+            <span class="token-val">48px · 2xl</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="space-box" style="width:64px;height:64px;"></div>
+            <span class="token-val">64px · 3xl</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="section-eyebrow">Border Radius</div>
+        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Radius Scale</h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:4px;width:56px;height:40px;"></div>
+            <span class="token-val">4px · xs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:var(--r-sm);width:56px;height:40px;"></div>
+            <span class="token-val">8px · sm</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:var(--r-md);width:56px;height:40px;"></div>
+            <span class="token-val">14px · md</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:var(--r-lg);width:56px;height:40px;"></div>
+            <span class="token-val">20px · lg</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:var(--r-xl);width:56px;height:40px;"></div>
+            <span class="token-val">28px · xl</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="radius-box" style="border-radius:9999px;width:80px;height:32px;"></div>
+            <span class="token-val">9999px · pill</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="section-eyebrow">Sombras</div>
+        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Shadow Scale</h3>
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="shadow-box sh-sm"></div>
+            <span class="token-val">shadow-sm</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="shadow-box sh-md"></div>
+            <span class="token-val">shadow-md</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="shadow-box sh-lg"></div>
+            <span class="token-val">shadow-lg</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="shadow-box sh-glow"></div>
+            <span class="token-val">shadow-glow · verde</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPONENTS — BUTTONS ───────────────────────────────── -->
+<section class="section" id="components">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">03 — Componentes</div>
+      <h2 class="section-title">Botões</h2>
+    </div>
+
+    <div class="component-label">Variantes</div>
+    <div class="component-row reveal">
+      <button class="btn btn-primary">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Primário
+      </button>
+      <button class="btn btn-secondary">Secundário</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-danger">Perigo</button>
+    </div>
+
+    <div class="component-label" style="margin-top:16px;">Tamanhos</div>
+    <div class="component-row reveal">
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary">Default</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-primary btn-icon" aria-label="Icon">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div style="margin-top:48px;" class="reveal">
+      <div class="component-label">Tags &amp; Pills</div>
+      <div class="component-row">
+        <span class="tag tag-green">Case Real</span>
+        <span class="tag tag-green tag-dot">Resultado</span>
+        <span class="tag tag-outline">Diagnóstico</span>
+        <span class="tag tag-outline tag-dot">Em breve</span>
+        <span class="tag tag-dark">Contexto</span>
+        <span class="badge badge-green">+35%</span>
+        <span class="badge badge-red">✕ Objeção</span>
+        <span class="badge badge-gray">Core</span>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;" class="reveal">
+      <div class="component-label">Animated Gradient Border</div>
+      <div style="margin-top:12px;">
+        <div class="grad-border-wrap">
+          <div class="grad-border-inner">
+            <strong style="color:var(--green);">18M</strong> ligações em 1 dia · Operadora própria homologada pela ANATEL
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div style="margin-top:48px;" class="reveal">
+      <div class="section-eyebrow">Inputs</div>
+      <h3 class="section-title" style="font-size:1.4rem; margin-top:8px; margin-bottom:24px;">Formulários</h3>
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg); padding:32px;">
+        <div class="input-grid">
+          <div class="field">
+            <label class="field-label">Nome do Expert</label>
+            <input class="input" type="text" placeholder="Thiago Panda" />
+          </div>
+          <div class="field">
+            <label class="field-label">Tamanho da base</label>
+            <div class="input-prefix">
+              <span class="prefix-label">leads</span>
+              <input class="input" type="number" placeholder="30.000" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Canal preferencial</label>
+            <select class="input select">
+              <option>Ligação com voz do expert</option>
+              <option>SMS Flash</option>
+              <option>SMS Shortcode</option>
+              <option>Multi-canal</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label">Presença atual na live</label>
+            <div class="input-prefix">
+              <input class="input" type="number" placeholder="8" />
+              <span class="prefix-label">%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CARDS ──────────────────────────────────────────────── -->
+<section class="section" id="cards">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">04 — Cards</div>
+      <h2 class="section-title">Variantes de Card</h2>
+      <p class="section-desc">60% dark, 15% green (hero/conclusão), 15% accent, 10% glass. O verde é escasso por design.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card-base card-dark-v reveal">
+        <div class="card-wm">8%</div>
+        <div>
+          <span class="tag tag-outline" style="margin-bottom:16px;display:inline-block;">Diagnóstico</span>
+          <div class="card-title">O lead não desistiu. Ele esqueceu.</div>
+          <div class="card-body">83% dos leads que não aparecem na live dizem que queriam estar lá.</div>
+        </div>
+        <div>
+          <div class="card-metric">83%</div>
+          <div class="card-foot">44.000 respostas verificadas</div>
+        </div>
+      </div>
+
+      <div class="card-base card-green-v reveal" style="animation-delay:0.1s;">
+        <div class="card-wm">✓</div>
+        <div>
+          <span class="tag tag-dark" style="margin-bottom:16px;display:inline-block;">Solução</span>
+          <div class="card-title">De 8% para 35% de presença.</div>
+          <div class="card-body">Com ligação + SMS Flash, os leads lembram. E aparecem.</div>
+        </div>
+        <div>
+          <div class="card-metric">+4.3×</div>
+          <div class="card-foot">Comparecimento médio dos clientes LL</div>
+        </div>
+      </div>
+
+      <div class="card-base card-accent-v reveal" style="animation-delay:0.2s;">
+        <div class="card-wm">∞</div>
+        <div>
+          <span class="tag tag-green" style="margin-bottom:16px;display:inline-block;">Infraestrutura</span>
+          <div class="card-title">Escala que não falha no dia que importa.</div>
+          <div class="card-body">Tecnologia e operadora próprias. 3M lig/hora. Testada ao vivo.</div>
+        </div>
+        <div>
+          <div class="card-metric">18M</div>
+          <div class="card-foot">Ligações em 1 dia · Recorde histórico</div>
+        </div>
+      </div>
+
+      <div class="card-base card-glass-v reveal" style="animation-delay:0.3s;">
+        <div>
+          <span class="tag tag-outline" style="margin-bottom:16px;display:inline-block;">Multi-canal</span>
+          <div class="card-title">Todos os caminhos até o celular do lead.</div>
+          <div class="card-body">Voz + SMS + Flash + RCS. 100% dos top 20 usam 2+ canais.</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
+          <span class="badge badge-green">Voz</span>
+          <span class="badge badge-green">SMS</span>
+          <span class="badge badge-green">Flash</span>
+          <span class="badge badge-gray">RCS ↗</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics row -->
+    <div style="margin-top:40px;" class="reveal">
+      <div class="component-label">KPI / Big Numbers</div>
+      <div class="metrics-grid" style="margin-top:12px;">
+        <div class="metric-card">
+          <div class="metric-n" data-count="25000">0</div>
+          <div class="metric-label">Clientes ativos</div>
+          <div class="metric-delta delta-up">↑ crescendo</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:85%;"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-n" data-count="98">0</div>
+          <div class="metric-label">% Satisfação</div>
+          <div class="metric-delta delta-up">↑ 98%</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:98%;"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-n" data-count="35">0</div>
+          <div class="metric-label">% Presença média com LL</div>
+          <div class="metric-delta delta-up">↑ vs 8% mercado</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:35%;"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-n">5<span style="font-size:1rem;color:var(--tx-2);">min</span></div>
+          <div class="metric-label">Tempo de resposta de suporte</div>
+          <div class="metric-delta delta-up">↑ 7 dias/semana</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:20%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3D CARD ─────────────────────────────────────────────── -->
+<section class="section" id="3d" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">05 — 3D Interactions</div>
+      <h2 class="section-title">Depth &amp; Tilt</h2>
+      <p class="section-desc">Passe o mouse sobre o card. A perspectiva 3D cria sensação de profundidade e material.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
+      <div class="tilt-wrap reveal">
+        <div class="tilt-card" id="tiltCard">
+          <div class="tilt-bg-line"></div>
+          <div class="tilt-glow" id="tiltGlow"></div>
+          <div class="tilt-inner">
+            <div class="tilt-card-label">ROI Comprovado · Case Thiago Panda</div>
+            <div class="tilt-number">R<span>$800k</span></div>
+            <div class="tilt-desc">Com R$2.000 de investimento em ligações. 40 produtos de R$20k cada. ROI de 400× documentado, não estimado.</div>
+            <div class="tilt-chips">
+              <span class="tilt-chip">Ligação com voz</span>
+              <span class="tilt-chip">Bina inteligente</span>
+              <span class="tilt-chip">High ticket</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="display:flex;flex-direction:column;gap:24px;">
+        <div>
+          <div class="section-eyebrow">Técnica</div>
+          <h3 class="section-title" style="font-size:1.2rem; margin-top:8px; margin-bottom:8px;">CSS 3D Perspective</h3>
+          <p style="font-size:14px;color:var(--tx-2);line-height:1.7;">Cards com <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">perspective(900px)</code> e <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">transform-style: preserve-3d</code> criam profundidade real. Camadas internas com <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">translateZ</code> para parallax.</p>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px;font-family:var(--font-mono);font-size:12px;color:var(--tx-2);line-height:1.8;">
+          <span style="color:var(--tx-3);">// Token 3D</span><br>
+          <span style="color:var(--green);">--perspective</span>: 900px;<br>
+          <span style="color:var(--green);">--tilt-max</span>: 14deg;<br>
+          <span style="color:var(--green);">--tilt-z</span>: 20px;<br>
+          <span style="color:var(--green);">--layer-1</span>: translateZ(30px);<br>
+          <span style="color:var(--green);">--layer-2</span>: translateZ(15px);<br>
+          <span style="color:var(--green);">--layer-3</span>: translateZ(8px);
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
+            <span style="color:var(--green);">✓</span> Hover tilt com mousemove
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
+            <span style="color:var(--green);">✓</span> Glow dinâmico segue cursor
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
+            <span style="color:var(--green);">✓</span> Parallax em camadas internas
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
+            <span style="color:var(--green);">✓</span> Respeita prefers-reduced-motion
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLATFORM PREVIEW ───────────────────────────────────── -->
+<section class="section" id="platform">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">06 — Plataforma</div>
+      <h2 class="section-title">UI da Plataforma</h2>
+      <p class="section-desc">Dashboard, KPIs e componentes de produto. Informação densa, hierarquia clara.</p>
+    </div>
+    <div class="platform-preview reveal">
+      <div class="platform-topbar">
+        <div class="topbar-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="topbar-title">app.liguelead.com.br · Dashboard do Lançamento</div>
+        <div class="topbar-badge"><span class="badge badge-green">● Live</span></div>
+      </div>
+      <div class="platform-body">
+        <div class="platform-kpi-row">
+          <div class="kpi-tile">
+            <div class="kpi-label">Comparecimento</div>
+            <div class="kpi-value green">35.2%</div>
+            <div class="kpi-delta">↑ +27.2% vs sem LL</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-label">Ligações entregues</div>
+            <div class="kpi-value">24.800</div>
+            <div class="kpi-delta" style="color:var(--tx-3);">de 30.000 disparadas</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-label">SMS Flash abertura</div>
+            <div class="kpi-value green">98%</div>
+            <div class="kpi-delta">↑ em 3 min</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-label">Caixa postal bloqueada</div>
+            <div class="kpi-value">95%</div>
+            <div class="kpi-delta" style="color:var(--tx-3);">Sem cobrança</div>
+          </div>
+        </div>
+        <div class="platform-row2">
+          <div class="platform-chart">
+            <div class="chart-header">
+              <span class="chart-title">Presença por hora (live)</span>
+              <span class="badge badge-green">hoje</span>
+            </div>
+            <div class="chart-bars" id="chartBars">
+              <div class="bar-col"><div class="bar-v" style="height:40%;"></div><div class="bar-label-v">10h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:65%;"></div><div class="bar-label-v">11h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:90%;"></div><div class="bar-label-v">12h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:100%;"></div><div class="bar-label-v">13h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:80%;"></div><div class="bar-label-v">14h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:55%;"></div><div class="bar-label-v">15h</div></div>
+              <div class="bar-col"><div class="bar-v" style="height:30%;"></div><div class="bar-label-v">16h</div></div>
+            </div>
+          </div>
+          <div class="platform-activity">
+            <div class="activity-title">Atividade recente</div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--green);"></div>
+              <div class="activity-text">Lote de SMS Flash disparado</div>
+              <div class="activity-time">agora</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--green-mint);"></div>
+              <div class="activity-text">1.200 ligações entregues</div>
+              <div class="activity-time">2 min</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--tx-3);"></div>
+              <div class="activity-text">Flow #3 ativado — D-1 live</div>
+              <div class="activity-time">1h</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--tx-3);"></div>
+              <div class="activity-text">95 caixas postais bloqueadas</div>
+              <div class="activity-time">2h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MOTION ─────────────────────────────────────────────── -->
+<section class="section" id="motion" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">07 — Motion System</div>
+      <h2 class="section-title">Animação &amp; Easing</h2>
+      <p class="section-desc">Passe o mouse em cada trilho para ver a curva. Velocidade e personalidade da marca em movimento.</p>
+    </div>
+    <div class="motion-grid reveal">
+      <div class="motion-row">
+        <div class="motion-label"><strong>fast</strong><br>150ms · linear</div>
+        <div class="motion-track m-fast"><div class="motion-dot"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label"><strong>base</strong><br>300ms · ease-out-expo</div>
+        <div class="motion-track m-expo"><div class="motion-dot"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label"><strong>spring</strong><br>400ms · cubic-bezier spring</div>
+        <div class="motion-track m-spring"><div class="motion-dot"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label"><strong>slow</strong><br>800ms · ease-out-expo</div>
+        <div class="motion-track m-slow m-expo"><div class="motion-dot"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATIONS ───────────────────────────────────────── -->
+<section class="section" id="integrations">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">08 — Ecossistema</div>
+      <h2 class="section-title">Integrações Nativas</h2>
+      <p class="section-desc">Flow nativo com as principais plataformas do universo de lançamentos.</p>
+    </div>
+    <div class="integration-strip reveal">
+      <div class="integration-chip"><div class="dot"></div>Hotmart</div>
+      <div class="integration-chip"><div class="dot"></div>ActiveCampaign</div>
+      <div class="integration-chip"><div class="dot"></div>Kiwify</div>
+      <div class="integration-chip"><div class="dot"></div>ManyChat</div>
+      <div class="integration-chip"><div class="dot"></div>Clint</div>
+      <div class="integration-chip"><div class="dot"></div>Zapier</div>
+      <div class="integration-chip"><div class="dot"></div>API REST</div>
+      <div class="integration-chip"><div class="dot"></div>Webhook</div>
+    </div>
+
+    <!-- Product channels -->
+    <div style="margin-top:48px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;" class="reveal">
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <div style="font-size:1.4rem;margin-bottom:8px;">📞</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Ligação com Voz</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Bina inteligente · DDD local · Bloqueador caixa postal</div>
+        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
+      </div>
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <div style="font-size:1.4rem;margin-bottom:8px;">💬</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">SMS Shortcode</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Número 29041 · 98% abertura · Deep Link</div>
+        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
+      </div>
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <div style="font-size:1.4rem;margin-bottom:8px;">⚡</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">SMS Flash</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Tela acende com mensagem · Impossível ignorar</div>
+        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
+      </div>
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <div style="font-size:1.4rem;margin-bottom:8px;">🔄</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Flow</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Régua automatizada · Configura 1× · Replica sempre</div>
+        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
+      </div>
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);opacity:0.6;">
+        <div style="font-size:1.4rem;margin-bottom:8px;">✨</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">RCS</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Mensagens ricas · Botões · Carrosséis · Branding</div>
+        <div style="margin-top:10px;"><span class="badge badge-gray">Em breve</span></div>
+      </div>
+      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);opacity:0.6;">
+        <div style="font-size:1.4rem;margin-bottom:8px;">🔔</div>
+        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Push</div>
+        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Notificações diretas · Canal adicional no arsenal</div>
+        <div style="margin-top:10px;"><span class="badge badge-gray">Em breve</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer style="border-top:1px solid var(--border); padding:48px 24px;">
+  <div class="ds-footer">
+    <div>
+      <div class="footer-brand">Ligue<span>Lead</span></div>
+      <div style="font-size:13px;color:var(--tx-2);margin-top:4px;">Infraestrutura de mensageria para infoprodutores.</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="footer-meta">Design System v2.0 · 2026</div>
+      <div class="footer-meta" style="margin-top:4px;">Tokens · Componentes · Motion · Plataforma</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  // ── THEME TOGGLE ──────────────────────────────────────────
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const stored = localStorage.getItem('ll-ds-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+  btn.addEventListener('click', () => {
+    const cur = html.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('ll-ds-theme', next);
+  });
+
+  // ── INTERSECTION OBSERVER (reveal + bars + counters) ──────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      el.classList.add('visible');
+
+      // bar charts
+      if (el.id === 'chartBars') {
+        el.querySelectorAll('.bar-v').forEach((b, i) => {
+          setTimeout(() => b.classList.add('animate'), i * 80);
+        });
+      }
+
+      // counters
+      el.querySelectorAll('[data-count]').forEach(cnt => {
+        animateCounter(cnt);
+      });
+
+      io.unobserve(el);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, #chartBars').forEach(el => io.observe(el));
+
+  // also observe the platform preview for bar chart
+  const platformPreview = document.querySelector('.platform-preview');
+  if (platformPreview) {
+    const barIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.bar-v').forEach((b, i) => {
+          setTimeout(() => b.classList.add('animate'), i * 80);
+        });
+        barIo.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    barIo.observe(platformPreview);
+  }
+
+  // ── COUNTER ANIMATION ─────────────────────────────────────
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-count'), 10);
+    const dur = 1400;
+    const start = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const val = Math.round(ease(p) * target);
+      el.textContent = val >= 1000 ? (val / 1000).toFixed(val >= 10000 ? 0 : 1) + 'K' : val + (el.getAttribute('data-suffix') || '');
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target >= 1000 ? (target / 1000).toFixed(target >= 10000 ? 0 : 1) + 'K' : target + (el.getAttribute('data-suffix') || '');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // run counters in hero immediately
+  document.querySelectorAll('.hero-content [data-count]').forEach(el => {
+    setTimeout(() => animateCounter(el), 600);
+  });
+
+  // ── 3D TILT ───────────────────────────────────────────────
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    const card = document.getElementById('tiltCard');
+    const glow = document.getElementById('tiltGlow');
+    const cursor = document.getElementById('cursor');
+    if (card) {
+      card.addEventListener('mouseenter', () => { cursor.style.display = 'block'; });
+      card.addEventListener('mouseleave', () => {
+        cursor.style.display = 'none';
+        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+        if (glow) { glow.style.left = '-80px'; glow.style.top = '-80px'; }
+      });
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(900px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(20px)`;
+        if (glow) {
+          glow.style.left = (e.clientX - r.left - 150) + 'px';
+          glow.style.top  = (e.clientY - r.top  - 150) + 'px';
+        }
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    }
+  }
+
+  // ── NAV ACTIVE ────────────────────────────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -40% 0px' });
+  sections.forEach(s => navIo.observe(s));
+})();
+</script>
