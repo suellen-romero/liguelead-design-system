@@ -856,12 +856,60 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════ */
 @media(max-width:768px){
+  /* Nav */
   .nav-links{display:none}
+  .nav-logo img{height:22px}
+  nav{padding:0 16px}
+
+  /* Layout base */
+  .w{padding:0 16px}
+  .sec{padding:48px 0}
+  .sec-h{font-size:clamp(1.6rem,7vw,3rem)}
+  .hero h1{font-size:clamp(2.2rem,10vw,5rem)}
+  .hero-sub{font-size:14px}
+
+  /* Hero */
+  .hero-numbers{gap:16px; flex-wrap:wrap}
+  .hn-div{display:none}
+  .hn-num{font-size:2rem}
+
+  /* Cards e grids */
   .p-kpis{grid-template-columns:1fr 1fr}
   .p-row2{grid-template-columns:1fr}
-  .hero-numbers{gap:24px}
-  .hn-div{display:none}
-  .cta-band{padding:40px 24px}
+  .cta-band{padding:40px 20px}
+
+  /* Network section */
+  .net-card[style*="grid-column"]{grid-column:span 1!important}
+  .iphone-orbit{width:280px;height:560px}
+  .arc-3,.arc-4{display:none}
+
+  /* Topologia de rota — rolar horizontal */
+  #network .topo-line{min-width:24px}
+  #network [style*="justify-content:center"]{overflow-x:auto;justify-content:flex-start!important;padding-bottom:8px}
+
+  /* Neural canvas */
+  #neural-canvas{height:260px!important}
+  #neural .sec-head + div + div{grid-template-columns:1fr!important}
+
+  /* Wallpapers grid */
+  #textures [style*="grid-template-columns:repeat(auto-fill,minmax(170px"]{grid-template-columns:1fr 1fr!important}
+
+  /* iPhone orbit */
+  .iphone-body{width:140px;height:290px}
+  .iphone-island{width:56px;height:18px}
+  .call-title{font-size:.85rem}
+  .call-icon{width:40px;height:40px}
+  .call-pulse-wrap{width:70px;height:70px}
+  .call-btn{width:36px;height:36px}
+
+  /* Buttons row */
+  .btn-row{flex-wrap:wrap;gap:8px}
+
+  /* Forms */
+  .form-row-2{grid-template-columns:1fr!important}
+
+  /* Textos longos */
+  .sec-desc{font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -1370,6 +1418,7 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
     <li><a href="#landing">Landing</a></li>
     <li><a href="#motion">Motion</a></li>
     <li><a href="#network">Rede</a></li>
+    <li><a href="#neural">Neural</a></li>
     <li><a href="#textures">Wallpapers</a></li>
     <li><a href="#quiz">Quiz</a></li>
     <li><a href="#animations">Animações</a></li>
@@ -2534,6 +2583,39 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   </div>
 </section>
 
+<!-- REDE NEURAL -->
+<section class="sec" id="neural">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">14 — Rede Neural</div>
+      <h2 class="sec-h">FEIXES DE LUZ</h2>
+      <p class="sec-desc">Canvas animado de rede neural com ativações em cascata e feixes de luz teal. Use em heroes e backgrounds de produto.</p>
+    </div>
+    <div style="position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid rgba(21,195,160,.1);">
+      <canvas id="neural-canvas" style="display:block;width:100%;height:420px;"></canvas>
+      <!-- Overlay de conteúdo opcional -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+        <div style="font-family:var(--f-display);font-size:3rem;letter-spacing:6px;color:var(--tx-1);text-shadow:0 0 40px rgba(0,0,0,.8);line-height:1.05;text-align:center;">INFRAESTRUTURA<br><span style="color:var(--teal);text-shadow:var(--neon-md);">INTELIGENTE</span></div>
+        <div style="font-family:var(--f-mono);font-size:11px;letter-spacing:3px;color:rgba(242,247,245,.35);margin-top:12px;">18M LIGAÇÕES/DIA · 98% UPTIME</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
+      <div style="padding:16px;background:rgba(21,195,160,.04);border:1px solid rgba(21,195,160,.1);border-radius:10px;">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--teal);margin-bottom:4px;">CAMADAS</div>
+        <div style="font-size:12px;color:var(--tx-2);">4 hidden layers × 6 nodes — ativação em cascata da esquerda pra direita</div>
+      </div>
+      <div style="padding:16px;background:rgba(21,195,160,.04);border:1px solid rgba(21,195,160,.1);border-radius:10px;">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--teal);margin-bottom:4px;">FEIXES</div>
+        <div style="font-size:12px;color:var(--tx-2);">Radial gradient #1FE6BC + globalCompositeOperation lighter</div>
+      </div>
+      <div style="padding:16px;background:rgba(21,195,160,.04);border:1px solid rgba(21,195,160,.1);border-radius:10px;">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--teal);margin-bottom:4px;">GLOW</div>
+        <div style="font-size:12px;color:var(--tx-2);">Triple stroke pass: outer 8px → mid 3px → core 1px</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- IPHONE ARCOS -->
 <section class="sec" id="iphone-arcs">
   <div class="w">
@@ -2804,6 +2886,124 @@ style.textContent=`
 `;
 document.head.appendChild(style);
 
+})();
+
+/* ── Neural Network Canvas ── */
+(function(){
+  const canvas = document.getElementById('neural-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const TEAL = '#15C3A0', GLOW = '#1FE6BC';
+  const LAYERS = 5, NODES_PER = 6;
+  let W, H, nodes, conns, raf;
+
+  function resize(){
+    const r = canvas.parentElement.clientWidth;
+    canvas.width = r * devicePixelRatio;
+    canvas.height = 420 * devicePixelRatio;
+    canvas.style.height = '420px';
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    W = r; H = 420;
+    build();
+  }
+
+  function build(){
+    nodes = [];
+    conns = [];
+    const padX = W * 0.08, padY = 60;
+    const stepX = (W - padX*2) / (LAYERS - 1);
+    for(let l=0; l<LAYERS; l++){
+      const n = l===0||l===LAYERS-1 ? 4 : NODES_PER;
+      const stepY = (H - padY*2) / (n - 1);
+      for(let i=0; i<n; i++){
+        nodes.push({ x: padX + l*stepX, y: padY + i*stepY, layer:l, r:5, pulse:0, glow:0 });
+      }
+    }
+    // connections between adjacent layers
+    const byLayer = Array.from({length:LAYERS}, (_,l)=>nodes.filter(n=>n.layer===l));
+    for(let l=0; l<LAYERS-1; l++){
+      byLayer[l].forEach(src=>{
+        byLayer[l+1].forEach(dst=>{
+          conns.push({ src, dst, progress:-Math.random()*2, speed:0.004+Math.random()*0.006, active:false });
+        });
+      });
+    }
+  }
+
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function drawGlowLine(x1,y1,x2,y2,alpha){
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+    ctx.lineWidth=6; ctx.strokeStyle=`rgba(21,195,160,${alpha*0.06})`; ctx.stroke();
+    ctx.lineWidth=2.5; ctx.strokeStyle=`rgba(21,195,160,${alpha*0.18})`; ctx.stroke();
+    ctx.lineWidth=0.8; ctx.strokeStyle=`rgba(31,230,188,${alpha*0.55})`; ctx.stroke();
+  }
+
+  function drawPacket(x,y,intensity){
+    const saved = ctx.globalCompositeOperation;
+    ctx.globalCompositeOperation = 'lighter';
+    const g = ctx.createRadialGradient(x,y,0,x,y,10);
+    g.addColorStop(0, `rgba(31,230,188,${0.9*intensity})`);
+    g.addColorStop(0.4, `rgba(21,195,160,${0.4*intensity})`);
+    g.addColorStop(1, 'rgba(21,195,160,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2); ctx.fill();
+    ctx.globalCompositeOperation = saved;
+  }
+
+  function drawNode(nd){
+    // base circle
+    ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r,0,Math.PI*2);
+    ctx.fillStyle = nd.glow>0.1 ? `rgba(21,195,160,${0.15+nd.glow*0.5})` : 'rgba(21,195,160,0.08)';
+    ctx.fill();
+    ctx.strokeStyle = `rgba(21,195,160,${0.25+nd.glow*0.55})`;
+    ctx.lineWidth = 1.2; ctx.stroke();
+    // glow halo on activation
+    if(nd.glow>0.05){
+      const g2 = ctx.createRadialGradient(nd.x,nd.y,nd.r,nd.x,nd.y,nd.r+14*nd.glow);
+      g2.addColorStop(0, `rgba(21,195,160,${nd.glow*0.35})`);
+      g2.addColorStop(1, 'rgba(21,195,160,0)');
+      ctx.fillStyle = g2;
+      ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r+14*nd.glow,0,Math.PI*2); ctx.fill();
+    }
+    nd.glow = Math.max(0, nd.glow - 0.02);
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    // background radial
+    const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.7);
+    bg.addColorStop(0,'rgba(10,20,16,1)'); bg.addColorStop(1,'rgba(7,11,10,1)');
+    ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+    // draw connections
+    conns.forEach(c=>{
+      drawGlowLine(c.src.x,c.src.y,c.dst.x,c.dst.y, 0.6);
+    });
+
+    // update & draw packets
+    conns.forEach(c=>{
+      c.progress += c.speed;
+      if(c.progress > 1){
+        c.dst.glow = Math.min(1, c.dst.glow + 0.7);
+        c.progress = -Math.random()*1.5;
+      }
+      if(c.progress >= 0 && c.progress <= 1){
+        const px = lerp(c.src.x, c.dst.x, c.progress);
+        const py = lerp(c.src.y, c.dst.y, c.progress);
+        const fade = Math.sin(c.progress * Math.PI);
+        drawPacket(px, py, fade);
+      }
+    });
+
+    // draw nodes on top
+    nodes.forEach(drawNode);
+    raf = requestAnimationFrame(frame);
+  }
+
+  resize();
+  window.addEventListener('resize', ()=>{ cancelAnimationFrame(raf); resize(); frame(); });
+  frame();
 })();
 
 /* ── Data Stream live feed ── */
