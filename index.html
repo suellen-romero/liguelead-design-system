@@ -2593,11 +2593,6 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
     </div>
     <div style="position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid rgba(21,195,160,.1);">
       <canvas id="neural-canvas" style="display:block;width:100%;height:420px;"></canvas>
-      <!-- Overlay de conteúdo opcional -->
-      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
-        <div style="font-family:var(--f-display);font-size:3rem;letter-spacing:6px;color:var(--tx-1);text-shadow:0 0 40px rgba(0,0,0,.8);line-height:1.05;text-align:center;">INFRAESTRUTURA<br><span style="color:var(--teal);text-shadow:var(--neon-md);">INTELIGENTE</span></div>
-        <div style="font-family:var(--f-mono);font-size:11px;letter-spacing:3px;color:rgba(242,247,245,.35);margin-top:12px;">18M LIGAÇÕES/DIA · 98% UPTIME</div>
-      </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
       <div style="padding:16px;background:rgba(21,195,160,.04);border:1px solid rgba(21,195,160,.1);border-radius:10px;">
@@ -2954,17 +2949,17 @@ document.head.appendChild(style);
     const {src:s, dst:d, weight} = c;
     // outer soft glow
     ctx.save();
-    ctx.filter = 'blur(3px)';
+    ctx.filter = 'blur(2px)';
     ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(d.x, d.y);
-    ctx.lineWidth = 1.5;
-    ctx.strokeStyle = `rgba(21,195,160,${weight * 0.07})`;
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `rgba(21,195,160,${weight * 0.04})`;
     ctx.stroke();
     ctx.filter = 'none';
     ctx.restore();
     // crisp core line
     ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(d.x, d.y);
-    ctx.lineWidth = 0.6;
-    ctx.strokeStyle = `rgba(21,195,160,${weight * 0.13})`;
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = `rgba(21,195,160,${weight * 0.07})`;
     ctx.stroke();
   }
 
@@ -2972,15 +2967,15 @@ document.head.appendChild(style);
     const saved = ctx.globalCompositeOperation;
     ctx.globalCompositeOperation = 'lighter';
     // trailing streak
-    const g2 = ctx.createRadialGradient(x,y,0,x,y,14);
-    g2.addColorStop(0,   `rgba(31,230,188,${intensity * 0.95})`);
-    g2.addColorStop(0.3, `rgba(21,195,160,${intensity * 0.5})`);
+    const g2 = ctx.createRadialGradient(x,y,0,x,y,9);
+    g2.addColorStop(0,   `rgba(31,230,188,${intensity * 0.55})`);
+    g2.addColorStop(0.4, `rgba(21,195,160,${intensity * 0.22})`);
     g2.addColorStop(1,   'rgba(21,195,160,0)');
     ctx.fillStyle = g2;
-    ctx.beginPath(); ctx.arc(x, y, 14, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI*2); ctx.fill();
     // bright core dot
-    ctx.fillStyle = `rgba(200,255,245,${intensity * 0.9})`;
-    ctx.beginPath(); ctx.arc(x, y, 1.8, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = `rgba(200,255,245,${intensity * 0.55})`;
+    ctx.beginPath(); ctx.arc(x, y, 1.2, 0, Math.PI*2); ctx.fill();
     ctx.globalCompositeOperation = saved;
   }
 
@@ -2989,9 +2984,9 @@ document.head.appendChild(style);
     if(nd.glow > 0.02){
       const saved = ctx.globalCompositeOperation;
       ctx.globalCompositeOperation = 'lighter';
-      ctx.save(); ctx.filter = 'blur(6px)';
-      const gh = ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,nd.r*4);
-      gh.addColorStop(0, `rgba(21,195,160,${nd.glow * 0.6})`);
+      ctx.save(); ctx.filter = 'blur(5px)';
+      const gh = ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,nd.r*3);
+      gh.addColorStop(0, `rgba(21,195,160,${nd.glow * 0.3})`);
       gh.addColorStop(1, 'rgba(21,195,160,0)');
       ctx.fillStyle = gh;
       ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r*4,0,Math.PI*2); ctx.fill();
@@ -3032,7 +3027,7 @@ document.head.appendChild(style);
       c.packets.forEach(pk => {
         pk.p += pk.speed;
         if(pk.p > 1){
-          c.dst.glow = Math.min(1, c.dst.glow + 0.6);
+          c.dst.glow = Math.min(0.7, c.dst.glow + 0.35);
           if(c.dst.ring <= 0){ c.dst.ring = 0.9; c.dst.ringR = c.dst.r; }
           pk.p = -Math.random() * 3;
         }
