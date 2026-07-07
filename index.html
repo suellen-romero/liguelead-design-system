@@ -102,13 +102,11 @@ body::after {
   padding: 0 32px; height: 58px; gap: 8px;
 }
 .nav-logo {
-  display: flex; align-items: baseline; gap: 1px;
-  font-family: var(--f-display); font-size: 22px;
-  letter-spacing: 2px; color: var(--tx-1);
-  margin-right: 36px; white-space: nowrap;
+  display: flex; align-items: center;
+  margin-right: 36px; white-space: nowrap; flex-shrink: 0;
 }
-.nav-logo em { color: var(--teal); font-style: italic; text-shadow: var(--neon-sm); font-family: Georgia, serif; font-size: 24px; }
-.nav-logo span { color: var(--teal); text-shadow: var(--neon-sm); }
+.nav-logo svg { filter: drop-shadow(0 0 6px rgba(21,195,160,.45)); }
+.foot-brand-svg { filter: drop-shadow(0 0 8px rgba(21,195,160,.4)); }
 .nav-links { display: flex; gap: 2px; flex: 1; list-style: none; overflow-x: auto; scrollbar-width: none; }
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-links a {
@@ -852,8 +850,7 @@ tbody tr:hover { background: rgba(21,195,160,.03); }
 /* ═══ FOOTER ════════════════════════════════════════════════ */
 footer { padding: 48px 24px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 .foot-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-.foot-brand { font-family: var(--f-display); font-size: 20px; letter-spacing: 3px; color: var(--tx-1); }
-.foot-brand em { color: var(--teal); font-style: italic; font-family: Georgia, serif; text-shadow: var(--neon-sm); }
+.foot-brand { display: flex; align-items: center; }
 .foot-meta { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: 1px; text-align: right; }
 .foot-meta a { color: var(--teal); }
 
@@ -1122,7 +1119,17 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo"><em>ℒ</em>IGUE<span>LEAD</span></div>
+  <div class="nav-logo">
+    <!-- logo liguelead: l cursivo com seta → iguelead, teal+branco -->
+    <svg width="140" height="28" viewBox="0 0 140 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="liguelead">
+      <!-- "l" cursivo com seta para cima -->
+      <path d="M7 22 C7 22 7 8 7 6 C7 4 9 2 11 4" stroke="#15C3A0" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <!-- setinha no topo do l -->
+      <path d="M9 5 L11 3 L13 5" stroke="#15C3A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- "iguelead" em DM Sans -->
+      <text x="18" y="21" font-family="'DM Sans', sans-serif" font-weight="600" font-size="16" letter-spacing="-0.3" fill="#F2F7F5">iguelead</text>
+    </svg>
+  </div>
   <ul class="nav-links">
     <li><a href="#foundation">Tokens</a></li>
     <li><a href="#components">Buttons</a></li>
@@ -2203,7 +2210,13 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 <footer>
   <div class="foot-inner">
     <div>
-      <div class="foot-brand"><em>ℒ</em>IGUELEAD</div>
+      <div class="foot-brand">
+        <svg class="foot-brand-svg" width="168" height="34" viewBox="0 0 168 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="liguelead">
+          <path d="M8 26 C8 26 8 9 8 7 C8 5 11 2 13 5" stroke="#15C3A0" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          <path d="M10 6 L13 3 L16 6" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <text x="22" y="25" font-family="'DM Sans', sans-serif" font-weight="600" font-size="19" letter-spacing="-0.4" fill="#F2F7F5">iguelead</text>
+        </svg>
+      </div>
       <div style="font-size:13px;color:var(--tx-2);margin-top:4px;">Infraestrutura de mensageria para infoprodutores.</div>
     </div>
     <div class="foot-meta">
