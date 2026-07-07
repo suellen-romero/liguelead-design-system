@@ -593,6 +593,60 @@ tbody tr:hover { background: rgba(21,195,160,.03); }
 /* ═══ NEON RULE ═════════════════════════════════════════════ */
 .neon-rule { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--teal), transparent); box-shadow: 0 0 8px rgba(21,195,160,.5); margin: 0; }
 
+/* ═══ WALLPAPERS — SECTION BACKGROUNDS ═════════════════════ */
+
+/* Base tones */
+.bg-void    { background: #070B0A; }
+.bg-base    { background: #0A0E0D; }
+.bg-raised  { background: #0D1412; }
+.bg-surface { background: #111918; }
+.bg-card    { background: #141F1C; }
+.bg-high    { background: #192622; }
+
+/* Green-tinted */
+.bg-green-deep  { background: linear-gradient(180deg, #05110D 0%, #0A1812 100%); }
+.bg-green-mid   { background: linear-gradient(160deg, #0B160F 0%, #0F1E18 100%); }
+.bg-green-wash  { background: linear-gradient(135deg, #0A1410 0%, #10201A 60%, #0D1812 100%); }
+.bg-green-glow  { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(21,195,160,.09) 0%, #080E0C 70%); }
+
+/* Neutral/cool */
+.bg-slate   { background: linear-gradient(180deg, #0A0D0E 0%, #0E1215 100%); }
+.bg-coal    { background: linear-gradient(160deg, #0C0C0C 0%, #121212 100%); }
+.bg-ink     { background: linear-gradient(135deg, #080A0F 0%, #0D1018 100%); }
+
+/* Gradient rich */
+.bg-aurora  { background: linear-gradient(135deg, #060F0C 0%, #0A1812 35%, #081009 70%, #0A0E0D 100%); }
+.bg-depth   { background: linear-gradient(180deg, #030506 0%, #0A1610 40%, #030506 100%); }
+.bg-radial  { background: radial-gradient(ellipse 100% 80% at 50% 50%, #0C1A15 0%, #070B09 100%); }
+
+/* Special */
+.bg-teal-edge { background: linear-gradient(135deg, rgba(21,195,160,.06) 0%, #080E0C 30%); }
+.bg-split {
+  background: linear-gradient(180deg, #0A0E0D 0%, #0D1412 50%, #111918 100%);
+}
+
+/* Section dividers (shape dividers via CSS) */
+.div-fade-down  { padding-bottom: 0 !important; border-bottom: none !important; }
+.div-fade-down::after  { content:''; display:block; height:80px; background:linear-gradient(180deg,transparent,var(--bg)); margin-top:80px; }
+.div-fade-up::before   { content:''; display:block; height:80px; background:linear-gradient(0deg,transparent,var(--bg)); margin-bottom:80px; }
+
+/* Wallpaper overlay patterns (combine with any bg-*) */
+.wp-noise   { position:relative; }
+.wp-noise::after  { content:''; position:absolute; inset:0; pointer-events:none; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size:200px 200px; mix-blend-mode:overlay; }
+.wp-noise > * { position:relative; z-index:1; }
+
+.wp-hex { position:relative; }
+.wp-hex::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.06; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpolygon fill='none' stroke='%2315C3A0' stroke-width='1' points='28,2 54,17 54,83 28,98 2,83 2,17'/%3E%3C/svg%3E"); background-size:56px 100px; }
+.wp-hex > * { position:relative; z-index:1; }
+
+.wp-circuit { position:relative; }
+.wp-circuit::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.04; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%2315C3A0' stroke-width='1' d='M10 0v20h20M40 0v10h20v10M70 20h10M0 40h10v10h20M60 40h20M10 60v20M40 60v20M60 60h10v20'/%3E%3Ccircle cx='10' cy='20' r='2' fill='%2315C3A0'/%3E%3Ccircle cx='30' cy='20' r='2' fill='%2315C3A0'/%3E%3Ccircle cx='40' cy='10' r='2' fill='%2315C3A0'/%3E%3Ccircle cx='60' cy='10' r='2' fill='%2315C3A0'/%3E%3Ccircle cx='10' cy='40' r='2' fill='%2315C3A0'/%3E%3Ccircle cx='30' cy='40' r='2' fill='%2315C3A0'/%3E%3C/svg%3E"); background-size:80px 80px; }
+.wp-circuit > * { position:relative; z-index:1; }
+
+.wp-weave { position:relative; }
+.wp-weave::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.05; z-index:0; background-image:repeating-linear-gradient(45deg,rgba(21,195,160,.6) 0,rgba(21,195,160,.6) 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,rgba(21,195,160,.6) 0,rgba(21,195,160,.6) 1px,transparent 0,transparent 50%); background-size:20px 20px; }
+.wp-weave > * { position:relative; z-index:1; }
+
 /* ═══ TEXTURES ══════════════════════════════════════════════ */
 .tex { position: relative; }
 .tex::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; border-radius: inherit; }
@@ -816,6 +870,104 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
   .r{opacity:1!important;transform:none!important}
 }
+
+/* ─── IPHONE ARCOS ─── */
+.iphone-orbit { position:relative; width:320px; height:640px; display:flex; align-items:center; justify-content:center; }
+
+/* Arcos orbitais */
+.arc {
+  position:absolute; border-radius:50%; border:1.5px solid transparent; top:50%; left:50%; transform:translate(-50%,-50%);
+  animation:arcSpin linear infinite;
+}
+.arc-1 {
+  width:340px; height:340px;
+  border-color:rgba(21,195,160,.55) transparent rgba(21,195,160,.15) transparent;
+  box-shadow:0 0 12px rgba(21,195,160,.2), inset 0 0 12px rgba(21,195,160,.05);
+  animation-duration:8s;
+}
+.arc-2 {
+  width:420px; height:420px;
+  border-color:transparent rgba(21,195,160,.35) transparent rgba(21,195,160,.1);
+  animation-duration:12s; animation-direction:reverse;
+  border-style:dashed;
+}
+.arc-3 {
+  width:520px; height:520px;
+  border-color:rgba(21,195,160,.2) transparent transparent transparent;
+  animation-duration:18s;
+  border-width:1px;
+}
+.arc-4 {
+  width:620px; height:620px;
+  border-color:transparent transparent rgba(21,195,160,.12) transparent;
+  animation-duration:24s; animation-direction:reverse;
+  border-width:1px;
+  border-style:dotted;
+}
+@keyframes arcSpin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+
+/* Pontinhos nos arcos */
+.arc-dot {
+  position:absolute; width:8px; height:8px; border-radius:50%;
+  background:var(--teal); box-shadow:0 0 8px rgba(21,195,160,.9), 0 0 20px rgba(21,195,160,.4);
+  top:50%; left:50%; transform-origin:0 0; animation:dotOrbit linear infinite;
+}
+.dot-1 { animation-duration:8s;  margin-left:170px; margin-top:-4px; }
+.dot-2 { animation-duration:12s; animation-direction:reverse; margin-left:210px; margin-top:-4px; background:rgba(21,195,160,.7); }
+.dot-3 { animation-duration:18s; margin-left:260px; margin-top:-4px; background:rgba(21,195,160,.5); width:6px; height:6px; }
+.dot-4 { animation-duration:24s; animation-direction:reverse; margin-left:310px; margin-top:-3px; background:rgba(21,195,160,.3); width:5px; height:5px; }
+@keyframes dotOrbit { to { transform:rotate(360deg); } }
+
+/* iPhone body */
+.iphone-body {
+  position:relative; z-index:10;
+  width:160px; height:320px;
+  background:linear-gradient(160deg,#1a1f1e,#0d1210);
+  border-radius:36px;
+  border:2px solid rgba(21,195,160,.25);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.8),
+    0 0 40px rgba(0,0,0,.6),
+    0 0 60px rgba(21,195,160,.06),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex; flex-direction:column; align-items:center; padding:14px 10px 16px;
+  box-sizing:border-box;
+}
+.iphone-notch {
+  width:60px; height:10px;
+  background:#0a0a0a;
+  border-radius:0 0 10px 10px;
+  margin-bottom:10px;
+  border:1px solid rgba(255,255,255,.05);
+}
+.iphone-screen {
+  flex:1; width:100%;
+  background:linear-gradient(160deg,#070c0a,#0b1410);
+  border-radius:20px;
+  border:1px solid rgba(21,195,160,.15);
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.iphone-screen-content { text-align:center; }
+.iphone-app-dot {
+  width:36px; height:36px; border-radius:10px; margin:0 auto;
+  box-shadow:0 0 16px rgba(21,195,160,.6);
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+}
+.iphone-home {
+  width:40px; height:4px; background:rgba(255,255,255,.15); border-radius:99px; margin-top:10px;
+}
+.iphone-pulse-ring {
+  width:48px; height:48px; border-radius:50%;
+  border:2px solid rgba(21,195,160,.4);
+  position:absolute; margin-top:12px;
+  animation:iphonePulse 2s ease-out infinite;
+}
+@keyframes iphonePulse {
+  0% { transform:scale(.8); opacity:.8; }
+  100% { transform:scale(1.6); opacity:0; }
+}
+/* ─── /IPHONE ARCOS ─── */
 </style>
 </head>
 <body>
@@ -834,9 +986,10 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
     <li><a href="#platform">Platform</a></li>
     <li><a href="#landing">Landing</a></li>
     <li><a href="#motion">Motion</a></li>
-    <li><a href="#textures">Texturas</a></li>
+    <li><a href="#textures">Wallpapers</a></li>
     <li><a href="#quiz">Quiz</a></li>
     <li><a href="#animations">Animações</a></li>
+    <li><a href="#iphone-arcs">iPhone</a></li>
   </ul>
   <div class="nav-ver">DS v2 · 2026</div>
 </nav>
@@ -1457,61 +1610,148 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   </div>
 </section>
 
-<!-- TEXTURES -->
+<!-- WALLPAPERS -->
 <section class="sec sec-alt" id="textures">
   <div class="w">
     <div class="sec-head r">
-      <div class="sec-ey">11 — Texturas</div>
-      <h2 class="sec-h">TEXTURAS DE FUNDO</h2>
-      <p class="sec-desc">Classes CSS para diferenciar blocos no site. Combine com fundo escuro — cada padrão tem personalidade distinta.</p>
+      <div class="sec-ey">11 — Papéis de Parede</div>
+      <h2 class="sec-h">BACKGROUNDS DE SEÇÃO</h2>
+      <p class="sec-desc">Tons e texturas para criar ritmo visual — alterne entre eles para separar blocos sem usar borda. Combine fundo + papel de parede.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;" class="r">
-      <div class="tex tex-noise" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Noise · Grão</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">TEXTURA ORGÂNICA</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-noise</div>
-      </div>
-      <div class="tex tex-dots" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Dots · Pontos</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">MALHA DE PONTOS</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-dots</div>
-      </div>
-      <div class="tex tex-grid" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Grid · Grade</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">GRADE DIGITAL</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-grid</div>
-      </div>
-      <div class="tex tex-lines" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Lines · Diagonais</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">LINHAS 45°</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-lines</div>
-      </div>
-      <div class="tex tex-topo" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Topography · Curvas</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">TOPOGRÁFICO</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-topo</div>
-      </div>
-      <div class="tex tex-mesh" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
-        <div class="sec-ey" style="margin-bottom:8px;">Mesh · Gradiente</div>
-        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">MESH GRADIENTE</div>
-        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-mesh</div>
+
+    <!-- TONS DE FUNDO -->
+    <div class="r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="margin-bottom:16px;">Tons de Fundo · Base Escura</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:3px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+        <div class="bg-void" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-void</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#070B0A · Mais escuro</div>
+        </div>
+        <div class="bg-base" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-base</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#0A0E0D · Base</div>
+        </div>
+        <div class="bg-raised" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-raised</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#0D1412 · Elevado</div>
+        </div>
+        <div class="bg-surface" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-surface</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#111918 · Superfície</div>
+        </div>
+        <div class="bg-card" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-card</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#141F1C · Card</div>
+        </div>
+        <div class="bg-high" style="padding:24px 18px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-mono);font-size:9px;color:rgba(21,195,160,.5);letter-spacing:1.5px;margin-bottom:3px;">.bg-high</div>
+          <div style="font-size:11px;color:rgba(242,247,245,.4);">#192622 · Alto</div>
+        </div>
       </div>
     </div>
 
-    <!-- Usage example -->
-    <div class="r" style="margin-top:32px;">
-      <div class="sec-ey" style="margin-bottom:12px;">Combinando texturas em seções</div>
-      <div class="tex tex-dots" style="background:linear-gradient(160deg,#08130F,#0D1A15);border:1px solid var(--border);border-radius:var(--r-xl);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
-        <div>
-          <div style="font-family:var(--f-display);font-size:2.2rem;letter-spacing:3px;color:var(--tx-1);line-height:1.05;margin-bottom:12px;">SEÇÃO COM <span style="color:var(--teal);text-shadow:var(--neon-sm);">TEXTURA</span></div>
-          <p style="font-size:14px;color:var(--tx-2);line-height:1.7;">Combine <code style="font-family:var(--f-mono);color:var(--teal);font-size:12px;">.tex .tex-dots</code> em qualquer bloco. Funciona em hero, features e CTAs.</p>
+    <!-- TONS VERDES -->
+    <div class="r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="margin-bottom:16px;">Tons Verdes · Teal Wash</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <div class="bg-green-deep" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">VERDE PROFUNDO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.bg-green-deep</div>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <span class="tag tag-teal">tex-dots</span>
-          <span class="tag tag-dim">tex-grid</span>
-          <span class="tag tag-dark">tex-noise</span>
-          <span class="tag tag-dim">tex-topo</span>
-          <span class="tag tag-dark">tex-lines</span>
+        <div class="bg-green-mid" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">VERDE MÉDIO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.bg-green-mid</div>
+        </div>
+        <div class="bg-green-wash" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">VERDE LAVAGEM</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.bg-green-wash</div>
+        </div>
+        <div class="bg-green-glow" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">VERDE BRILHO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.bg-green-glow</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TONS NEUTROS + GRADIENTES -->
+    <div class="r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="margin-bottom:16px;">Neutros & Gradientes Ricos</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <div class="bg-slate" style="border:1px solid rgba(21,195,160,.06);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">SLATE · ARDÓSIA</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-slate</div>
+        </div>
+        <div class="bg-ink" style="border:1px solid rgba(21,195,160,.06);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">INK · AZUL NOITE</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-ink</div>
+        </div>
+        <div class="bg-aurora" style="border:1px solid rgba(21,195,160,.07);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">AURORA</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-aurora</div>
+        </div>
+        <div class="bg-depth" style="border:1px solid rgba(21,195,160,.07);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">DEPTH · PROFUNDO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-depth</div>
+        </div>
+        <div class="bg-radial" style="border:1px solid rgba(21,195,160,.06);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">RADIAL VIGNETTE</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-radial</div>
+        </div>
+        <div class="bg-teal-edge" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">TEAL EDGE</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.bg-teal-edge</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAPÉIS DE PAREDE (background + pattern overlay) -->
+    <div class="r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="margin-bottom:16px;">Papéis de Parede · Fundo + Padrão</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <div class="wp-hex bg-green-deep" style="border:1px solid rgba(21,195,160,.1);border-radius:var(--r-lg);padding:36px 24px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">HEX GRID</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.wp-hex .bg-green-deep</div>
+        </div>
+        <div class="wp-circuit bg-raised" style="border:1px solid rgba(21,195,160,.1);border-radius:var(--r-lg);padding:36px 24px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">CIRCUITO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.6);">.wp-circuit .bg-raised</div>
+        </div>
+        <div class="wp-weave bg-slate" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">TRANÇADO</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.wp-weave .bg-slate</div>
+        </div>
+        <div class="wp-noise bg-aurora" style="border:1px solid rgba(21,195,160,.08);border-radius:var(--r-lg);padding:36px 24px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;">
+          <div style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:2px;color:var(--tx-1);margin-bottom:6px;">GRÃO + AURORA</div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:rgba(21,195,160,.5);">.wp-noise .bg-aurora</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIMULAÇÃO DE PÁGINA COM ALTERNÂNCIA -->
+    <div class="r">
+      <div class="sec-ey" style="margin-bottom:16px;">Como ficam alternados — simulação de página</div>
+      <div style="border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;">
+        <div class="bg-void wp-noise" style="padding:40px 36px;border-bottom:1px solid rgba(21,195,160,.06);">
+          <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:rgba(21,195,160,.5);margin-bottom:8px;">SEÇÃO HERO · bg-void + wp-noise</div>
+          <div style="font-family:var(--f-display);font-size:1.8rem;letter-spacing:3px;color:var(--tx-1);">VOCÊ É ESQUECIDO.</div>
+          <div style="font-size:13px;color:var(--tx-2);margin-top:8px;max-width:400px;">92% da sua lista não apareceu na live. Não é a oferta. Ninguém lembrou.</div>
+        </div>
+        <div class="bg-green-deep wp-hex" style="padding:40px 36px;border-bottom:1px solid rgba(21,195,160,.06);">
+          <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:rgba(21,195,160,.5);margin-bottom:8px;">SEÇÃO FEATURES · bg-green-deep + wp-hex</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;"><span class="tag tag-teal">Ligação com voz</span><span class="tag tag-teal">SMS Flash</span><span class="tag tag-teal">Flow</span></div>
+        </div>
+        <div class="bg-raised" style="padding:40px 36px;border-bottom:1px solid rgba(21,195,160,.06);">
+          <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:rgba(21,195,160,.5);margin-bottom:8px;">SEÇÃO STATS · bg-raised</div>
+          <div style="display:flex;gap:40px;flex-wrap:wrap;"><div><div style="font-family:var(--f-display);font-size:2rem;letter-spacing:2px;color:var(--teal);text-shadow:var(--neon-sm);">35%</div><div style="font-size:11px;color:var(--tx-3);">Presença média</div></div><div><div style="font-family:var(--f-display);font-size:2rem;letter-spacing:2px;color:var(--teal);text-shadow:var(--neon-sm);">18M</div><div style="font-size:11px;color:var(--tx-3);">Ligações / dia</div></div></div>
+        </div>
+        <div class="bg-aurora wp-circuit" style="padding:40px 36px;border-bottom:1px solid rgba(21,195,160,.06);">
+          <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:rgba(21,195,160,.5);margin-bottom:8px;">SEÇÃO PROOF · bg-aurora + wp-circuit</div>
+          <div style="font-size:14px;color:var(--tx-2);">"Só vim por causa da ligação" — comentários explodem na live quando o expert pergunta.</div>
+        </div>
+        <div class="bg-green-glow" style="padding:40px 36px;text-align:center;">
+          <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:rgba(21,195,160,.5);margin-bottom:16px;">SEÇÃO CTA · bg-green-glow</div>
+          <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:3px;color:var(--tx-1);margin-bottom:16px;">FAÇA LIGUELEAD</div>
+          <button class="btn btn-primary">Começar agora</button>
         </div>
       </div>
     </div>
@@ -1697,6 +1937,68 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
 <span class="t">.msg-anim</span>    <span class="d">→</span>  Bolhas de mensagem aparecendo
 <span class="t">.flash-anim</span>  <span class="d">→</span>  SMS Flash acendendo a tela
 <span class="t">.flow-anim</span>   <span class="d">→</span>  Flow com nós e pontos animados
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IPHONE ARCOS -->
+<section class="sec" id="iphone-arcs">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">13 — iPhone Arcos</div>
+      <h2 class="sec-h">ARCOS EM MOVIMENTO</h2>
+      <p class="sec-desc">Estrutura CSS de arcos orbitais animados ao redor de um mockup de iPhone. Use em hero sections e CTAs de produto.</p>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;padding:60px 0;gap:80px;flex-wrap:wrap;">
+      <!-- iPhone + Arcos -->
+      <div class="iphone-orbit" style="position:relative;width:320px;height:640px;display:flex;align-items:center;justify-content:center;">
+        <!-- Arcos -->
+        <div class="arc arc-1"></div>
+        <div class="arc arc-2"></div>
+        <div class="arc arc-3"></div>
+        <div class="arc arc-4"></div>
+        <!-- Pontinhos nos arcos -->
+        <div class="arc-dot dot-1"></div>
+        <div class="arc-dot dot-2"></div>
+        <div class="arc-dot dot-3"></div>
+        <div class="arc-dot dot-4"></div>
+        <!-- iPhone mockup -->
+        <div class="iphone-body">
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <div class="iphone-screen-content">
+              <div class="iphone-app-dot" style="background:rgba(21,195,160,.8);"></div>
+              <div style="font-family:var(--f-mono);font-size:9px;letter-spacing:1px;color:rgba(21,195,160,.7);margin-top:8px;">LIGUELEAD</div>
+              <div style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:2px;color:#F2F7F5;margin-top:6px;text-align:center;">18M LIGAÇÕES</div>
+              <div style="font-size:9px;color:rgba(242,247,245,.4);margin-top:2px;">por dia</div>
+              <div class="iphone-pulse-ring"></div>
+            </div>
+          </div>
+          <div class="iphone-home"></div>
+        </div>
+      </div>
+
+      <!-- Variante menor — só arcos + label -->
+      <div style="display:flex;flex-direction:column;gap:32px;align-items:flex-start;max-width:340px;">
+        <div>
+          <div class="sec-ey" style="margin-bottom:8px;">Como usar</div>
+          <div style="font-size:13px;color:var(--tx-2);line-height:1.8;">Adicione <code style="font-family:var(--f-mono);color:var(--teal);font-size:11px;">.iphone-orbit</code> ao wrapper e insira de 1 a 4 <code style="font-family:var(--f-mono);color:var(--teal);font-size:11px;">.arc.arc-N</code> dentro. Cada arco tem duração e raio diferentes — basta combinar.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:32px;height:2px;background:linear-gradient(90deg,var(--teal),transparent);border-radius:99px;"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--tx-3);">.arc-1 · 8s · raio 170px · full</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:32px;height:2px;background:linear-gradient(90deg,rgba(21,195,160,.6),transparent);border-radius:99px;"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--tx-3);">.arc-2 · 12s · raio 210px · semiarc</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:32px;height:2px;background:linear-gradient(90deg,rgba(21,195,160,.4),transparent);border-radius:99px;"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--tx-3);">.arc-3 · 16s · raio 260px · tracejado</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:32px;height:2px;background:linear-gradient(90deg,rgba(21,195,160,.2),transparent);border-radius:99px;"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--tx-3);">.arc-4 · 22s · raio 310px · ultra-fino</span></div>
+        </div>
+        <div style="font-family:var(--f-mono);font-size:11px;color:var(--tx-3);padding:16px;background:rgba(21,195,160,.04);border:1px solid rgba(21,195,160,.1);border-radius:8px;line-height:1.8;width:100%;box-sizing:border-box;">
+          &lt;div class="iphone-orbit"&gt;<br>
+          &nbsp;&nbsp;&lt;div class="arc arc-1"&gt;&lt;/div&gt;<br>
+          &nbsp;&nbsp;&lt;div class="arc arc-2"&gt;&lt;/div&gt;<br>
+          &nbsp;&nbsp;&lt;div class="arc arc-3"&gt;&lt;/div&gt;<br>
+          &nbsp;&nbsp;&lt;div class="iphone-body"&gt;…&lt;/div&gt;<br>
+          &lt;/div&gt;
+        </div>
       </div>
     </div>
   </div>
