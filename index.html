@@ -2883,15 +2883,14 @@ document.head.appendChild(style);
 
 })();
 
-/* ── Neurônios com poucas sinapses ── */
+/* ── Neurônios fluidos ── */
 (function(){
   const canvas = document.getElementById('neural-canvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, nodes, synapses, raf;
-  const NUM_NODES = 28;
-  const MAX_CONN_DIST_RATIO = 0.28;
-  const MAX_CONN_PER_NODE = 3;
+  const NUM_NODES = 32;
+  const MAX_CONN_PER_NODE = 4;
 
   function resize(){
     const cont = canvas.parentElement;
@@ -2906,18 +2905,23 @@ document.head.appendChild(style);
 
   function build(){
     nodes = []; synapses = [];
-    const pad = 44;
+    const pad = 50;
     for(let i = 0; i < NUM_NODES; i++){
       nodes.push({
         x: pad + Math.random() * (W - pad*2),
         y: pad + Math.random() * (H - pad*2),
-        r: 2.5 + Math.random() * 2,
+        vx: (Math.random()-0.5)*0.12,  // drift velocity
+        vy: (Math.random()-0.5)*0.12,
+        bx: 0, by: 0, // base position (for drift bounds)
+        r: 2.5 + Math.random() * 2.2,
         glow: 0,
-        breathPhase: Math.random() * Math.PI * 2,
-        breathSpeed: 0.007 + Math.random() * 0.005,
+        breathPhase: Math.random()*Math.PI*2,
+        breathSpeed: 0.006 + Math.random()*0.004,
       });
+      nodes[i].bx = nodes[i].x;
+      nodes[i].by = nodes[i].y;
     }
-    const maxDist = Math.min(W, H) * MAX_CONN_DIST_RATIO;
+    const maxDist = Math.min(W, H) * 0.30;
     const connCount = new Array(NUM_NODES).fill(0);
     for(let i = 0; i < NUM_NODES; i++){
       const neighbors = [];
@@ -2935,8 +2939,9 @@ document.head.appendChild(style);
         if(synapses.find(s=>(s.a===i&&s.b===nb.j)||(s.a===nb.j&&s.b===i))) continue;
         synapses.push({
           a:i, b:nb.j, dist:nb.d,
-          pulse:null,
-          nextFire: 90 + Math.random() * 400,
+          pulses: [],  // multiple simultaneous pulses
+          nextFire: 20 + Math.random()*120,
+          baseAlpha: 0.04 + Math.random()*0.06,
         });
         connCount[i]++; connCount[nb.j]++;
         added++;
@@ -2945,68 +2950,107 @@ document.head.appendChild(style);
   }
 
   function lerp(a,b,t){ return a+(b-a)*t; }
+  function easeInOut(t){ return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function fireSynapse(s, speedMult){
+    const sp = (0.008 + Math.random()*0.008) * (speedMult||1);
+    s.pulses.push({ p:0, speed:sp });
+    if(s.pulses.length > 3) s.pulses.shift(); // cap
+  }
 
   function frame(){
     ctx.fillStyle='#070B0A'; ctx.fillRect(0,0,W,H);
-    const bg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*0.6);
-    bg.addColorStop(0,'rgba(10,18,14,0.5)'); bg.addColorStop(1,'rgba(0,0,0,0)');
+    // ambient glow center
+    const bg=ctx.createRadialGradient(W/2,H*0.45,0,W/2,H*0.45,W*0.65);
+    bg.addColorStop(0,'rgba(12,22,16,0.7)'); bg.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+    // update node drift (very slow float)
+    nodes.forEach(nd=>{
+      nd.x += nd.vx;
+      nd.y += nd.vy;
+      // soft boundary pull back to base
+      nd.vx += (nd.bx - nd.x) * 0.0008;
+      nd.vy += (nd.by - nd.y) * 0.0008;
+      nd.vx *= 0.98; nd.vy *= 0.98;
+    });
+
+    // connections + pulses
+    const saved = ctx.globalCompositeOperation;
+    ctx.globalCompositeOperation = 'lighter';
 
     synapses.forEach(s=>{
       const na=nodes[s.a], nb=nodes[s.b];
+      // base line with glow from active pulses
+      const activePulse = s.pulses.length > 0;
       ctx.beginPath(); ctx.moveTo(na.x,na.y); ctx.lineTo(nb.x,nb.y);
-      ctx.lineWidth=0.5;
-      ctx.strokeStyle='rgba(21,195,160,0.07)'; ctx.stroke();
+      ctx.lineWidth = activePulse ? 0.7 : 0.4;
+      ctx.strokeStyle=`rgba(21,195,160,${activePulse ? s.baseAlpha*1.8 : s.baseAlpha})`;
+      ctx.stroke();
 
+      // auto fire
       s.nextFire--;
-      if(s.nextFire<=0 && !s.pulse){
-        s.pulse={p:0, speed:0.005+Math.random()*0.005};
-        s.nextFire=150+Math.random()*450;
+      if(s.nextFire <= 0){
+        fireSynapse(s, 1);
+        s.nextFire = 30 + Math.random()*140;
       }
-      if(s.pulse){
-        s.pulse.p += s.pulse.speed;
-        const t=s.pulse.p;
-        if(t>1){
-          nodes[s.b].glow=Math.min(0.7, nodes[s.b].glow+0.45);
-          s.pulse=null;
-        } else {
-          const fade=Math.sin(t*Math.PI);
-          const px=lerp(na.x,nb.x,t), py=lerp(na.y,nb.y,t);
-          const saved=ctx.globalCompositeOperation;
-          ctx.globalCompositeOperation='lighter';
-          const g=ctx.createRadialGradient(px,py,0,px,py,6);
-          g.addColorStop(0,`rgba(31,230,188,${fade*0.42})`);
-          g.addColorStop(1,'rgba(21,195,160,0)');
-          ctx.fillStyle=g;
-          ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fill();
-          ctx.globalCompositeOperation=saved;
+
+      // move pulses
+      s.pulses = s.pulses.filter(pk=>{
+        pk.p += pk.speed;
+        if(pk.p > 1){
+          const nd = nodes[s.b];
+          nd.glow = Math.min(0.9, nd.glow + 0.5);
+          // cascade: trigger some connected synapses faster
+          synapses.forEach(cs=>{
+            if((cs.a===s.b || cs.b===s.b) && cs!==s && Math.random()<0.4){
+              cs.nextFire = Math.min(cs.nextFire, 8 + Math.random()*25);
+            }
+          });
+          return false;
         }
-      }
+        const ease = easeInOut(pk.p);
+        const fade = Math.sin(pk.p * Math.PI);
+        const px=lerp(na.x,nb.x,ease), py=lerp(na.y,nb.y,ease);
+        // trailing glow streak
+        const g=ctx.createRadialGradient(px,py,0,px,py,7);
+        g.addColorStop(0,`rgba(31,230,188,${fade*0.6})`);
+        g.addColorStop(0.5,`rgba(21,195,160,${fade*0.22})`);
+        g.addColorStop(1,'rgba(21,195,160,0)');
+        ctx.fillStyle=g;
+        ctx.beginPath(); ctx.arc(px,py,7,0,Math.PI*2); ctx.fill();
+        return true;
+      });
     });
 
+    ctx.globalCompositeOperation = saved;
+
+    // neurons
     nodes.forEach(nd=>{
-      nd.breathPhase+=nd.breathSpeed;
-      const breathA=0.04+Math.sin(nd.breathPhase)*0.015;
-      if(nd.glow>0.02){
-        const saved=ctx.globalCompositeOperation;
+      nd.breathPhase += nd.breathSpeed;
+      const breathA = 0.05 + Math.sin(nd.breathPhase)*0.02;
+
+      if(nd.glow > 0.02){
+        ctx.save();
         ctx.globalCompositeOperation='lighter';
-        const gh=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,nd.r*3.5);
-        gh.addColorStop(0,`rgba(21,195,160,${nd.glow*0.2})`);
+        const gh=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,nd.r*4);
+        gh.addColorStop(0,`rgba(21,195,160,${nd.glow*0.25})`);
         gh.addColorStop(1,'rgba(21,195,160,0)');
         ctx.fillStyle=gh;
-        ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r*3.5,0,Math.PI*2); ctx.fill();
-        ctx.globalCompositeOperation=saved;
-        nd.glow*=0.95;
+        ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r*4,0,Math.PI*2); ctx.fill();
+        ctx.restore();
+        nd.glow *= 0.96;
       }
+
       ctx.beginPath(); ctx.arc(nd.x,nd.y,nd.r,0,Math.PI*2);
-      const lit=nd.glow>0.08;
-      ctx.fillStyle=lit?`rgba(21,195,160,${0.1+nd.glow*0.4})`:`rgba(21,195,160,${breathA})`;
+      const lit = nd.glow > 0.08;
+      ctx.fillStyle = lit ? `rgba(21,195,160,${0.12+nd.glow*0.45})` : `rgba(21,195,160,${breathA})`;
       ctx.fill();
-      ctx.strokeStyle=`rgba(21,195,160,${0.15+nd.glow*0.35})`;
-      ctx.lineWidth=0.7; ctx.stroke();
+      ctx.strokeStyle = `rgba(21,195,160,${0.18+nd.glow*0.42})`;
+      ctx.lineWidth = 0.7; ctx.stroke();
     });
 
-    raf=requestAnimationFrame(frame);
+    raf = requestAnimationFrame(frame);
   }
 
   resize();
