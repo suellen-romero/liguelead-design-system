@@ -1,969 +1,772 @@
-<title>LigueLead Design System</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LigueLead Design System v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ─── TOKENS ───────────────────────────────────────────── */
+/* ═══ TOKENS ══════════════════════════════════════════════ */
 :root {
-  --green:        #00C9A7;
-  --green-dark:   #00A88E;
-  --green-mint:   #7DDFC3;
-  --green-glow:   rgba(0,201,167,0.18);
-  --green-subtle: rgba(0,201,167,0.08);
+  /* Brand */
+  --teal:      #15C3A0;
+  --teal-glow: #1FE6BC;
+  --teal-dark: #0E7C66;
+  --teal-dim:  rgba(21,195,160,0.10);
+  --teal-dim2: rgba(21,195,160,0.06);
 
-  --bg:      #0A0A0A;
-  --surface: #131313;
-  --card:    #1B1B1B;
-  --border:  #262626;
-  --border-2:#333333;
+  /* Backgrounds */
+  --bg:      #0A0E0D;
+  --bg2:     #0D1210;
+  --surface: #111918;
+  --card:    #141F1C;
+  --card2:   #192622;
 
-  --tx-1: #F2F2F2;
-  --tx-2: #9A9A9A;
-  --tx-3: #5A5A5A;
+  /* Borders */
+  --border:  rgba(21,195,160,0.10);
+  --border2: rgba(21,195,160,0.20);
+  --border3: rgba(21,195,160,0.35);
 
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-mono:    'SFMono-Regular', Consolas, 'Courier New', monospace;
+  /* Text */
+  --tx-1: #F2F7F5;
+  --tx-2: #7A8884;
+  --tx-3: #3D5550;
 
-  --r-sm: 8px;
-  --r-md: 14px;
-  --r-lg: 20px;
-  --r-xl: 28px;
-  --r-full: 9999px;
+  /* Semantic */
+  --green: var(--teal);
+  --red:   #E5484D;
+  --amber: #FFD23F;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 32px rgba(0,201,167,0.25), 0 0 80px rgba(0,201,167,0.1);
+  /* Neon shadows */
+  --neon-sm:  0 0 6px rgba(21,195,160,.8), 0 0 16px rgba(21,195,160,.4);
+  --neon-md:  0 0 8px rgba(21,195,160,.9), 0 0 24px rgba(21,195,160,.5), 0 0 56px rgba(21,195,160,.2);
+  --neon-lg:  0 0 12px rgba(21,195,160,1), 0 0 40px rgba(21,195,160,.6), 0 0 90px rgba(21,195,160,.25);
+  --neon-tx:  0 0 10px rgba(21,195,160,.9), 0 0 28px rgba(21,195,160,.5), 0 0 60px rgba(21,195,160,.2);
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-fast: 150ms;
-  --dur-base: 300ms;
-  --dur-slow: 600ms;
+  /* Radius */
+  --r-xs: 4px; --r-sm: 6px; --r-md: 10px;
+  --r-lg: 16px; --r-xl: 22px; --r-2xl: 32px; --r-full: 9999px;
+
+  /* Font */
+  --f-display: 'Bebas Neue', sans-serif;
+  --f-body:    'DM Sans', sans-serif;
+  --f-mono:    'DM Mono', monospace;
+
+  /* Spacing scale */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-20: 80px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg:      #F4FDFB;
-    --surface: #FFFFFF;
-    --card:    #FFFFFF;
-    --border:  #DFF5F0;
-    --border-2:#C8EDE7;
-    --tx-1:    #0F1A18;
-    --tx-2:    #4A6560;
-    --tx-3:    #8AABA5;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
-    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-    --shadow-glow: 0 0 32px rgba(0,201,167,0.2), 0 0 80px rgba(0,201,167,0.08);
-    --green-glow:   rgba(0,201,167,0.12);
-    --green-subtle: rgba(0,201,167,0.06);
-  }
-}
-:root[data-theme="dark"] {
-  --bg:#0A0A0A; --surface:#131313; --card:#1B1B1B;
-  --border:#262626; --border-2:#333333;
-  --tx-1:#F2F2F2; --tx-2:#9A9A9A; --tx-3:#5A5A5A;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md:0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
-  --shadow-glow:0 0 32px rgba(0,201,167,0.25),0 0 80px rgba(0,201,167,0.1);
-  --green-glow:rgba(0,201,167,0.18); --green-subtle:rgba(0,201,167,0.08);
-}
-:root[data-theme="light"] {
-  --bg:#F4FDFB; --surface:#FFFFFF; --card:#FFFFFF;
-  --border:#DFF5F0; --border-2:#C8EDE7;
-  --tx-1:#0F1A18; --tx-2:#4A6560; --tx-3:#8AABA5;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md:0 4px 16px rgba(0,0,0,0.1);
-  --shadow-lg:0 12px 40px rgba(0,0,0,0.12);
-  --shadow-glow:0 0 32px rgba(0,201,167,0.2),0 0 80px rgba(0,201,167,0.08);
-  --green-glow:rgba(0,201,167,0.12); --green-subtle:rgba(0,201,167,0.06);
-}
-
-/* ─── RESET & BASE ─────────────────────────────────────── */
+/* ═══ RESET ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
   background: var(--bg);
   color: var(--tx-1);
-  font-family: var(--font-ui);
-  line-height: 1.6;
-  min-height: 100vh;
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
-::selection { background: var(--green); color: #0A0A0A; }
+::selection { background: var(--teal); color: #030A08; }
+a { color: inherit; text-decoration: none; }
+img, svg { max-width: 100%; display: block; }
 
-/* ─── NAV ──────────────────────────────────────────────── */
+/* ═══ CANVAS ═══════════════════════════════════════════════ */
+#bg-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  opacity: .45;
+}
+
+/* ═══ SCANLINES ═════════════════════════════════════════════ */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+    transparent, transparent 2px,
+    rgba(0,0,0,.06) 2px, rgba(0,0,0,.06) 4px);
+}
+
+/* ═══ NAV ═══════════════════════════════════════════════════ */
 .nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,10,10,0.85);
-  backdrop-filter: blur(20px) saturate(180%);
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(10,14,13,.9);
+  backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center;
-  padding: 0 32px; height: 56px; gap: 0;
+  padding: 0 32px; height: 58px; gap: 8px;
 }
-:root[data-theme="light"] .nav { background: rgba(244,253,251,0.85); }
-@media(prefers-color-scheme:light){.nav{background:rgba(244,253,251,0.85);}}
 .nav-logo {
-  font-family: var(--font-ui); font-weight: 900; font-size: 15px;
-  letter-spacing: -0.3px; color: var(--tx-1); margin-right: 40px; white-space: nowrap;
+  display: flex; align-items: baseline; gap: 1px;
+  font-family: var(--f-display); font-size: 22px;
+  letter-spacing: 2px; color: var(--tx-1);
+  margin-right: 36px; white-space: nowrap;
 }
-.nav-logo span { color: var(--green); }
-.nav-links {
-  display: flex; gap: 2px; flex: 1;
-  list-style: none; overflow-x: auto; scrollbar-width: none;
-}
+.nav-logo em { color: var(--teal); font-style: italic; text-shadow: var(--neon-sm); font-family: Georgia, serif; font-size: 24px; }
+.nav-logo span { color: var(--teal); text-shadow: var(--neon-sm); }
+.nav-links { display: flex; gap: 2px; flex: 1; list-style: none; overflow-x: auto; scrollbar-width: none; }
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-links a {
-  display: block; padding: 6px 14px;
-  font-size: 13px; font-weight: 500; color: var(--tx-2);
-  text-decoration: none; border-radius: var(--r-sm);
-  transition: color var(--dur-fast), background var(--dur-fast);
-  white-space: nowrap;
+  display: block; padding: 5px 11px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--tx-3); border-radius: var(--r-sm);
+  transition: color .2s, background .2s; white-space: nowrap;
+  font-family: var(--f-mono);
 }
-.nav-links a:hover { color: var(--tx-1); background: var(--green-subtle); }
-.nav-links a.active { color: var(--green); }
-.nav-end { display: flex; align-items: center; gap: 8px; margin-left: auto; padding-left: 24px; }
-.theme-toggle {
-  width: 32px; height: 32px; border-radius: var(--r-sm);
-  border: 1px solid var(--border); background: transparent;
-  cursor: pointer; color: var(--tx-2); font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--dur-fast);
+.nav-links a:hover { color: var(--teal); background: var(--teal-dim); }
+.nav-ver {
+  margin-left: auto; white-space: nowrap;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px;
+  color: var(--teal); padding: 3px 12px;
+  border: 1px solid var(--border2); border-radius: var(--r-full);
+  box-shadow: var(--neon-sm);
 }
-.theme-toggle:hover { color: var(--tx-1); border-color: var(--border-2); }
 
-/* ─── HERO ─────────────────────────────────────────────── */
+/* ═══ HERO ═══════════════════════════════════════════════════ */
 .hero {
-  position: relative; overflow: hidden;
-  min-height: 88vh;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center;
-  padding: 80px 24px;
-}
-.hero-bg {
-  position: absolute; inset: 0; pointer-events: none;
-}
-.orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(70px); opacity: 0.7;
-}
-.orb-1 {
-  width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(0,201,167,0.28) 0%, transparent 65%);
-  top: -160px; left: -80px;
-  animation: orbDrift1 14s ease-in-out infinite;
-}
-.orb-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(0,168,142,0.2) 0%, transparent 65%);
-  bottom: -100px; right: 0;
-  animation: orbDrift2 18s ease-in-out infinite;
-}
-.orb-3 {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(125,223,195,0.15) 0%, transparent 65%);
-  top: 40%; left: 55%;
-  animation: orbDrift3 11s ease-in-out infinite;
-}
-@keyframes orbDrift1 {
-  0%,100%{transform:translate(0,0);} 33%{transform:translate(60px,-40px);} 66%{transform:translate(-30px,50px);}
-}
-@keyframes orbDrift2 {
-  0%,100%{transform:translate(0,0);} 40%{transform:translate(-50px,30px);} 70%{transform:translate(40px,-60px);}
-}
-@keyframes orbDrift3 {
-  0%,100%{transform:translate(0,0);} 50%{transform:translate(-40px,-30px);}
+  position: relative; z-index: 1;
+  min-height: 94vh; display: flex;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 80px 24px;
+  overflow: hidden;
 }
 .hero-grid {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(0,201,167,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,201,167,0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  animation: gridMove 24s linear infinite;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    linear-gradient(rgba(21,195,160,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21,195,160,.055) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridScroll 24s linear infinite;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, black 20%, transparent 100%);
 }
-@keyframes gridMove { from{background-position:0 0;} to{background-position:48px 48px;} }
-.hero-grain {
-  position: absolute; inset: 0; opacity: 0.035;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/></filter><rect width='256' height='256' filter='url(%23g)'/></svg>");
-  background-size: 256px 256px;
+@keyframes gridScroll { to { background-position: 60px 60px; } }
+
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); mix-blend-mode: screen; pointer-events: none;
 }
-.hero-content { position: relative; z-index: 1; max-width: 760px; }
-.hero-eyebrow {
+.o1 { width:700px;height:700px; background:radial-gradient(circle,rgba(21,195,160,.18) 0%,transparent 65%); top:-250px;left:-200px; animation:ob1 20s ease-in-out infinite; }
+.o2 { width:500px;height:500px; background:radial-gradient(circle,rgba(14,124,102,.16) 0%,transparent 65%); bottom:-150px;right:-150px; animation:ob2 26s ease-in-out infinite; }
+.o3 { width:350px;height:350px; background:radial-gradient(circle,rgba(31,230,188,.10) 0%,transparent 65%); top:40%;left:65%; animation:ob3 17s ease-in-out infinite; }
+@keyframes ob1{0%,100%{transform:translate(0,0)}33%{transform:translate(70px,-50px)}66%{transform:translate(-40px,70px)}}
+@keyframes ob2{0%,100%{transform:translate(0,0)}40%{transform:translate(-60px,40px)}70%{transform:translate(50px,-60px)}}
+@keyframes ob3{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-30px)}}
+
+.hero-inner { position: relative; z-index: 2; max-width: 860px; }
+
+.hero-chip {
   display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--green); margin-bottom: 28px;
-  padding: 5px 14px; border: 1px solid rgba(0,201,167,0.3);
-  border-radius: var(--r-full); background: rgba(0,201,167,0.06);
-  animation: fadeUp 0.8s var(--ease-out-expo) both;
+  padding: 6px 18px; margin-bottom: 28px;
+  font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal); border: 1px solid var(--border2); border-radius: var(--r-full);
+  background: rgba(21,195,160,.05); box-shadow: var(--neon-sm);
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) both;
 }
-.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.5; transform:scale(0.7);} }
-.hero h1 {
-  font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 5.2rem);
-  font-weight: 700; line-height: 1.08; letter-spacing: -0.03em;
-  color: var(--tx-1); text-wrap: balance; margin-bottom: 24px;
-  animation: fadeUp 0.8s var(--ease-out-expo) 0.1s both;
+.chip-dot { width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:var(--neon-md);animation:pulse 2s infinite; }
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.5)}}
+
+.hero-title {
+  font-family: var(--f-display);
+  font-size: clamp(4rem, 9vw, 8rem);
+  line-height: .95; letter-spacing: 3px;
+  color: var(--tx-1); margin-bottom: 8px;
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .08s both;
 }
-.hero h1 .accent { color: var(--green); font-style: italic; }
+.hero-title .hl {
+  color: var(--teal); text-shadow: var(--neon-tx);
+  animation: gPulse 4s ease-in-out infinite;
+}
+@keyframes gPulse{0%,100%{text-shadow:0 0 10px rgba(21,195,160,.9),0 0 28px rgba(21,195,160,.5),0 0 60px rgba(21,195,160,.2)}50%{text-shadow:0 0 20px rgba(21,195,160,1),0 0 50px rgba(21,195,160,.7),0 0 100px rgba(21,195,160,.35)}}
+
 .hero-sub {
-  font-size: 1.1rem; color: var(--tx-2); max-width: 520px;
-  margin: 0 auto 48px; line-height: 1.7;
-  animation: fadeUp 0.8s var(--ease-out-expo) 0.2s both;
-}
-.hero-stats {
-  display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
-  animation: fadeUp 0.8s var(--ease-out-expo) 0.3s both;
-}
-.hero-stat { text-align: center; }
-.hero-stat-n {
-  font-family: var(--font-mono); font-size: 2rem; font-weight: 700;
-  color: var(--green); letter-spacing: -1px;
-  font-variant-numeric: tabular-nums;
-}
-.hero-stat-l { font-size: 12px; color: var(--tx-3); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-.hero-divider { width: 1px; height: 40px; background: var(--border); align-self: center; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
-
-/* ─── SECTION LAYOUT ───────────────────────────────────── */
-.section {
-  padding: 96px 24px;
-  border-top: 1px solid var(--border);
-}
-.section-inner { max-width: 1120px; margin: 0 auto; }
-.section-header { margin-bottom: 64px; }
-.section-eyebrow {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--green); margin-bottom: 12px;
-}
-.section-title {
-  font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 700; letter-spacing: -0.025em; color: var(--tx-1);
-  line-height: 1.15; text-wrap: balance;
-}
-.section-desc {
-  font-size: 15px; color: var(--tx-2); margin-top: 12px; max-width: 480px;
+  font-size: 1.1rem; color: var(--tx-2); max-width: 560px;
+  margin: 20px auto 44px; line-height: 1.75;
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .15s both;
 }
 
-/* ─── COLORS ───────────────────────────────────────────── */
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-}
-.color-swatch {
-  border-radius: var(--r-lg); overflow: hidden;
-  border: 1px solid var(--border);
-  transition: transform var(--dur-base) var(--ease-out-expo), box-shadow var(--dur-base);
-  cursor: default;
-}
-.color-swatch:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.swatch-block { height: 88px; }
-.swatch-info { padding: 14px 16px; background: var(--card); }
-.swatch-name { font-size: 13px; font-weight: 700; color: var(--tx-1); }
-.swatch-hex {
-  font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); margin-top: 3px;
-}
-.swatch-use { font-size: 11px; color: var(--tx-3); margin-top: 4px; }
-.swatch-featured { position: relative; overflow: visible; }
-.swatch-featured .swatch-block {
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-  height: 120px; border-radius: var(--r-lg) var(--r-lg) 0 0;
-}
-.swatch-featured::after {
-  content: 'Brand';
-  position: absolute; top: 12px; right: 12px;
-  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  background: rgba(0,0,0,0.3); color: rgba(255,255,255,0.9);
-  padding: 3px 9px; border-radius: var(--r-full);
+.hero-ctas {
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 72px;
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .22s both;
 }
 
-/* ─── TYPOGRAPHY ───────────────────────────────────────── */
-.type-scale { display: flex; flex-direction: column; gap: 32px; }
-.type-row {
-  display: flex; align-items: baseline; gap: 24px;
-  padding-bottom: 32px; border-bottom: 1px solid var(--border);
+.hero-numbers {
+  display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .28s both;
 }
-.type-row:last-child { border-bottom: none; }
-.type-meta {
-  flex: 0 0 120px; font-family: var(--font-mono);
-  font-size: 11px; color: var(--tx-3); line-height: 1.5;
-}
-.type-meta strong { display: block; color: var(--green); font-size: 11px; }
-.type-sample { flex: 1; min-width: 0; }
-.t-display { font-family: var(--font-display); font-size: 3.5rem; font-weight: 700; letter-spacing: -0.04em; color: var(--tx-1); line-height: 1; }
-.t-h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; color: var(--tx-1); line-height: 1.1; }
-.t-h2 { font-family: var(--font-ui); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--tx-1); }
-.t-h3 { font-family: var(--font-ui); font-size: 1.1rem; font-weight: 700; color: var(--tx-1); }
-.t-body { font-size: 1rem; color: var(--tx-2); line-height: 1.7; max-width: 52ch; }
-.t-sm { font-size: 0.875rem; color: var(--tx-2); }
-.t-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
-.t-mono { font-family: var(--font-mono); font-size: 0.875rem; color: var(--green); background: var(--green-subtle); padding: 2px 8px; border-radius: 4px; }
+.hn-v { font-family: var(--f-display); font-size: 2.8rem; color: var(--teal); letter-spacing: 2px; line-height: 1; text-shadow: var(--neon-sm); }
+.hn-l { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+.hn-div { width:1px;height:44px;background:var(--border2);align-self:center; }
 
-/* ─── BUTTONS ──────────────────────────────────────────── */
-.component-row {
-  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
-  padding: 32px; background: var(--card);
-  border: 1px solid var(--border); border-radius: var(--r-lg);
-  margin-bottom: 16px;
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ═══ SECTIONS ══════════════════════════════════════════════ */
+.sec { padding: var(--s-20) 24px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+.sec-alt { background: var(--bg2); }
+.w { max-width: 1160px; margin: 0 auto; }
+
+.sec-ey {
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
 }
-.component-label {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--tx-3); margin-bottom: 8px;
+.sec-ey::before { content:''; width:20px;height:1px;background:var(--teal);box-shadow:0 0 6px rgba(21,195,160,.8); }
+
+.sec-h {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: 2px; color: var(--tx-1); line-height: 1;
 }
+.sec-desc { font-size: 15px; color: var(--tx-2); margin-top: 10px; max-width: 480px; line-height: 1.7; }
+.sec-head { margin-bottom: 56px; }
+
+/* ═══ BUTTONS ═══════════════════════════════════════════════ */
 .btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 22px; border-radius: var(--r-sm);
-  font-family: var(--font-ui); font-size: 14px; font-weight: 700;
-  cursor: pointer; border: none; outline: none;
-  transition: all var(--dur-base) var(--ease-out-expo);
-  text-decoration: none; user-select: none;
-  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 24px; border-radius: var(--r-sm);
+  font-family: var(--f-body); font-size: 14px; font-weight: 700;
+  cursor: pointer; border: none; outline: none; user-select: none;
+  transition: all .25s cubic-bezier(.16,1,.3,1);
+  position: relative; overflow: hidden; text-decoration: none;
 }
-.btn:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
-.btn::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(rgba(255,255,255,0.15), transparent);
-  opacity: 0; transition: opacity var(--dur-fast);
-}
-.btn:hover::after { opacity: 1; }
-.btn-primary {
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-  color: #0A0A0A; box-shadow: 0 4px 16px rgba(0,201,167,0.35);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,201,167,0.45); }
-.btn-primary:active { transform: translateY(0); }
-.btn-secondary {
-  background: var(--green-subtle); color: var(--green);
-  border: 1px solid rgba(0,201,167,0.25);
-}
-.btn-secondary:hover { background: rgba(0,201,167,0.14); transform: translateY(-1px); }
-.btn-ghost {
-  background: transparent; color: var(--tx-1);
-  border: 1px solid var(--border-2);
-}
-.btn-ghost:hover { border-color: var(--green); color: var(--green); }
-.btn-danger {
-  background: rgba(231,76,60,0.1); color: #E74C3C;
-  border: 1px solid rgba(231,76,60,0.2);
-}
-.btn-danger:hover { background: rgba(231,76,60,0.18); }
-.btn-sm { padding: 6px 14px; font-size: 12px; }
-.btn-lg { padding: 14px 28px; font-size: 15px; border-radius: var(--r-md); }
-.btn-icon { width: 38px; height: 38px; padding: 0; justify-content: center; }
-.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 
-/* ─── TAGS / PILLS ─────────────────────────────────────── */
+.btn-primary {
+  background: var(--teal); color: #030A08;
+  box-shadow: var(--neon-sm);
+}
+.btn-primary:hover { box-shadow: var(--neon-md); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-outline {
+  background: transparent; color: var(--teal);
+  border: 1px solid var(--teal);
+  box-shadow: var(--neon-sm), inset 0 0 12px rgba(21,195,160,.04);
+}
+.btn-outline:hover { box-shadow: var(--neon-md), inset 0 0 20px rgba(21,195,160,.08); transform: translateY(-2px); }
+
+.btn-ghost { background: transparent; color: var(--tx-2); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--border2); color: var(--tx-1); }
+
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { opacity: .9; transform: translateY(-2px); }
+
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+.btn-lg { padding: 14px 32px; font-size: 15px; }
+.btn-xl { padding: 16px 40px; font-size: 16px; font-weight: 800; }
+
+/* ═══ TAGS ══════════════════════════════════════════════════ */
 .tag {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 14px; border-radius: var(--r-full);
-  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: var(--r-full);
+  font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
 }
-.tag-green { background: var(--green); color: #0A0A0A; }
-.tag-outline { background: transparent; color: var(--green); border: 1px solid rgba(0,201,167,0.35); }
-.tag-dark { background: rgba(255,255,255,0.08); color: var(--tx-2); border: 1px solid var(--border); }
-.tag-dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-.badge {
-  display: inline-flex; align-items: center;
-  padding: 2px 8px; border-radius: var(--r-full);
-  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-}
-.badge-green { background: rgba(0,201,167,0.15); color: var(--green); }
-.badge-red { background: rgba(231,76,60,0.12); color: #E74C3C; }
-.badge-gray { background: var(--border); color: var(--tx-2); }
+.tag-teal { color: var(--teal); border: 1px solid var(--teal); box-shadow: var(--neon-sm); background: rgba(21,195,160,.06); text-shadow: 0 0 8px rgba(21,195,160,.5); }
+.tag-solid { background: var(--teal); color: #030A08; box-shadow: var(--neon-sm); }
+.tag-dim { background: var(--teal-dim); color: var(--teal); border: 1px solid var(--border2); }
+.tag-dark { background: rgba(255,255,255,.05); color: var(--tx-2); border: 1px solid var(--border); }
+.tag-red { background: rgba(229,72,77,.1); color: var(--red); border: 1px solid rgba(229,72,77,.25); }
+.tag-amber { background: rgba(255,210,63,.08); color: var(--amber); border: 1px solid rgba(255,210,63,.2); }
 
-/* ─── CARDS ────────────────────────────────────────────── */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-.card-base {
+/* ═══ CARDS ═════════════════════════════════════════════════ */
+.card {
   border-radius: var(--r-lg); padding: 28px;
   border: 1px solid var(--border);
   position: relative; overflow: hidden;
-  transition: transform var(--dur-base) var(--ease-out-expo),
-              box-shadow var(--dur-base) var(--ease-out-expo);
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
 }
-.card-dark-v {
-  background: linear-gradient(160deg, #111 0%, #1a1a1a 100%);
-  border-color: #2a2a2a;
+.card:hover { transform: translateY(-6px); }
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  opacity: 0; transition: opacity .3s;
 }
-.card-green-v {
-  background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 100%);
-  color: #0A0A0A; border-color: transparent;
+.card:hover::before { opacity: 1; }
+
+.card-dark { background: linear-gradient(160deg, #0D1815, #111F1B); }
+.card-dark:hover { box-shadow: 0 20px 60px rgba(0,0,0,.5), var(--neon-sm); }
+
+.card-neon { background: linear-gradient(160deg, #061210, #0A1A16); }
+.card-neon::after {
+  content: ''; position: absolute; inset: -1px; border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--teal), var(--teal-glow), var(--teal-dark), var(--teal));
+  background-size: 300% 300%; z-index: -1;
+  animation: gradRot 5s linear infinite;
 }
-.card-green-v .card-title, .card-green-v .card-body { color: #0A1A17; }
-.card-accent-v {
-  background: linear-gradient(160deg, #0f1f1a 0%, #132b23 100%);
-  border-color: rgba(0,201,167,0.2);
-}
-.card-glass-v {
-  background: rgba(255,255,255,0.04);
+@keyframes gradRot{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.card-neon:hover { box-shadow: 0 20px 60px rgba(0,0,0,.6), var(--neon-md); }
+
+.card-glass {
+  background: rgba(255,255,255,.025);
   backdrop-filter: blur(20px);
-  border-color: rgba(255,255,255,0.1);
 }
-:root[data-theme="light"] .card-glass-v,
-@media(prefers-color-scheme:light){ .card-glass-v { background: rgba(0,201,167,0.04); border-color: rgba(0,201,167,0.15); } }
-.card-wm {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 120px; font-weight: 900; opacity: 0.04;
-  color: #FFF; pointer-events: none; user-select: none;
-  line-height: 1; white-space: nowrap;
-}
-.card-green-v .card-wm { color: #003; }
-.card-tag { margin-bottom: 16px; }
-.card-title { font-size: 1.25rem; font-weight: 800; color: var(--tx-1); margin-bottom: 10px; line-height: 1.25; }
-.card-body { font-size: 14px; color: var(--tx-2); line-height: 1.6; }
-.card-metric { font-family: var(--font-mono); font-size: 2.4rem; font-weight: 900; color: var(--green); letter-spacing: -2px; margin: 16px 0 4px; font-variant-numeric: tabular-nums; }
-.card-green-v .card-metric { color: #003; }
-.card-foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--tx-3); }
-.card-green-v .card-foot { border-color: rgba(0,0,0,0.15); color: rgba(0,30,25,0.55); }
-.card-base:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.card-glass:hover { box-shadow: 0 20px 60px rgba(0,0,0,.4), var(--neon-sm); }
 
-/* ─── 3D TILT CARD ─────────────────────────────────────── */
-.tilt-wrap {
-  perspective: 900px;
-  display: flex; justify-content: center;
-  padding: 40px 0;
-}
-.tilt-card {
-  width: 100%; max-width: 420px;
-  border-radius: 24px; padding: 36px;
-  background: linear-gradient(160deg, #0f1f1a 0%, #132b23 100%);
-  border: 1px solid rgba(0,201,167,0.25);
-  transform-style: preserve-3d;
-  transition: transform 0.08s linear, box-shadow 0.3s;
-  will-change: transform;
-  position: relative; overflow: hidden;
-  cursor: none;
-}
-.tilt-card:hover { box-shadow: var(--shadow-glow); }
-.tilt-inner { transform: translateZ(30px); }
-.tilt-bg-line {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(0,201,167,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,201,167,0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-.tilt-glow {
-  position: absolute; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,201,167,0.3) 0%, transparent 70%);
-  width: 300px; height: 300px;
-  top: -80px; right: -80px;
-  filter: blur(40px); pointer-events: none;
-  transition: all 0.2s;
-}
-.tilt-card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
-.tilt-number {
-  font-family: var(--font-display); font-size: 4.5rem;
-  font-weight: 700; color: var(--tx-1); letter-spacing: -4px;
-  line-height: 1; margin-bottom: 12px; transform: translateZ(20px);
-}
-.tilt-number span { color: var(--green); }
-.tilt-desc { font-size: 14px; color: var(--tx-2); line-height: 1.6; transform: translateZ(10px); }
-.tilt-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; transform: translateZ(15px); }
-.tilt-chip {
-  font-family: var(--font-mono); font-size: 11px; padding: 4px 12px;
-  border-radius: var(--r-full); border: 1px solid rgba(0,201,167,0.25);
-  color: var(--green-mint); letter-spacing: 0.5px;
-}
-.tilt-cursor {
-  position: fixed; width: 20px; height: 20px;
-  border: 2px solid var(--green); border-radius: 50%;
-  pointer-events: none; transform: translate(-50%,-50%);
-  transition: transform 0.08s, opacity 0.2s;
-  z-index: 9999; display: none;
-}
+.card-solid { background: linear-gradient(135deg, var(--teal-dark), var(--teal)); border-color: transparent; }
+.card-solid:hover { box-shadow: var(--neon-lg), 0 20px 60px rgba(0,0,0,.4); }
+.card-solid .c-title, .card-solid .c-body, .card-solid .c-metric { color: #03120E; }
 
-/* ─── METRICS ──────────────────────────────────────────── */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+.c-tag { margin-bottom: 14px; display: inline-block; }
+.c-icon { width: 44px; height: 44px; margin-bottom: 16px; }
+.c-title { font-size: 1.05rem; font-weight: 800; color: var(--tx-1); margin-bottom: 8px; line-height: 1.3; }
+.c-body { font-size: 13px; color: var(--tx-2); line-height: 1.65; }
+.c-metric {
+  font-family: var(--f-display); font-size: 3.2rem; letter-spacing: 2px;
+  color: var(--teal); margin: 16px 0 4px; line-height: 1;
+  text-shadow: var(--neon-sm);
 }
-.metric-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 24px 20px;
-  transition: border-color var(--dur-base), box-shadow var(--dur-base);
-}
-.metric-card:hover { border-color: rgba(0,201,167,0.3); box-shadow: 0 0 0 1px rgba(0,201,167,0.1); }
-.metric-n {
-  font-family: var(--font-mono); font-size: 2.4rem; font-weight: 900;
-  color: var(--green); letter-spacing: -2px; line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.metric-label { font-size: 12px; color: var(--tx-2); margin-top: 8px; line-height: 1.4; }
-.metric-delta { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; margin-top: 10px; }
-.delta-up { color: var(--green); }
-.delta-down { color: #E74C3C; }
-.bar-wrap { margin-top: 12px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.bar-fill { height: 100%; background: linear-gradient(90deg, var(--green-dark), var(--green)); border-radius: 2px; transition: width 1.2s var(--ease-out-expo); }
+.c-foot { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--tx-3); }
+.card-solid .c-foot { border-color: rgba(0,0,0,.2); color: rgba(3,18,14,.6); }
 
-/* ─── INPUTS ───────────────────────────────────────────── */
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.field { display: flex; flex-direction: column; gap: 8px; }
-.field-label { font-size: 12px; font-weight: 700; color: var(--tx-2); letter-spacing: 0.5px; }
+/* ═══ FORMS ═════════════════════════════════════════════════ */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-3); }
+.field-hint { font-size: 12px; color: var(--tx-3); margin-top: 4px; }
+.field-error { font-size: 12px; color: var(--red); margin-top: 4px; }
+
 .input {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r-sm); padding: 10px 14px;
-  font-size: 14px; color: var(--tx-1); font-family: var(--font-ui);
-  outline: none; transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
-  width: 100%;
+  font-size: 14px; color: var(--tx-1); font-family: var(--f-body);
+  outline: none; width: 100%;
+  transition: border-color .2s, box-shadow .2s;
 }
 .input::placeholder { color: var(--tx-3); }
-.input:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(0,201,167,0.15);
+.input:hover { border-color: var(--border2); }
+.input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(21,195,160,.12), var(--neon-sm); }
+.input-error { border-color: var(--red) !important; }
+.input-error:focus { box-shadow: 0 0 0 3px rgba(229,72,77,.12) !important; }
+
+.input-icon-wrap { position: relative; }
+.input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tx-3); pointer-events: none; }
+.input-icon-wrap .input { padding-left: 38px; }
+
+textarea.input { resize: vertical; min-height: 100px; }
+
+select.input { appearance: none; cursor: pointer; }
+
+/* Toggle */
+.toggle-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.toggle {
+  width: 44px; height: 24px; border-radius: var(--r-full);
+  background: var(--border); position: relative;
+  transition: background .3s; flex-shrink: 0;
 }
-.input-prefix {
-  display: flex; border: 1px solid var(--border); border-radius: var(--r-sm); overflow: hidden;
-  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--tx-2); transition: transform .3s, background .3s;
 }
-.input-prefix:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,201,167,0.15); }
-.prefix-label { padding: 10px 14px; background: var(--card); font-size: 14px; color: var(--tx-3); border-right: 1px solid var(--border); white-space: nowrap; }
-.input-prefix .input { border: none; box-shadow: none; }
-.input-prefix .input:focus { box-shadow: none; }
-.select {
-  appearance: none;
-  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9A9A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+input:checked + .toggle { background: var(--teal); box-shadow: var(--neon-sm); }
+input:checked + .toggle::after { transform: translateX(20px); background: #03120E; }
+.toggle-label { font-size: 14px; color: var(--tx-1); }
+
+/* Checkbox */
+.check-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.check-box {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1px solid var(--border2); background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .2s;
+}
+input:checked ~ .check-box { background: var(--teal); border-color: var(--teal); box-shadow: var(--neon-sm); }
+.check-box svg { opacity: 0; transition: opacity .15s; }
+input:checked ~ .check-box svg { opacity: 1; }
+
+/* Radio */
+.radio-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.radio-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--border2); background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .2s;
+}
+.radio-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); opacity: 0; box-shadow: var(--neon-sm); transition: opacity .2s; }
+input:checked ~ .radio-dot { border-color: var(--teal); box-shadow: var(--neon-sm); }
+input:checked ~ .radio-dot::after { opacity: 1; }
+
+/* Range */
+.input[type=range] {
+  -webkit-appearance: none; height: 4px; padding: 0;
+  background: linear-gradient(90deg, var(--teal) var(--val,50%), var(--border) var(--val,50%));
+  border: none;
+}
+.input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--teal); box-shadow: var(--neon-sm); cursor: pointer;
+  border: 2px solid var(--bg);
 }
 
-/* ─── GRADIENT BORDER DEMO ─────────────────────────────── */
-.grad-border-wrap {
-  padding: 2px; border-radius: var(--r-xl);
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 50%, var(--green-mint) 100%);
-  background-size: 200% 200%;
-  animation: gradShift 4s ease infinite;
-  display: inline-block;
+/* ═══ TABLES ════════════════════════════════════════════════ */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); }
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--surface); }
+th {
+  padding: 12px 16px; text-align: left;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--tx-3); font-weight: 500;
+  border-bottom: 1px solid var(--border);
 }
-@keyframes gradShift { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
-.grad-border-inner {
-  background: var(--card); border-radius: calc(var(--r-xl) - 2px);
-  padding: 24px 32px; font-size: 15px; color: var(--tx-1);
-}
+td { padding: 13px 16px; font-size: 14px; color: var(--tx-1); border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: rgba(21,195,160,.03); }
+.td-mono { font-family: var(--f-mono); font-size: 13px; color: var(--teal); }
+.td-badge { display: inline-flex; }
 
-/* ─── MOTION TOKENS ────────────────────────────────────── */
-.motion-grid { display: flex; flex-direction: column; gap: 20px; }
-.motion-row {
-  display: flex; align-items: center; gap: 20px;
-  padding: 16px 20px; background: var(--card);
-  border: 1px solid var(--border); border-radius: var(--r-md);
+/* ═══ NEON ICONS ════════════════════════════════════════════ */
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.icon-tile {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 28px 16px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  cursor: default; position: relative; overflow: hidden;
+  transition: all .3s cubic-bezier(.16,1,.3,1);
 }
-.motion-label { font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); flex: 0 0 200px; }
-.motion-track {
-  flex: 1; height: 40px; background: var(--surface);
-  border-radius: var(--r-sm); position: relative; overflow: hidden;
-  cursor: pointer;
+.icon-tile::before {
+  content: ''; position: absolute; inset: -1px; border-radius: var(--r-lg);
+  background: conic-gradient(from var(--a,0deg), var(--teal), transparent 40%, var(--teal-glow), transparent 70%, var(--teal));
+  z-index: -1; opacity: 0; transition: opacity .3s;
 }
-.motion-dot {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 24px; height: 24px; border-radius: 50%;
-  background: var(--green); left: 8px;
-  transition: left 0.6s;
+.icon-tile:hover::before { opacity: 1; animation: spin 4s linear infinite; }
+@property --a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes spin { to { --a: 360deg; } }
+.icon-tile:hover { transform: translateY(-7px); box-shadow: 0 20px 50px rgba(0,0,0,.5), var(--neon-sm); }
+.icon-tile svg {
+  width: 48px; height: 48px;
+  filter: drop-shadow(0 0 6px rgba(21,195,160,.8)) drop-shadow(0 0 18px rgba(21,195,160,.4));
 }
-.motion-track:hover .motion-dot { left: calc(100% - 32px); }
-.m-fast .motion-dot { transition-duration: 0.15s; }
-.m-slow .motion-dot { transition-duration: 0.8s; }
-.m-spring .motion-dot { transition-timing-function: cubic-bezier(0.34,1.56,0.64,1); }
-.m-expo .motion-dot { transition-timing-function: cubic-bezier(0.16,1,0.3,1); }
+.icon-tile .draw { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawOn 1.6s ease-out forwards; }
+@keyframes drawOn { to { stroke-dashoffset: 0; } }
+.icon-name { font-family: var(--f-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--tx-2); text-align: center; }
+.icon-badge-s { font-size: 9px; }
 
-/* ─── PLATFORM PREVIEW ─────────────────────────────────── */
-.platform-preview {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r-xl); overflow: hidden;
+/* ═══ METRICS ═══════════════════════════════════════════════ */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.metric-tile {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 22px 18px; position: relative; overflow: hidden;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
 }
-.platform-topbar {
+.metric-tile::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); opacity: 0; transition: opacity .25s; }
+.metric-tile:hover { border-color: var(--border2); box-shadow: var(--neon-sm); transform: translateY(-3px); }
+.metric-tile:hover::after { opacity: 1; }
+.m-n { font-family: var(--f-display); font-size: 2.8rem; letter-spacing: 2px; color: var(--teal); line-height: 1; text-shadow: var(--neon-sm); }
+.m-l { font-size: 12px; color: var(--tx-2); margin-top: 7px; line-height: 1.4; }
+.m-up { font-family: var(--f-mono); font-size: 10px; color: var(--teal); margin-top: 10px; }
+.bar-track { margin-top: 10px; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal-dark), var(--teal)); box-shadow: 0 0 8px rgba(21,195,160,.5); border-radius: 2px; transition: width 1.4s cubic-bezier(.16,1,.3,1); }
+
+/* ═══ PLATFORM UI ════════════════════════════════════════════ */
+.platform { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,.5); }
+.p-bar {
   background: var(--surface); border-bottom: 1px solid var(--border);
-  padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; display: flex; align-items: center; gap: 12px;
 }
-.topbar-dots { display: flex; gap: 6px; }
-.topbar-dots span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
-.topbar-dots span:nth-child(1) { background: #E74C3C; }
-.topbar-dots span:nth-child(2) { background: #F39C12; }
-.topbar-dots span:nth-child(3) { background: var(--green); }
-.topbar-title { font-family: var(--font-mono); font-size: 12px; color: var(--tx-2); margin-left: 12px; }
-.topbar-badge { margin-left: auto; }
-.platform-body { padding: 24px; }
-.platform-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.kpi-tile {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 14px;
-}
-.kpi-label { font-size: 11px; color: var(--tx-3); letter-spacing: 0.5px; }
-.kpi-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 900; color: var(--tx-1); margin-top: 4px; font-variant-numeric: tabular-nums; }
-.kpi-value.green { color: var(--green); }
-.kpi-delta { font-size: 11px; color: var(--green); margin-top: 4px; }
-.platform-row2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
-.platform-chart {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 16px;
-}
-.chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.chart-title { font-size: 13px; font-weight: 700; color: var(--tx-1); }
-.chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
-.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.bar-v { border-radius: 3px 3px 0 0; width: 100%; background: var(--border); position: relative; overflow: hidden; }
-.bar-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%); transform: scaleY(0); transform-origin: bottom; transition: transform 1s var(--ease-out-expo); border-radius: inherit; }
-.bar-v.animate::after { transform: scaleY(1); }
-.bar-label-v { font-family: var(--font-mono); font-size: 9px; color: var(--tx-3); }
-.platform-activity {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 16px;
-}
-.activity-title { font-size: 13px; font-weight: 700; color: var(--tx-1); margin-bottom: 12px; }
-.activity-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-.activity-item:last-child { border-bottom: none; }
-.activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.activity-text { font-size: 12px; color: var(--tx-2); flex: 1; }
-.activity-time { font-family: var(--font-mono); font-size: 10px; color: var(--tx-3); }
+.p-dots { display: flex; gap: 6px; }
+.p-dots span { width: 11px; height: 11px; border-radius: 50%; }
+.p-dots .d-r { background: #E5484D; box-shadow: 0 0 6px rgba(229,72,77,.5); }
+.p-dots .d-y { background: #FFD23F; box-shadow: 0 0 6px rgba(255,210,63,.4); }
+.p-dots .d-g { background: var(--teal); box-shadow: var(--neon-sm); }
+.p-url { font-family: var(--f-mono); font-size: 11px; color: var(--tx-3); background: var(--bg); padding: 3px 14px; border-radius: var(--r-full); border: 1px solid var(--border); }
+.p-body { padding: 20px; }
+.p-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+.p-kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px; transition: border-color .2s; }
+.p-kpi:hover { border-color: var(--border2); }
+.p-kpi-l { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: .5px; }
+.p-kpi-v { font-family: var(--f-display); font-size: 2rem; letter-spacing: 1px; color: var(--tx-1); margin-top: 4px; }
+.p-kpi-v.t { color: var(--teal); text-shadow: var(--neon-sm); }
+.p-kpi-d { font-family: var(--f-mono); font-size: 10px; color: var(--teal); margin-top: 4px; }
+.p-row2 { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+.p-chart, .p-act { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 16px; }
+.p-chart-h, .p-act-h { font-size: 12px; font-weight: 700; color: var(--tx-1); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+.p-bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
+.p-bc { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.p-bv { border-radius: 3px 3px 0 0; width: 100%; background: var(--border); position: relative; overflow: hidden; }
+.p-bv::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--teal-glow), var(--teal-dark)); box-shadow: 0 -4px 12px rgba(21,195,160,.4); transform: scaleY(0); transform-origin: bottom; transition: transform 1.2s cubic-bezier(.16,1,.3,1); border-radius: inherit; }
+.p-bv.anim::after { transform: scaleY(1); }
+.p-bl { font-family: var(--f-mono); font-size: 9px; color: var(--tx-3); }
+.p-act-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.p-act-row:last-child { border-bottom: none; }
+.p-act-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.p-act-tx { font-size: 12px; color: var(--tx-2); flex: 1; }
+.p-act-t { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); }
 
-/* ─── SPACING & RADIUS TOKENS ──────────────────────────── */
-.token-grid { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
-.token-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.space-box { background: var(--green-subtle); border: 1px solid rgba(0,201,167,0.2); }
-.token-val { font-family: var(--font-mono); font-size: 10px; color: var(--tx-3); }
-.radius-box { background: var(--card); border: 2px solid var(--green); width: 64px; height: 48px; }
-.shadow-box {
-  width: 80px; height: 56px; background: var(--card);
-  border: 1px solid var(--border); border-radius: var(--r-md);
+/* ═══ 3D TILT ════════════════════════════════════════════════ */
+.tilt-scene { perspective: 900px; display: flex; justify-content: center; }
+.tilt-card {
+  width: 100%; max-width: 420px; border-radius: 22px; padding: 36px;
+  background: linear-gradient(160deg, #080F0C, #0D1A15);
+  border: 1px solid var(--border2);
+  transform-style: preserve-3d; will-change: transform;
+  transition: transform .06s linear, box-shadow .3s;
+  position: relative; overflow: hidden;
 }
-.sh-sm { box-shadow: var(--shadow-sm); }
-.sh-md { box-shadow: var(--shadow-md); }
-.sh-lg { box-shadow: var(--shadow-lg); }
-.sh-glow { box-shadow: var(--shadow-glow); border-color: rgba(0,201,167,0.2); }
+.tilt-card:hover { box-shadow: var(--neon-md), 0 40px 80px rgba(0,0,0,.7); }
+.tilt-grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(21,195,160,.045) 1px,transparent 1px), linear-gradient(90deg, rgba(21,195,160,.045) 1px,transparent 1px); background-size: 28px 28px; }
+.tilt-glow { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(21,195,160,.2) 0%, transparent 70%); filter: blur(40px); top: -80px; right: -80px; pointer-events: none; transition: all .12s; }
+.tl { transform: translateZ(32px); }
+.tl-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; text-shadow: var(--neon-sm); }
+.tl-num { font-family: var(--f-display); font-size: 5rem; letter-spacing: 2px; color: var(--tx-1); line-height: 1; margin-bottom: 10px; }
+.tl-num span { color: var(--teal); text-shadow: var(--neon-tx); }
+.tl-text { font-size: 13px; color: var(--tx-2); line-height: 1.7; transform: translateZ(18px); }
+.tl-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; transform: translateZ(22px); }
+.tl-chip { font-family: var(--f-mono); font-size: 9px; padding: 4px 10px; border: 1px solid var(--border2); border-radius: var(--r-full); color: var(--teal-glow); letter-spacing: .5px; box-shadow: 0 0 8px rgba(31,230,188,.12); }
 
-/* ─── DIVIDER ──────────────────────────────────────────── */
-.divider { border: none; border-top: 1px solid var(--border); }
-
-/* ─── INTEGRATION STRIP ────────────────────────────────── */
-.integration-strip {
-  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+/* ═══ LANDING PAGE COMPONENTS ═══════════════════════════════ */
+.lp-feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.lp-feat {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 28px; transition: all .3s cubic-bezier(.16,1,.3,1);
+  position: relative; overflow: hidden;
 }
-.integration-chip {
+.lp-feat::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(21,195,160,.05) 0%, transparent 60%); pointer-events: none; }
+.lp-feat:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,.5), var(--neon-sm); border-color: var(--border2); }
+.lp-feat-icon { width: 48px; height: 48px; border-radius: var(--r-md); background: var(--teal-dim); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.lp-feat-icon svg { width: 24px; height: 24px; color: var(--teal); filter: drop-shadow(0 0 6px rgba(21,195,160,.6)); }
+.lp-feat h3 { font-size: 1rem; font-weight: 800; color: var(--tx-1); margin-bottom: 8px; line-height: 1.3; }
+.lp-feat p { font-size: 13px; color: var(--tx-2); line-height: 1.65; }
+
+/* CTA BAND */
+.cta-band {
+  border: 1px solid var(--border2); border-radius: var(--r-xl);
+  padding: 64px 48px; text-align: center;
+  background: linear-gradient(135deg, #08130F, #0D1A16);
+  position: relative; overflow: hidden;
+}
+.cta-band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(21,195,160,.12) 0%, transparent 70%); pointer-events: none; }
+.cta-band h2 { font-family: var(--f-display); font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 3px; color: var(--tx-1); margin-bottom: 14px; }
+.cta-band p { color: var(--tx-2); max-width: 500px; margin: 0 auto 36px; font-size: 15px; line-height: 1.7; }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.price-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 28px;
+  position: relative; transition: all .3s cubic-bezier(.16,1,.3,1);
+}
+.price-card.featured { border-color: var(--teal); box-shadow: var(--neon-sm); }
+.price-card:hover { transform: translateY(-6px); }
+.price-card.featured:hover { box-shadow: var(--neon-md); }
+.price-tier { font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-3); margin-bottom: 8px; }
+.price-tier.t { color: var(--teal); text-shadow: var(--neon-sm); }
+.price-val { font-family: var(--f-display); font-size: 3rem; letter-spacing: 2px; color: var(--tx-1); line-height: 1; margin-bottom: 4px; }
+.price-val span { font-family: var(--f-mono); font-size: 1rem; color: var(--tx-2); letter-spacing: 0; }
+.price-desc { font-size: 13px; color: var(--tx-2); margin-bottom: 22px; }
+.price-items { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.price-items li { font-size: 13px; color: var(--tx-2); display: flex; align-items: center; gap: 8px; }
+.price-items li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: var(--neon-sm); flex-shrink: 0; }
+
+/* ═══ MOTION ════════════════════════════════════════════════ */
+.motion-row { display: flex; align-items: center; gap: 20px; padding: 14px 18px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md); }
+.motion-meta { flex: 0 0 200px; font-family: var(--f-mono); font-size: 11px; color: var(--tx-2); line-height: 1.6; }
+.motion-meta strong { display: block; color: var(--teal); font-size: 10px; letter-spacing: 1px; }
+.motion-track { flex: 1; height: 34px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); position: relative; overflow: hidden; cursor: pointer; }
+.motion-dot { position: absolute; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; border-radius: 50%; background: var(--teal); left: 8px; box-shadow: var(--neon-sm); transition: left .5s; }
+.motion-track:hover .motion-dot { left: calc(100% - 26px); }
+.m-fast .motion-dot { transition-duration: .12s; }
+.m-slow .motion-dot { transition-duration: .9s; }
+.m-spring .motion-dot { transition-timing-function: cubic-bezier(.34,1.56,.64,1); }
+.m-expo .motion-dot { transition-timing-function: cubic-bezier(.16,1,.3,1); }
+
+/* ═══ INTEGRATIONS ══════════════════════════════════════════ */
+.integ-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+.integ-chip {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 16px; background: var(--card);
+  padding: 9px 18px; background: var(--card);
   border: 1px solid var(--border); border-radius: var(--r-sm);
   font-size: 13px; font-weight: 700; color: var(--tx-2);
-  transition: border-color var(--dur-fast), color var(--dur-fast);
+  transition: all .25s;
 }
-.integration-chip:hover { border-color: rgba(0,201,167,0.35); color: var(--tx-1); }
-.integration-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.integ-chip:hover { border-color: var(--teal); color: var(--teal); box-shadow: var(--neon-sm); }
+.integ-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: var(--neon-sm); }
 
-/* ─── FOOTER ───────────────────────────────────────────── */
-.ds-footer {
-  padding: 48px 24px; border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-  max-width: 1120px; margin: 0 auto;
-}
-.footer-brand { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--tx-1); }
-.footer-brand span { color: var(--green); font-style: italic; }
-.footer-meta { font-family: var(--font-mono); font-size: 11px; color: var(--tx-3); letter-spacing: 1px; }
+/* ═══ REVEAL ════════════════════════════════════════════════ */
+.r { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+.r.vis { opacity: 1; transform: none; }
+.r1 { transition-delay: .1s; } .r2 { transition-delay: .18s; } .r3 { transition-delay: .26s; }
 
-/* ─── ANIMATIONS ───────────────────────────────────────── */
-@keyframes float {
-  0%,100%{transform:translateY(0px);}
-  50%{transform:translateY(-8px);}
-}
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-  .reveal { opacity: 1 !important; transform: none !important; }
-}
+/* ═══ NEON RULE ═════════════════════════════════════════════ */
+.neon-rule { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--teal), transparent); box-shadow: 0 0 8px rgba(21,195,160,.5); margin: 0; }
 
-/* ─── RESPONSIVE ───────────────────────────────────────── */
-@media (max-width: 768px) {
-  .platform-kpi-row { grid-template-columns: 1fr 1fr; }
-  .platform-row2 { grid-template-columns: 1fr; }
-  .type-row { flex-direction: column; gap: 8px; }
-  .type-meta { flex: none; }
-  .input-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .hero h1 { font-size: 2.4rem; }
+/* ═══ CODE BLOCK ════════════════════════════════════════════ */
+.code {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 20px; font-family: var(--f-mono); font-size: 12px; color: var(--tx-2);
+  line-height: 2; overflow-x: auto;
+}
+.code .t { color: var(--teal); } .code .d { color: var(--tx-3); } .code .v { color: var(--teal-glow); }
+
+/* ═══ FOOTER ════════════════════════════════════════════════ */
+footer { padding: 48px 24px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+.foot-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.foot-brand { font-family: var(--f-display); font-size: 20px; letter-spacing: 3px; color: var(--tx-1); }
+.foot-brand em { color: var(--teal); font-style: italic; font-family: Georgia, serif; text-shadow: var(--neon-sm); }
+.foot-meta { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: 1px; text-align: right; }
+.foot-meta a { color: var(--teal); }
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════ */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .p-kpis{grid-template-columns:1fr 1fr}
+  .p-row2{grid-template-columns:1fr}
+  .hero-numbers{gap:24px}
+  .hn-div{display:none}
+  .cta-band{padding:40px 24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .r{opacity:1!important;transform:none!important}
 }
 </style>
+</head>
+<body>
 
-<!-- Custom cursor -->
-<div class="tilt-cursor" id="cursor"></div>
+<canvas id="bg-canvas"></canvas>
 
-<!-- ── NAV ───────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo">Ligue<span>Lead</span> DS</div>
+  <div class="nav-logo"><em>ℒ</em>IGUE<span>LEAD</span></div>
   <ul class="nav-links">
-    <li><a href="#tokens">Tokens</a></li>
-    <li><a href="#typography">Tipografia</a></li>
-    <li><a href="#components">Componentes</a></li>
+    <li><a href="#foundation">Tokens</a></li>
+    <li><a href="#components">Buttons</a></li>
+    <li><a href="#forms">Forms</a></li>
     <li><a href="#cards">Cards</a></li>
-    <li><a href="#3d">3D</a></li>
-    <li><a href="#platform">Plataforma</a></li>
+    <li><a href="#icons">Icons</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#landing">Landing</a></li>
     <li><a href="#motion">Motion</a></li>
-    <li><a href="#integrations">Integrações</a></li>
   </ul>
-  <div class="nav-end">
-    <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">◐</button>
-  </div>
+  <div class="nav-ver">DS v2 · 2026</div>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-grain"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Design System — v2.0</div>
-    <h1>Infraestrutura.<br><span class="accent">Visual.</span></h1>
-    <p class="hero-sub">Tokens, componentes e padrões que comunicam escala, confiança e resultado — a identidade da LigueLead em código.</p>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-n" data-count="12">0</div>
-        <div class="hero-stat-l">Design Tokens</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-n" data-count="30">0</div>
-        <div class="hero-stat-l">Componentes</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-n" data-count="6">0</div>
-        <div class="hero-stat-l">Card Variants</div>
-      </div>
+  <div class="hero-grid"></div>
+  <div class="o1 hero-orb"></div>
+  <div class="o2 hero-orb"></div>
+  <div class="o3 hero-orb"></div>
+  <div class="hero-inner">
+    <div class="hero-chip"><span class="chip-dot"></span>Design System Oficial · v2.0 Premium</div>
+    <div class="hero-title">INFRA<span class="hl">ESTRUTURA</span></div>
+    <div class="hero-title" style="animation-delay:.05s">QUE NÃO FALHA.</div>
+    <p class="hero-sub">Tokens, componentes e padrões visuais para aplicações, sites, landing pages, formulários e gráficos da LigueLead — construído sobre o Brandbook oficial 2026.</p>
+    <div class="hero-ctas">
+      <a href="#components" class="btn btn-primary btn-lg">Explorar sistema</a>
+      <a href="#landing" class="btn btn-outline btn-lg">Landing pages</a>
+      <a href="#forms" class="btn btn-ghost btn-lg">Formulários</a>
+    </div>
+    <div class="hero-numbers">
+      <div><div class="hn-v" data-count="25000">0</div><div class="hn-l">Clientes ativos</div></div>
+      <div class="hn-div"></div>
+      <div><div class="hn-v" data-count="150000">0</div><div class="hn-l">Lançamentos</div></div>
+      <div class="hn-div"></div>
+      <div><div class="hn-v">98%</div><div class="hn-l">Satisfação</div></div>
+      <div class="hn-div"></div>
+      <div><div class="hn-v">18M</div><div class="hn-l">Lig. em 1 dia</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── TOKENS — COLORS ─────────────────────────────────────── -->
-<section class="section" id="tokens">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">01 — Design Tokens</div>
-      <h2 class="section-title">Paleta de Cores</h2>
-      <p class="section-desc">Cada cor tem uma função específica. Verde é hierarquicamente especial — use pra destacar, não pra preencher.</p>
+<hr class="neon-rule">
+
+<!-- FOUNDATION -->
+<section class="sec" id="foundation">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">01 — Tokens de Fundação</div>
+      <h2 class="sec-h">CORES & TIPOGRAFIA</h2>
+      <p class="sec-desc">Verde teal <code style="color:var(--teal);background:var(--teal-dim);padding:2px 7px;border-radius:4px;font-family:var(--f-mono);font-size:12px;">#15C3A0</code> — nunca verde-limão neon. Bebas Neue para display, DM Sans para corpo.</p>
     </div>
-    <div class="color-grid reveal">
-      <div class="color-swatch swatch-featured">
-        <div class="swatch-block"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Verde LigueLead</div>
-          <div class="swatch-hex">--green · #00C9A7</div>
-          <div class="swatch-use">CTAs, highlights, ícones, marca</div>
+
+    <!-- Color tokens -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:48px;">
+      <div class="r" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);transition:transform .3s;cursor:default;" onmouseenter="this.style.transform='translateY(-5px)'" onmouseleave="this.style.transform=''">
+        <div style="height:80px;background:linear-gradient(135deg,#15C3A0,#0E7C66);position:relative;">
+          <span style="position:absolute;top:8px;right:8px;font-family:var(--f-mono);font-size:9px;background:rgba(0,0,0,.4);color:rgba(255,255,255,.8);padding:2px 8px;border-radius:var(--r-full);">PRIMARY</span>
+        </div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Verde LigueLead</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">--teal · #15C3A0</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Logo, CTAs, ícones, neon</div>
         </div>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#00A88E;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Verde Escuro</div>
-          <div class="swatch-hex">--green-dark · #00A88E</div>
-          <div class="swatch-use">Gradient pair, hover, sombra</div>
+      <div class="r r1" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+        <div style="height:80px;background:#1FE6BC;"></div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Teal Glow</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">#1FE6BC</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Halo, highlight, gradiente</div>
         </div>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#7DDFC3;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Verde Menta</div>
-          <div class="swatch-hex">--green-mint · #7DDFC3</div>
-          <div class="swatch-use">Acento suave, decorativo, badges</div>
+      <div class="r r2" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+        <div style="height:80px;background:#0E7C66;"></div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Teal Escuro</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">#0E7C66</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Sombra, profundidade</div>
         </div>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#0A0A0A; border: 1px solid #222;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Deep Dark</div>
-          <div class="swatch-hex">--bg · #0A0A0A</div>
-          <div class="swatch-use">Background principal (dark)</div>
+      <div class="r r3" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid #1a2820;">
+        <div style="height:80px;background:#0A0E0D;"></div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Deep Black</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">#0A0E0D</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Background primário</div>
         </div>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#1B1B1B;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Card Surface</div>
-          <div class="swatch-hex">--card · #1B1B1B</div>
-          <div class="swatch-use">Superfície de cards</div>
+      <div class="r" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+        <div style="height:80px;background:#F2F7F5;"></div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Off-White</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">#F2F7F5</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Texto primário</div>
         </div>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#F5F5F5;"></div>
-        <div class="swatch-info" style="background:var(--card);">
-          <div class="swatch-name">Off-White</div>
-          <div class="swatch-hex">--tx-1 · #F2F2F2</div>
-          <div class="swatch-use">Texto primário em fundo escuro</div>
-        </div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#9A9A9A;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Cinza Médio</div>
-          <div class="swatch-hex">--tx-2 · #9A9A9A</div>
-          <div class="swatch-use">Texto secundário, legendas</div>
-        </div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-block" style="background:#E74C3C;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Red Alert</div>
-          <div class="swatch-hex">--red · #E74C3C</div>
-          <div class="swatch-use">Objeção, problema, alerta. Parcimonioso.</div>
+      <div class="r r1" style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+        <div style="height:80px;background:#E5484D;"></div>
+        <div style="padding:12px 14px;background:var(--card);">
+          <div style="font-size:13px;font-weight:700;color:var(--tx-1);">Red Alert</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--teal);margin-top:3px;">#E5484D</div>
+          <div style="font-size:11px;color:var(--tx-3);margin-top:3px;">Erro, objeção, falta</div>
         </div>
       </div>
     </div>
 
     <!-- Gradient -->
-    <div style="margin-top:40px;" class="reveal">
-      <div class="component-label">Gradient Institucional · 135°</div>
-      <div style="height:80px; border-radius:var(--r-lg); background:linear-gradient(135deg,#00C9A7 0%,#00A88E 100%); margin-top:8px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; font-weight:700; color:rgba(0,0,0,0.6); letter-spacing:2px;">
-        #00C9A7 → #00A88E · 135deg
+    <div class="r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="margin-bottom:10px;">Gradiente Institucional · 135°</div>
+      <div style="height:64px;border-radius:var(--r-md);background:linear-gradient(135deg,#15C3A0,#0E7C66);box-shadow:var(--neon-sm);display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:11px;font-weight:500;color:rgba(3,18,14,.7);letter-spacing:2px;">
+        #15C3A0 → #0E7C66 · 135deg
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ── TYPOGRAPHY ──────────────────────────────────────────── -->
-<section class="section" id="typography">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">02 — Tipografia</div>
-      <h2 class="section-title">Sistema Tipográfico</h2>
-      <p class="section-desc">Display em Georgia cria tensão editorial com a estrutura sans-serif da plataforma. Dados em mono.</p>
-    </div>
-    <div class="type-scale">
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>Display</strong>Georgia, serif<br>700 · −0.04em</div>
-        <div class="type-sample t-display">Infraestrutura.</div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>H1</strong>Georgia, serif<br>700 · −0.03em</div>
-        <div class="type-sample t-h1">Feita para quem não pode falhar.</div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>H2</strong>System UI<br>800 · −0.02em</div>
-        <div class="type-sample t-h2">De 8% para 35% de presença na live.</div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>H3</strong>System UI<br>700</div>
-        <div class="type-sample t-h3">Bina Inteligente — DDD local do lead.</div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>Body</strong>System UI<br>400 · 1.7 leading</div>
-        <div class="type-sample t-body">A LigueLead existe porque nenhum lançamento deveria depender da memória do lead. Você captou 30 mil leads. Preparou semanas de conteúdo. A pessoa não desistiu — ela simplesmente esqueceu.</div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>Label</strong>DM Mono<br>700 · 2px tracking</div>
-        <div class="type-sample">
-          <span class="t-label">Resultado comprovado</span>&nbsp;&nbsp;
-          <span class="t-label" style="color:var(--tx-2);">25K+ clientes</span>
+    <!-- Typography -->
+    <div class="r">
+      <div class="sec-ey" style="margin-bottom:20px;">Tipografia · Bebas Neue + DM Sans</div>
+      <div style="border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;">
+        <div style="display:flex;align-items:baseline;gap:24px;padding:24px 28px;border-bottom:1px solid var(--border);">
+          <div style="flex:0 0 130px;font-family:var(--f-mono);font-size:10px;color:var(--tx-3);line-height:1.7;"><strong style="display:block;color:var(--teal);font-size:9px;letter-spacing:1px;">DISPLAY</strong>Bebas Neue<br>letterspacing 3px</div>
+          <div style="font-family:var(--f-display);font-size:4rem;letter-spacing:3px;color:var(--tx-1);line-height:1;">INFRAESTRUTURA</div>
         </div>
-      </div>
-      <div class="type-row reveal">
-        <div class="type-meta"><strong>Mono</strong>DM Mono<br>dados, labels, código</div>
-        <div class="type-sample" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <span class="t-mono">#00C9A7</span>
-          <span class="t-mono">3M lig/hora</span>
-          <span class="t-mono">ANATEL</span>
-          <span class="t-mono">98%</span>
+        <div style="display:flex;align-items:baseline;gap:24px;padding:20px 28px;border-bottom:1px solid var(--border);">
+          <div style="flex:0 0 130px;font-family:var(--f-mono);font-size:10px;color:var(--tx-3);line-height:1.7;"><strong style="display:block;color:var(--teal);font-size:9px;letter-spacing:1px;">H1</strong>DM Sans<br>900 · -0.02em</div>
+          <div style="font-size:2rem;font-weight:900;color:var(--tx-1);line-height:1.1;">Feita para quem não pode falhar.</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SPACING + RADII + SHADOWS ──────────────────────────── -->
-<section class="section">
-  <div class="section-inner">
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; flex-wrap:wrap;">
-      <div class="reveal">
-        <div class="section-eyebrow">Espaçamento</div>
-        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Spacing Scale</h3>
-        <div class="token-grid" style="flex-direction:column; align-items:flex-start;">
-          <div style="display:flex;align-items:center;gap:12px;" class="token-item">
-            <div class="space-box" style="width:4px;height:4px;"></div>
-            <span class="token-val">4px · xs</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:8px;height:8px;"></div>
-            <span class="token-val">8px · sm</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:16px;height:16px;"></div>
-            <span class="token-val">16px · md</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:24px;height:24px;"></div>
-            <span class="token-val">24px · lg</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:32px;height:32px;"></div>
-            <span class="token-val">32px · xl</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:48px;height:48px;"></div>
-            <span class="token-val">48px · 2xl</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="space-box" style="width:64px;height:64px;"></div>
-            <span class="token-val">64px · 3xl</span>
-          </div>
+        <div style="display:flex;align-items:baseline;gap:24px;padding:18px 28px;border-bottom:1px solid var(--border);">
+          <div style="flex:0 0 130px;font-family:var(--f-mono);font-size:10px;color:var(--tx-3);line-height:1.7;"><strong style="display:block;color:var(--teal);font-size:9px;letter-spacing:1px;">BODY</strong>DM Sans<br>400 · 1.75 lead</div>
+          <div style="max-width:52ch;font-size:15px;color:var(--tx-2);line-height:1.75;">Ninguém vai lembrar sozinho do seu lançamento. A LigueLead existe porque nenhum lançamento deveria depender da memória do lead.</div>
         </div>
-      </div>
-      <div class="reveal">
-        <div class="section-eyebrow">Border Radius</div>
-        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Radius Scale</h3>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:4px;width:56px;height:40px;"></div>
-            <span class="token-val">4px · xs</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:var(--r-sm);width:56px;height:40px;"></div>
-            <span class="token-val">8px · sm</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:var(--r-md);width:56px;height:40px;"></div>
-            <span class="token-val">14px · md</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:var(--r-lg);width:56px;height:40px;"></div>
-            <span class="token-val">20px · lg</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:var(--r-xl);width:56px;height:40px;"></div>
-            <span class="token-val">28px · xl</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div class="radius-box" style="border-radius:9999px;width:80px;height:32px;"></div>
-            <span class="token-val">9999px · pill</span>
-          </div>
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="section-eyebrow">Sombras</div>
-        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:24px;">Shadow Scale</h3>
-        <div style="display:flex;flex-direction:column;gap:24px;">
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="shadow-box sh-sm"></div>
-            <span class="token-val">shadow-sm</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="shadow-box sh-md"></div>
-            <span class="token-val">shadow-md</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="shadow-box sh-lg"></div>
-            <span class="token-val">shadow-lg</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="shadow-box sh-glow"></div>
-            <span class="token-val">shadow-glow · verde</span>
+        <div style="display:flex;align-items:center;gap:24px;padding:18px 28px;">
+          <div style="flex:0 0 130px;font-family:var(--f-mono);font-size:10px;color:var(--tx-3);line-height:1.7;"><strong style="display:block;color:var(--teal);font-size:9px;letter-spacing:1px;">MONO</strong>DM Mono<br>dados, tokens</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <code style="font-family:var(--f-mono);font-size:13px;color:var(--teal);background:var(--teal-dim);padding:3px 10px;border-radius:4px;">#15C3A0</code>
+            <code style="font-family:var(--f-mono);font-size:13px;color:var(--teal);background:var(--teal-dim);padding:3px 10px;border-radius:4px;">3M LIG/H</code>
+            <code style="font-family:var(--f-mono);font-size:13px;color:var(--teal);background:var(--teal-dim);padding:3px 10px;border-radius:4px;">ANATEL</code>
           </div>
         </div>
       </div>
@@ -971,557 +774,607 @@ body {
   </div>
 </section>
 
-<!-- ── COMPONENTS — BUTTONS ───────────────────────────────── -->
-<section class="section" id="components">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">03 — Componentes</div>
-      <h2 class="section-title">Botões</h2>
+<!-- COMPONENTS -->
+<section class="sec sec-alt" id="components">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">02 — Componentes</div>
+      <h2 class="sec-h">BOTÕES & TAGS</h2>
     </div>
 
-    <div class="component-label">Variantes</div>
-    <div class="component-row reveal">
-      <button class="btn btn-primary">
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Primário
-      </button>
-      <button class="btn btn-secondary">Secundário</button>
-      <button class="btn btn-ghost">Ghost</button>
-      <button class="btn btn-danger">Perigo</button>
-    </div>
-
-    <div class="component-label" style="margin-top:16px;">Tamanhos</div>
-    <div class="component-row reveal">
-      <button class="btn btn-primary btn-sm">Small</button>
-      <button class="btn btn-primary">Default</button>
-      <button class="btn btn-primary btn-lg">Large</button>
-      <button class="btn btn-primary btn-icon" aria-label="Icon">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div style="margin-top:48px;" class="reveal">
-      <div class="component-label">Tags &amp; Pills</div>
-      <div class="component-row">
-        <span class="tag tag-green">Case Real</span>
-        <span class="tag tag-green tag-dot">Resultado</span>
-        <span class="tag tag-outline">Diagnóstico</span>
-        <span class="tag tag-outline tag-dot">Em breve</span>
-        <span class="tag tag-dark">Contexto</span>
-        <span class="badge badge-green">+35%</span>
-        <span class="badge badge-red">✕ Objeção</span>
-        <span class="badge badge-gray">Core</span>
+    <div class="r" style="margin-bottom:40px;">
+      <div class="sec-ey" style="margin-bottom:12px;">Botões</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;padding:28px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <button class="btn btn-primary">Fazer LigueLead</button>
+        <button class="btn btn-primary btn-lg">Começar agora</button>
+        <button class="btn btn-outline">Conhecer planos</button>
+        <button class="btn btn-ghost">Saiba mais</button>
+        <button class="btn btn-danger btn-sm">Cancelar</button>
+        <button class="btn btn-primary btn-xl">Deploy agora</button>
       </div>
     </div>
 
-    <div style="margin-top:48px;" class="reveal">
-      <div class="component-label">Animated Gradient Border</div>
-      <div style="margin-top:12px;">
-        <div class="grad-border-wrap">
-          <div class="grad-border-inner">
-            <strong style="color:var(--green);">18M</strong> ligações em 1 dia · Operadora própria homologada pela ANATEL
-          </div>
-        </div>
+    <div class="r">
+      <div class="sec-ey" style="margin-bottom:12px;">Tags & Badges</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;padding:28px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
+        <span class="tag tag-teal">Core</span>
+        <span class="tag tag-solid">Resultado</span>
+        <span class="tag tag-dim">Infraestrutura</span>
+        <span class="tag tag-dark">Em breve</span>
+        <span class="tag tag-red">Objeção</span>
+        <span class="tag tag-amber">Atenção</span>
+        <span class="tag tag-teal">+35%</span>
+        <span class="tag tag-solid">ANATEL</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section class="sec" id="forms">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">03 — Formulários</div>
+      <h2 class="sec-h">INPUTS & CONTROLES</h2>
+      <p class="sec-desc">Sistema completo: campos, selects, toggles, checkboxes, radios e sliders.</p>
     </div>
 
     <!-- Inputs -->
-    <div style="margin-top:48px;" class="reveal">
-      <div class="section-eyebrow">Inputs</div>
-      <h3 class="section-title" style="font-size:1.4rem; margin-top:8px; margin-bottom:24px;">Formulários</h3>
-      <div style="background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg); padding:32px;">
-        <div class="input-grid">
-          <div class="field">
-            <label class="field-label">Nome do Expert</label>
-            <input class="input" type="text" placeholder="Thiago Panda" />
-          </div>
-          <div class="field">
-            <label class="field-label">Tamanho da base</label>
-            <div class="input-prefix">
-              <span class="prefix-label">leads</span>
-              <input class="input" type="number" placeholder="30.000" />
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label">Canal preferencial</label>
-            <select class="input select">
-              <option>Ligação com voz do expert</option>
-              <option>SMS Flash</option>
-              <option>SMS Shortcode</option>
-              <option>Multi-canal</option>
-            </select>
-          </div>
-          <div class="field">
-            <label class="field-label">Presença atual na live</label>
-            <div class="input-prefix">
-              <input class="input" type="number" placeholder="8" />
-              <span class="prefix-label">%</span>
-            </div>
+    <div class="r" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px;margin-bottom:24px;">
+      <div class="sec-ey" style="margin-bottom:20px;">Campos de texto</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+        <div class="field">
+          <label class="field-label">Nome do Expert</label>
+          <input class="input" type="text" placeholder="ex: Thiago Panda">
+          <span class="field-hint">Usado na voz da ligação</span>
+        </div>
+        <div class="field">
+          <label class="field-label">Email</label>
+          <div class="input-icon-wrap">
+            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <input class="input" type="email" placeholder="email@empresa.com">
           </div>
         </div>
+        <div class="field">
+          <label class="field-label">Tamanho da Base</label>
+          <input class="input" type="number" placeholder="30000">
+          <span class="field-hint">Mínimo recomendado: 5.000 leads</span>
+        </div>
+        <div class="field">
+          <label class="field-label">Estado (Erro)</label>
+          <input class="input input-error" type="text" placeholder="Campo inválido" value="texto inválido">
+          <span class="field-error">Este campo é obrigatório</span>
+        </div>
+        <div class="field">
+          <label class="field-label">Canal Principal</label>
+          <select class="input">
+            <option>Ligação com voz do expert</option>
+            <option>SMS Shortcode</option>
+            <option>SMS Flash</option>
+            <option>Multi-canal</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">Mensagem</label>
+          <textarea class="input" placeholder="Texto da ligação ou SMS..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggles, checkboxes, radios -->
+    <div class="r" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px;margin-bottom:24px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;">
+        <div>
+          <div class="sec-ey" style="margin-bottom:16px;">Toggles</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <label class="toggle-wrap"><input type="checkbox" checked style="display:none"><span class="toggle"></span><span class="toggle-label">SMS Flash ativo</span></label>
+            <label class="toggle-wrap"><input type="checkbox" style="display:none"><span class="toggle"></span><span class="toggle-label">Bloqueador caixa postal</span></label>
+            <label class="toggle-wrap"><input type="checkbox" checked style="display:none"><span class="toggle"></span><span class="toggle-label">Multi-canal</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="sec-ey" style="margin-bottom:16px;">Checkboxes</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <label class="check-wrap"><input type="checkbox" checked style="display:none"><span class="check-box"><svg width="11" height="9" fill="none" viewBox="0 0 11 9"><path d="M1 4.5L4 7.5L10 1" stroke="#03120E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:14px;color:var(--tx-1);">Ligação com voz</span></label>
+            <label class="check-wrap"><input type="checkbox" checked style="display:none"><span class="check-box"><svg width="11" height="9" fill="none" viewBox="0 0 11 9"><path d="M1 4.5L4 7.5L10 1" stroke="#03120E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:14px;color:var(--tx-1);">SMS Shortcode</span></label>
+            <label class="check-wrap"><input type="checkbox" style="display:none"><span class="check-box"><svg width="11" height="9" fill="none" viewBox="0 0 11 9"><path d="M1 4.5L4 7.5L10 1" stroke="#03120E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:14px;color:var(--tx-1);">SMS Flash</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="sec-ey" style="margin-bottom:16px;">Radio</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <label class="radio-wrap"><input type="radio" name="canal" style="display:none"><span class="radio-dot"></span><span style="font-size:14px;color:var(--tx-1);">Plano Básico</span></label>
+            <label class="radio-wrap"><input type="radio" name="canal" checked style="display:none"><span class="radio-dot"></span><span style="font-size:14px;color:var(--tx-1);">Plano Pro</span></label>
+            <label class="radio-wrap"><input type="radio" name="canal" style="display:none"><span class="radio-dot"></span><span style="font-size:14px;color:var(--tx-1);">Enterprise</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Range -->
+    <div class="r" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px;">
+      <div class="sec-ey" style="margin-bottom:16px;">Range Slider</div>
+      <div class="field" style="max-width:480px;">
+        <label class="field-label">Tamanho da base: <span id="rangeVal" style="color:var(--teal);">15.000 leads</span></label>
+        <input class="input" type="range" min="3000" max="100000" step="1000" value="15000" id="rangeInput">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CARDS ──────────────────────────────────────────────── -->
-<section class="section" id="cards">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">04 — Cards</div>
-      <h2 class="section-title">Variantes de Card</h2>
-      <p class="section-desc">60% dark, 15% green (hero/conclusão), 15% accent, 10% glass. O verde é escasso por design.</p>
+<!-- CARDS -->
+<section class="sec sec-alt" id="cards">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">04 — Cards</div>
+      <h2 class="sec-h">VARIANTES DE CARD</h2>
+      <p class="sec-desc">Dark · Neon border · Glass · Solid. Verde é escasso por design — 1 destaque por peça.</p>
     </div>
-    <div class="card-grid">
-      <div class="card-base card-dark-v reveal">
-        <div class="card-wm">8%</div>
-        <div>
-          <span class="tag tag-outline" style="margin-bottom:16px;display:inline-block;">Diagnóstico</span>
-          <div class="card-title">O lead não desistiu. Ele esqueceu.</div>
-          <div class="card-body">83% dos leads que não aparecem na live dizem que queriam estar lá.</div>
-        </div>
-        <div>
-          <div class="card-metric">83%</div>
-          <div class="card-foot">44.000 respostas verificadas</div>
-        </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;">
+      <div class="card card-dark r">
+        <span class="tag tag-teal c-tag">Diagnóstico</span>
+        <div class="c-title">O lead não desistiu. Ele esqueceu.</div>
+        <div class="c-body">83% dos leads que não aparecem na live disseram "queria estar lá, esqueci." 44 mil respostas verificadas.</div>
+        <div class="c-metric" data-count="83">0%</div>
+        <div class="c-foot">dos leads não comparecem porque esqueceram</div>
       </div>
-
-      <div class="card-base card-green-v reveal" style="animation-delay:0.1s;">
-        <div class="card-wm">✓</div>
-        <div>
-          <span class="tag tag-dark" style="margin-bottom:16px;display:inline-block;">Solução</span>
-          <div class="card-title">De 8% para 35% de presença.</div>
-          <div class="card-body">Com ligação + SMS Flash, os leads lembram. E aparecem.</div>
-        </div>
-        <div>
-          <div class="card-metric">+4.3×</div>
-          <div class="card-foot">Comparecimento médio dos clientes LL</div>
-        </div>
+      <div class="card card-neon r r1">
+        <span class="tag tag-solid c-tag">Solução</span>
+        <div class="c-title">A LigueLead lembra por você.</div>
+        <div class="c-body">Ligação + SMS Flash + SMS Shortcode. O arsenal completo garante presença.</div>
+        <div class="c-metric" data-count="35">0%</div>
+        <div class="c-foot">Presença média com LigueLead · vs 8% do mercado</div>
       </div>
-
-      <div class="card-base card-accent-v reveal" style="animation-delay:0.2s;">
-        <div class="card-wm">∞</div>
-        <div>
-          <span class="tag tag-green" style="margin-bottom:16px;display:inline-block;">Infraestrutura</span>
-          <div class="card-title">Escala que não falha no dia que importa.</div>
-          <div class="card-body">Tecnologia e operadora próprias. 3M lig/hora. Testada ao vivo.</div>
-        </div>
-        <div>
-          <div class="card-metric">18M</div>
-          <div class="card-foot">Ligações em 1 dia · Recorde histórico</div>
-        </div>
+      <div class="card card-glass r r2">
+        <span class="tag tag-dim c-tag">Infraestrutura</span>
+        <div class="c-title">Escala que não falha no dia que importa.</div>
+        <div class="c-body">Tecnologia e operadora próprias. ANATEL. Testada em produção — não em demo.</div>
+        <div class="c-metric">18M</div>
+        <div class="c-foot">Ligações em 1 dia · Recorde histórico verificado</div>
       </div>
-
-      <div class="card-base card-glass-v reveal" style="animation-delay:0.3s;">
-        <div>
-          <span class="tag tag-outline" style="margin-bottom:16px;display:inline-block;">Multi-canal</span>
-          <div class="card-title">Todos os caminhos até o celular do lead.</div>
-          <div class="card-body">Voz + SMS + Flash + RCS. 100% dos top 20 usam 2+ canais.</div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
-          <span class="badge badge-green">Voz</span>
-          <span class="badge badge-green">SMS</span>
-          <span class="badge badge-green">Flash</span>
-          <span class="badge badge-gray">RCS ↗</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Metrics row -->
-    <div style="margin-top:40px;" class="reveal">
-      <div class="component-label">KPI / Big Numbers</div>
-      <div class="metrics-grid" style="margin-top:12px;">
-        <div class="metric-card">
-          <div class="metric-n" data-count="25000">0</div>
-          <div class="metric-label">Clientes ativos</div>
-          <div class="metric-delta delta-up">↑ crescendo</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:85%;"></div></div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-n" data-count="98">0</div>
-          <div class="metric-label">% Satisfação</div>
-          <div class="metric-delta delta-up">↑ 98%</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:98%;"></div></div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-n" data-count="35">0</div>
-          <div class="metric-label">% Presença média com LL</div>
-          <div class="metric-delta delta-up">↑ vs 8% mercado</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:35%;"></div></div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-n">5<span style="font-size:1rem;color:var(--tx-2);">min</span></div>
-          <div class="metric-label">Tempo de resposta de suporte</div>
-          <div class="metric-delta delta-up">↑ 7 dias/semana</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:20%;"></div></div>
-        </div>
+      <div class="card card-solid r r3">
+        <span class="tag tag-dark c-tag">Case Real</span>
+        <div class="c-title">ROI 400× com R$2.000.</div>
+        <div class="c-body">Thiago Panda. 40 produtos de R$20k. Ligação com voz do expert.</div>
+        <div class="c-metric">R$800k</div>
+        <div class="c-foot">Receita atribuída diretamente ao investimento</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── 3D CARD ─────────────────────────────────────────────── -->
-<section class="section" id="3d" style="background:var(--surface);">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">05 — 3D Interactions</div>
-      <h2 class="section-title">Depth &amp; Tilt</h2>
-      <p class="section-desc">Passe o mouse sobre o card. A perspectiva 3D cria sensação de profundidade e material.</p>
+<!-- ICONS -->
+<section class="sec" id="icons">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">05 — Ícones Neon</div>
+      <h2 class="sec-h">ÍCONES DO SISTEMA</h2>
+      <p class="sec-desc">SVG customizados com traço fino e animação de desenho. Cada canal da suíte de produtos.</p>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
-      <div class="tilt-wrap reveal">
+    <div class="icon-grid r">
+      <!-- Phone -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><path class="draw" d="M8 12C8 11 8.9 10 10 10h6c1.1 0 2 .9 2 2l2 8c0 1.1-.6 2-1.6 2.5l-3.6 1.8C16.8 28.5 20.5 32.2 24.7 34.2l1.8-3.6c.5-1 1.4-1.6 2.5-1.6l8 2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2C20.4 41 7 27.6 7 11" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="icon-name">Ligação</div>
+        <span class="tag tag-teal icon-badge-s">Core</span>
+      </div>
+      <!-- SMS -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><rect class="draw" x="6" y="10" width="36" height="24" rx="4" stroke="#15C3A0" stroke-width="2"/><path class="draw" d="M14 19h20M14 25h12" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.3s"/><path class="draw" d="M16 38l8-4 8 4" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation-delay:.5s"/></svg>
+        <div class="icon-name">SMS</div>
+        <span class="tag tag-teal icon-badge-s">Core</span>
+      </div>
+      <!-- Flash -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><path class="draw" d="M28 7L14 26h10L20 41l14-19H24L28 7Z" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="draw" d="M8 18h3M8 30h3M37 18h3M37 30h3" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.4s"/></svg>
+        <div class="icon-name">Flash</div>
+        <span class="tag tag-teal icon-badge-s">Core</span>
+      </div>
+      <!-- Flow -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><circle class="draw" cx="12" cy="12" r="5" stroke="#15C3A0" stroke-width="2"/><circle class="draw" cx="36" cy="24" r="5" stroke="#15C3A0" stroke-width="2" style="animation-delay:.2s"/><circle class="draw" cx="12" cy="36" r="5" stroke="#15C3A0" stroke-width="2" style="animation-delay:.4s"/><path class="draw" d="M17 12h11c2.2 0 4 1.8 4 4v3M32 29v3c0 2.2-1.8 4-4 4H17" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.3s"/></svg>
+        <div class="icon-name">Flow</div>
+        <span class="tag tag-teal icon-badge-s">Core</span>
+      </div>
+      <!-- Bina -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><path class="draw" d="M24 8C15.2 8 8 15.2 8 24s7.2 16 16 16" stroke="#15C3A0" stroke-width="2" stroke-linecap="round"/><path class="draw" d="M24 8c8.8 0 16 7.2 16 16s-7.2 16-16 16" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4" style="animation-delay:.2s"/><circle class="draw" cx="24" cy="24" r="4" stroke="#15C3A0" stroke-width="2" style="animation-delay:.4s"/><path class="draw" d="M24 14v4M24 30v4M14 24h4M30 24h4" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.5s"/></svg>
+        <div class="icon-name">Bina</div>
+        <span class="tag tag-teal icon-badge-s">Core</span>
+      </div>
+      <!-- Shield -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><path class="draw" d="M24 7l14 6v11c0 8-6 15-14 17-8-2-14-9-14-17V13L24 7Z" stroke="#15C3A0" stroke-width="2" stroke-linejoin="round"/><path class="draw" d="M18 24l4 4 8-8" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation-delay:.4s"/></svg>
+        <div class="icon-name">ANATEL</div>
+        <span class="tag tag-teal icon-badge-s">Cert.</span>
+      </div>
+      <!-- RCS -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><rect class="draw" x="6" y="8" width="36" height="26" rx="5" stroke="#15C3A0" stroke-width="2"/><path class="draw" d="M14 17h20M14 23h12" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.3s"/><rect class="draw" x="26" y="19" width="10" height="8" rx="2" stroke="#15C3A0" stroke-width="1.5" style="animation-delay:.5s"/><path class="draw" d="M18 40l6-6 6 6" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation-delay:.2s"/></svg>
+        <div class="icon-name">RCS</div>
+        <span class="tag tag-dark icon-badge-s">Em breve</span>
+      </div>
+      <!-- Push -->
+      <div class="icon-tile">
+        <svg fill="none" viewBox="0 0 48 48"><path class="draw" d="M24 8v2M36 12L34.7 13.3M40 24H38M9.9 11.9L11.3 13.3M8 24H10" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.2s"/><path class="draw" d="M16 24c0-4.4 3.6-8 8-8s8 3.6 8 8v8H16v-8Z" stroke="#15C3A0" stroke-width="2" stroke-linejoin="round"/><path class="draw" d="M20 32c0 2.2 1.8 4 4 4s4-1.8 4-4" stroke="#15C3A0" stroke-width="2" stroke-linecap="round" style="animation-delay:.4s"/></svg>
+        <div class="icon-name">Push</div>
+        <span class="tag tag-dark icon-badge-s">Em breve</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="sec sec-alt" id="platform">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">06 — Plataforma</div>
+      <h2 class="sec-h">APP & DASHBOARD</h2>
+      <p class="sec-desc">Interface da plataforma em tempo real. KPIs, gráfico de presença e atividade ao vivo.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="platform r" style="margin-bottom:48px;">
+      <div class="p-bar">
+        <div class="p-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+        <div class="p-url">areadocliente.liguelead.app.br · Lançamento em curso</div>
+        <span class="tag tag-teal" style="margin-left:auto;font-size:9px;padding:3px 10px;">● AO VIVO</span>
+      </div>
+      <div class="p-body">
+        <div class="p-kpis">
+          <div class="p-kpi"><div class="p-kpi-l">Comparecimento</div><div class="p-kpi-v t">35.2%</div><div class="p-kpi-d">↑ +27pp vs mercado</div></div>
+          <div class="p-kpi"><div class="p-kpi-l">Ligações entregues</div><div class="p-kpi-v">24.800</div><div class="p-kpi-d" style="color:var(--tx-3);">de 30.000</div></div>
+          <div class="p-kpi"><div class="p-kpi-l">SMS Flash abertura</div><div class="p-kpi-v t">98%</div><div class="p-kpi-d">em 3 minutos</div></div>
+          <div class="p-kpi"><div class="p-kpi-l">Caixa postal bloq.</div><div class="p-kpi-v">95%</div><div class="p-kpi-d" style="color:var(--tx-3);">sem cobrança</div></div>
+        </div>
+        <div class="p-row2">
+          <div class="p-chart">
+            <div class="p-chart-h"><span>Presença por hora</span><span class="tag tag-teal" style="font-size:9px;padding:3px 10px;">hoje</span></div>
+            <div class="p-bars" id="pBars">
+              <div class="p-bc"><div class="p-bv" style="height:40%;"></div><div class="p-bl">10h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:62%;"></div><div class="p-bl">11h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:90%;"></div><div class="p-bl">12h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:100%;"></div><div class="p-bl">13h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:78%;"></div><div class="p-bl">14h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:52%;"></div><div class="p-bl">15h</div></div>
+              <div class="p-bc"><div class="p-bv" style="height:28%;"></div><div class="p-bl">16h</div></div>
+            </div>
+          </div>
+          <div class="p-act">
+            <div class="p-act-h">Atividade</div>
+            <div class="p-act-row"><div class="p-act-dot" style="background:var(--teal);box-shadow:var(--neon-sm);"></div><div class="p-act-tx">SMS Flash disparado</div><div class="p-act-t">agora</div></div>
+            <div class="p-act-row"><div class="p-act-dot" style="background:var(--teal-glow);"></div><div class="p-act-tx">1.200 ligações</div><div class="p-act-t">2m</div></div>
+            <div class="p-act-row"><div class="p-act-dot" style="background:var(--tx-3);"></div><div class="p-act-tx">Flow D-1 ativado</div><div class="p-act-t">1h</div></div>
+            <div class="p-act-row"><div class="p-act-dot" style="background:var(--tx-3);"></div><div class="p-act-tx">95 cx. postal bloq.</div><div class="p-act-t">2h</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metric-grid r">
+      <div class="metric-tile"><div class="m-n" data-count="25000">0</div><div class="m-l">Clientes ativos na plataforma</div><div class="m-up">↑ crescendo</div><div class="bar-track"><div class="bar-fill" style="width:0%" data-w="85%"></div></div></div>
+      <div class="metric-tile r1"><div class="m-n">98%</div><div class="m-l">Satisfação NPS verificada</div><div class="m-up">↑ referência</div><div class="bar-track"><div class="bar-fill" style="width:0%" data-w="98%"></div></div></div>
+      <div class="metric-tile r2"><div class="m-n">35%</div><div class="m-l">Presença média com LL</div><div class="m-up">↑ vs 8% sem</div><div class="bar-track"><div class="bar-fill" style="width:0%" data-w="35%"></div></div></div>
+      <div class="metric-tile r3"><div class="m-n">5<span style="font-size:1rem;color:var(--tx-2);">min</span></div><div class="m-l">Tempo de resposta suporte</div><div class="m-up">↑ 7 dias/semana</div><div class="bar-track"><div class="bar-fill" style="width:0%" data-w="18%"></div></div></div>
+    </div>
+
+    <!-- Table -->
+    <div class="r" style="margin-top:40px;">
+      <div class="sec-ey" style="margin-bottom:14px;">Tabela de dados</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Canal</th><th>Tipo</th><th>Entrega</th><th>Abertura</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Ligação com voz do expert</td><td class="td-mono">VOICE</td><td class="td-mono">85%</td><td class="td-mono">70%</td><td><span class="tag tag-teal">Core</span></td></tr>
+            <tr><td>SMS Shortcode</td><td class="td-mono">SMS</td><td class="td-mono">93%</td><td class="td-mono">98%</td><td><span class="tag tag-teal">Core</span></td></tr>
+            <tr><td>SMS Flash</td><td class="td-mono">FLASH</td><td class="td-mono">97%</td><td class="td-mono">98%</td><td><span class="tag tag-teal">Core</span></td></tr>
+            <tr><td>Flow Automatizado</td><td class="td-mono">FLOW</td><td class="td-mono">—</td><td class="td-mono">—</td><td><span class="tag tag-teal">Core</span></td></tr>
+            <tr><td>RCS</td><td class="td-mono">RICH</td><td class="td-mono">—</td><td class="td-mono">—</td><td><span class="tag tag-dark">Em breve</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D TILT -->
+<section class="sec">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">07 — 3D Depth</div>
+      <h2 class="sec-h">PERSPECTIVA & TILT</h2>
+      <p class="sec-desc">Passe o mouse. 3 camadas com profundidade distinta — parallax real em CSS 3D.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+      <div class="tilt-scene r">
         <div class="tilt-card" id="tiltCard">
-          <div class="tilt-bg-line"></div>
+          <div class="tilt-grid"></div>
           <div class="tilt-glow" id="tiltGlow"></div>
-          <div class="tilt-inner">
-            <div class="tilt-card-label">ROI Comprovado · Case Thiago Panda</div>
-            <div class="tilt-number">R<span>$800k</span></div>
-            <div class="tilt-desc">Com R$2.000 de investimento em ligações. 40 produtos de R$20k cada. ROI de 400× documentado, não estimado.</div>
-            <div class="tilt-chips">
-              <span class="tilt-chip">Ligação com voz</span>
-              <span class="tilt-chip">Bina inteligente</span>
-              <span class="tilt-chip">High ticket</span>
+          <div class="tl">
+            <div class="tl-label">Case Verificado · Thiago Panda</div>
+            <div class="tl-num">R<span>$800k</span></div>
+            <div class="tl-text">Com R$2.000 em ligações com voz do expert. ROI de 400×. 40 produtos a R$20k. Documentado, não estimado.</div>
+            <div class="tl-chips">
+              <span class="tl-chip">Voz do expert</span>
+              <span class="tl-chip">Bina inteligente</span>
+              <span class="tl-chip">High ticket</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="reveal" style="display:flex;flex-direction:column;gap:24px;">
-        <div>
-          <div class="section-eyebrow">Técnica</div>
-          <h3 class="section-title" style="font-size:1.2rem; margin-top:8px; margin-bottom:8px;">CSS 3D Perspective</h3>
-          <p style="font-size:14px;color:var(--tx-2);line-height:1.7;">Cards com <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">perspective(900px)</code> e <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">transform-style: preserve-3d</code> criam profundidade real. Camadas internas com <code style="font-family:var(--font-mono);color:var(--green);background:var(--green-subtle);padding:2px 6px;border-radius:4px;">translateZ</code> para parallax.</p>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px;font-family:var(--font-mono);font-size:12px;color:var(--tx-2);line-height:1.8;">
-          <span style="color:var(--tx-3);">// Token 3D</span><br>
-          <span style="color:var(--green);">--perspective</span>: 900px;<br>
-          <span style="color:var(--green);">--tilt-max</span>: 14deg;<br>
-          <span style="color:var(--green);">--tilt-z</span>: 20px;<br>
-          <span style="color:var(--green);">--layer-1</span>: translateZ(30px);<br>
-          <span style="color:var(--green);">--layer-2</span>: translateZ(15px);<br>
-          <span style="color:var(--green);">--layer-3</span>: translateZ(8px);
+      <div class="r" style="display:flex;flex-direction:column;gap:20px;">
+        <h3 style="font-family:var(--f-display);font-size:1.8rem;letter-spacing:2px;color:var(--tx-1);">CSS PERSPECTIVE + PARALLAX</h3>
+        <p style="font-size:14px;color:var(--tx-2);line-height:1.75;">Cards com <code style="color:var(--teal);background:var(--teal-dim);padding:2px 7px;border-radius:4px;font-family:var(--f-mono);">perspective(900px)</code> e camadas internas com <code style="color:var(--teal);background:var(--teal-dim);padding:2px 7px;border-radius:4px;font-family:var(--f-mono);">translateZ</code> distintos criam profundidade real sem WebGL.</p>
+        <div class="code">
+<span class="d">// 3D Tokens</span>
+<span class="t">--perspective</span>: 900px;
+<span class="t">--tilt-max</span>: 14deg;
+<span class="t">--layer-front</span>: translateZ(32px);
+<span class="t">--layer-mid</span>: translateZ(18px);
+<span class="t">--layer-back</span>: translateZ(8px);
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
-            <span style="color:var(--green);">✓</span> Hover tilt com mousemove
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
-            <span style="color:var(--green);">✓</span> Glow dinâmico segue cursor
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
-            <span style="color:var(--green);">✓</span> Parallax em camadas internas
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--tx-2);">
-            <span style="color:var(--green);">✓</span> Respeita prefers-reduced-motion
-          </div>
+          <div style="display:flex;gap:10px;font-size:13px;color:var(--tx-2);"><span style="color:var(--teal);text-shadow:var(--neon-sm);">✓</span> Tilt 14° com mousemove</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:var(--tx-2);"><span style="color:var(--teal);text-shadow:var(--neon-sm);">✓</span> Glow dinâmico segue cursor</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:var(--tx-2);"><span style="color:var(--teal);text-shadow:var(--neon-sm);">✓</span> prefers-reduced-motion respeitado</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PLATFORM PREVIEW ───────────────────────────────────── -->
-<section class="section" id="platform">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">06 — Plataforma</div>
-      <h2 class="section-title">UI da Plataforma</h2>
-      <p class="section-desc">Dashboard, KPIs e componentes de produto. Informação densa, hierarquia clara.</p>
+<!-- LANDING PAGE COMPONENTS -->
+<section class="sec sec-alt" id="landing">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">08 — Landing Pages</div>
+      <h2 class="sec-h">COMPONENTES LP</h2>
+      <p class="sec-desc">Feature grid, CTA band e pricing — blocos prontos para landing pages.</p>
     </div>
-    <div class="platform-preview reveal">
-      <div class="platform-topbar">
-        <div class="topbar-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="topbar-title">app.liguelead.com.br · Dashboard do Lançamento</div>
-        <div class="topbar-badge"><span class="badge badge-green">● Live</span></div>
+
+    <!-- Feature grid -->
+    <div class="lp-feature-grid r" style="margin-bottom:48px;">
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div>
+        <h3>Ligação com voz do expert</h3>
+        <p>O celular toca. O lead atende. Ouve a voz do expert. 85% de atendimento. Bloqueador de caixa postal automático.</p>
       </div>
-      <div class="platform-body">
-        <div class="platform-kpi-row">
-          <div class="kpi-tile">
-            <div class="kpi-label">Comparecimento</div>
-            <div class="kpi-value green">35.2%</div>
-            <div class="kpi-delta">↑ +27.2% vs sem LL</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-label">Ligações entregues</div>
-            <div class="kpi-value">24.800</div>
-            <div class="kpi-delta" style="color:var(--tx-3);">de 30.000 disparadas</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-label">SMS Flash abertura</div>
-            <div class="kpi-value green">98%</div>
-            <div class="kpi-delta">↑ em 3 min</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-label">Caixa postal bloqueada</div>
-            <div class="kpi-value">95%</div>
-            <div class="kpi-delta" style="color:var(--tx-3);">Sem cobrança</div>
-          </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></div>
+        <h3>SMS Flash</h3>
+        <p>A tela acende com a mensagem. Mesmo com o celular bloqueado. Impossível ignorar. Ideal para urgência.</p>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+        <h3>SMS Shortcode</h3>
+        <p>Número curto oficial (29041). 98% de abertura. 90% lidos em 3 minutos. Deep Link e rastreamento completo.</p>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></div>
+        <h3>Flow Automatizado</h3>
+        <p>Régua automatizada. Configura uma vez, replica para todos os lançamentos. Integra Hotmart, ActiveCampaign, Kiwify.</p>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+        <h3>Infraestrutura ANATEL</h3>
+        <p>Tecnologia e operadora próprias. 3M ligações/hora. 40M SMS/hora. Homologada. Nunca para no dia que importa.</p>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg></div>
+        <h3>Atribuição Direta</h3>
+        <p>Cruzamento automático entre quem atendeu e quem comprou. Prova real de ROI — nenhum concorrente oferece isso.</p>
+      </div>
+    </div>
+
+    <!-- CTA Band -->
+    <div class="cta-band r" style="margin-bottom:48px;">
+      <div class="sec-ey" style="justify-content:center;margin-bottom:14px;">Faça LigueLead</div>
+      <h2>VENDE MAIS QUEM SE<br>COMUNICA MELHOR.</h2>
+      <p>A sua audiência não vai lembrar sozinha. Ninguém vai. A LigueLead garante que eles estejam lá quando importa.</p>
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <a href="#" class="btn btn-primary btn-xl">Começar agora</a>
+        <a href="#" class="btn btn-outline btn-lg">Falar com o time</a>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="r">
+      <div class="sec-ey" style="margin-bottom:20px;">Escada de valor</div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">Básico</div>
+          <div class="price-val">R$300<span>/créditos</span></div>
+          <div class="price-desc">Para começar e testar</div>
+          <ul class="price-items">
+            <li>Ligação com voz</li>
+            <li>SMS Shortcode</li>
+            <li>Relatórios básicos</li>
+          </ul>
+          <button class="btn btn-ghost" style="width:100%;">Começar</button>
         </div>
-        <div class="platform-row2">
-          <div class="platform-chart">
-            <div class="chart-header">
-              <span class="chart-title">Presença por hora (live)</span>
-              <span class="badge badge-green">hoje</span>
-            </div>
-            <div class="chart-bars" id="chartBars">
-              <div class="bar-col"><div class="bar-v" style="height:40%;"></div><div class="bar-label-v">10h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:65%;"></div><div class="bar-label-v">11h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:90%;"></div><div class="bar-label-v">12h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:100%;"></div><div class="bar-label-v">13h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:80%;"></div><div class="bar-label-v">14h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:55%;"></div><div class="bar-label-v">15h</div></div>
-              <div class="bar-col"><div class="bar-v" style="height:30%;"></div><div class="bar-label-v">16h</div></div>
-            </div>
-          </div>
-          <div class="platform-activity">
-            <div class="activity-title">Atividade recente</div>
-            <div class="activity-item">
-              <div class="activity-dot" style="background:var(--green);"></div>
-              <div class="activity-text">Lote de SMS Flash disparado</div>
-              <div class="activity-time">agora</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot" style="background:var(--green-mint);"></div>
-              <div class="activity-text">1.200 ligações entregues</div>
-              <div class="activity-time">2 min</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot" style="background:var(--tx-3);"></div>
-              <div class="activity-text">Flow #3 ativado — D-1 live</div>
-              <div class="activity-time">1h</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot" style="background:var(--tx-3);"></div>
-              <div class="activity-text">95 caixas postais bloqueadas</div>
-              <div class="activity-time">2h</div>
-            </div>
-          </div>
+        <div class="price-card featured">
+          <div class="price-tier t">Pro · Mais popular</div>
+          <div class="price-val" style="color:var(--teal);text-shadow:var(--neon-sm);">R$1-3k<span>/mês</span></div>
+          <div class="price-desc">Multi-canal + Flow automatizado</div>
+          <ul class="price-items">
+            <li>Tudo do Básico</li>
+            <li>SMS Flash</li>
+            <li>Flow automatizado</li>
+            <li>Atribuição direta</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%;">Fazer LigueLead</button>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">Enterprise</div>
+          <div class="price-val">R$10k<span>+/mês</span></div>
+          <div class="price-desc">API + SLA + gerente dedicado</div>
+          <ul class="price-items">
+            <li>Tudo do Pro</li>
+            <li>API completa</li>
+            <li>SLA garantido</li>
+            <li>Gerente dedicado</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%;">Conversar</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── MOTION ─────────────────────────────────────────────── -->
-<section class="section" id="motion" style="background:var(--surface);">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">07 — Motion System</div>
-      <h2 class="section-title">Animação &amp; Easing</h2>
-      <p class="section-desc">Passe o mouse em cada trilho para ver a curva. Velocidade e personalidade da marca em movimento.</p>
+<!-- MOTION -->
+<section class="sec" id="motion">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">09 — Motion</div>
+      <h2 class="sec-h">SISTEMA DE ANIMAÇÃO</h2>
+      <p class="sec-desc">Passe o mouse em cada trilho. Cada curva tem personalidade distinta.</p>
     </div>
-    <div class="motion-grid reveal">
-      <div class="motion-row">
-        <div class="motion-label"><strong>fast</strong><br>150ms · linear</div>
-        <div class="motion-track m-fast"><div class="motion-dot"></div></div>
-      </div>
-      <div class="motion-row">
-        <div class="motion-label"><strong>base</strong><br>300ms · ease-out-expo</div>
-        <div class="motion-track m-expo"><div class="motion-dot"></div></div>
-      </div>
-      <div class="motion-row">
-        <div class="motion-label"><strong>spring</strong><br>400ms · cubic-bezier spring</div>
-        <div class="motion-track m-spring"><div class="motion-dot"></div></div>
-      </div>
-      <div class="motion-row">
-        <div class="motion-label"><strong>slow</strong><br>800ms · ease-out-expo</div>
-        <div class="motion-track m-slow m-expo"><div class="motion-dot"></div></div>
-      </div>
+    <div style="display:flex;flex-direction:column;gap:12px;" class="r">
+      <div class="motion-row"><div class="motion-meta"><strong>fast · 120ms</strong>linear<br><span style="color:var(--tx-3);">Feedbacks imediatos</span></div><div class="motion-track m-fast"><div class="motion-dot"></div></div></div>
+      <div class="motion-row"><div class="motion-meta"><strong>base · 300ms</strong>ease-out-expo<br><span style="color:var(--tx-3);">Transições padrão</span></div><div class="motion-track m-expo"><div class="motion-dot"></div></div></div>
+      <div class="motion-row"><div class="motion-meta"><strong>spring · 450ms</strong>spring<br><span style="color:var(--tx-3);">Hover e entradas físicas</span></div><div class="motion-track m-spring"><div class="motion-dot"></div></div></div>
+      <div class="motion-row"><div class="motion-meta"><strong>slow · 900ms</strong>ease-out-expo<br><span style="color:var(--tx-3);">Reveal e scroll</span></div><div class="motion-track m-slow m-expo"><div class="motion-dot"></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ── INTEGRATIONS ───────────────────────────────────────── -->
-<section class="section" id="integrations">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-eyebrow">08 — Ecossistema</div>
-      <h2 class="section-title">Integrações Nativas</h2>
-      <p class="section-desc">Flow nativo com as principais plataformas do universo de lançamentos.</p>
+<!-- INTEGRATIONS -->
+<section class="sec sec-alt">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">10 — Ecossistema</div>
+      <h2 class="sec-h">INTEGRAÇÕES NATIVAS</h2>
     </div>
-    <div class="integration-strip reveal">
-      <div class="integration-chip"><div class="dot"></div>Hotmart</div>
-      <div class="integration-chip"><div class="dot"></div>ActiveCampaign</div>
-      <div class="integration-chip"><div class="dot"></div>Kiwify</div>
-      <div class="integration-chip"><div class="dot"></div>ManyChat</div>
-      <div class="integration-chip"><div class="dot"></div>Clint</div>
-      <div class="integration-chip"><div class="dot"></div>Zapier</div>
-      <div class="integration-chip"><div class="dot"></div>API REST</div>
-      <div class="integration-chip"><div class="dot"></div>Webhook</div>
-    </div>
-
-    <!-- Product channels -->
-    <div style="margin-top:48px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;" class="reveal">
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
-        <div style="font-size:1.4rem;margin-bottom:8px;">📞</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Ligação com Voz</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Bina inteligente · DDD local · Bloqueador caixa postal</div>
-        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
-      </div>
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
-        <div style="font-size:1.4rem;margin-bottom:8px;">💬</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">SMS Shortcode</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Número 29041 · 98% abertura · Deep Link</div>
-        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
-      </div>
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
-        <div style="font-size:1.4rem;margin-bottom:8px;">⚡</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">SMS Flash</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Tela acende com mensagem · Impossível ignorar</div>
-        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
-      </div>
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);">
-        <div style="font-size:1.4rem;margin-bottom:8px;">🔄</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Flow</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Régua automatizada · Configura 1× · Replica sempre</div>
-        <div style="margin-top:10px;"><span class="badge badge-green">Core</span></div>
-      </div>
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);opacity:0.6;">
-        <div style="font-size:1.4rem;margin-bottom:8px;">✨</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">RCS</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Mensagens ricas · Botões · Carrosséis · Branding</div>
-        <div style="margin-top:10px;"><span class="badge badge-gray">Em breve</span></div>
-      </div>
-      <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);opacity:0.6;">
-        <div style="font-size:1.4rem;margin-bottom:8px;">🔔</div>
-        <div style="font-weight:800;font-size:14px;color:var(--tx-1);">Push</div>
-        <div style="font-size:12px;color:var(--tx-2);margin-top:4px;line-height:1.5;">Notificações diretas · Canal adicional no arsenal</div>
-        <div style="margin-top:10px;"><span class="badge badge-gray">Em breve</span></div>
-      </div>
+    <div class="integ-wrap r">
+      <div class="integ-chip"><div class="integ-dot"></div>Hotmart</div>
+      <div class="integ-chip"><div class="integ-dot"></div>ActiveCampaign</div>
+      <div class="integ-chip"><div class="integ-dot"></div>Kiwify</div>
+      <div class="integ-chip"><div class="integ-dot"></div>ManyChat</div>
+      <div class="integ-chip"><div class="integ-dot"></div>ElevenLabs</div>
+      <div class="integ-chip"><div class="integ-dot"></div>Zapier</div>
+      <div class="integ-chip"><div class="integ-dot"></div>API REST</div>
+      <div class="integ-chip"><div class="integ-dot"></div>Webhook</div>
+      <div class="integ-chip"><div class="integ-dot"></div>Clint</div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────── -->
-<footer style="border-top:1px solid var(--border); padding:48px 24px;">
-  <div class="ds-footer">
+<hr class="neon-rule">
+<footer>
+  <div class="foot-inner">
     <div>
-      <div class="footer-brand">Ligue<span>Lead</span></div>
+      <div class="foot-brand"><em>ℒ</em>IGUELEAD</div>
       <div style="font-size:13px;color:var(--tx-2);margin-top:4px;">Infraestrutura de mensageria para infoprodutores.</div>
     </div>
-    <div style="text-align:right;">
-      <div class="footer-meta">Design System v2.0 · 2026</div>
-      <div class="footer-meta" style="margin-top:4px;">Tokens · Componentes · Motion · Plataforma</div>
+    <div class="foot-meta">
+      Design System v2.0 · Premium · 2026<br>
+      <a href="https://liguelead-ds.vercel.app">liguelead-ds.vercel.app</a>
     </div>
   </div>
 </footer>
 
 <script>
-(function() {
-  // ── THEME TOGGLE ──────────────────────────────────────────
-  const html = document.documentElement;
-  const btn = document.getElementById('themeBtn');
-  const stored = localStorage.getItem('ll-ds-theme');
-  if (stored) html.setAttribute('data-theme', stored);
-  btn.addEventListener('click', () => {
-    const cur = html.getAttribute('data-theme');
-    const next = cur === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('ll-ds-theme', next);
+(function(){
+'use strict';
+
+/* PARTICLE CANVAS */
+const cv = document.getElementById('bg-canvas');
+const cx = cv.getContext('2d');
+let W, H, pts = [], mx = -999, my = -999;
+const N = 90, MD = 115, C = '21,195,160';
+
+function resize(){ W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+window.addEventListener('mouseleave', () => { mx = my = -999; });
+
+for(let i=0;i<N;i++) pts.push({
+  x: Math.random()*2000, y: Math.random()*1200,
+  vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+  r: Math.random()*1.4+.4, a: Math.random()*.5+.2
+});
+
+function tick(){
+  cx.clearRect(0,0,W,H);
+  pts.forEach(p => {
+    const dx=mx-p.x, dy=my-p.y, d=Math.hypot(dx,dy);
+    if(d<140){ const f=(140-d)/140*.014; p.vx-=dx*f; p.vy-=dy*f; }
+    p.vx*=.99; p.vy*=.99; p.x+=p.vx; p.y+=p.vy;
+    if(p.x<-20) p.x=W+20; if(p.x>W+20) p.x=-20;
+    if(p.y<-20) p.y=H+20; if(p.y>H+20) p.y=-20;
+    cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(${C},${p.a})`; cx.fill();
   });
-
-  // ── INTERSECTION OBSERVER (reveal + bars + counters) ──────
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      el.classList.add('visible');
-
-      // bar charts
-      if (el.id === 'chartBars') {
-        el.querySelectorAll('.bar-v').forEach((b, i) => {
-          setTimeout(() => b.classList.add('animate'), i * 80);
-        });
-      }
-
-      // counters
-      el.querySelectorAll('[data-count]').forEach(cnt => {
-        animateCounter(cnt);
-      });
-
-      io.unobserve(el);
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.reveal, #chartBars').forEach(el => io.observe(el));
-
-  // also observe the platform preview for bar chart
-  const platformPreview = document.querySelector('.platform-preview');
-  if (platformPreview) {
-    const barIo = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('.bar-v').forEach((b, i) => {
-          setTimeout(() => b.classList.add('animate'), i * 80);
-        });
-        barIo.unobserve(e.target);
-      });
-    }, { threshold: 0.3 });
-    barIo.observe(platformPreview);
+  for(let i=0;i<N;i++) for(let j=i+1;j<N;j++){
+    const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.hypot(dx,dy);
+    if(d<MD){ cx.beginPath(); cx.moveTo(pts[i].x,pts[i].y); cx.lineTo(pts[j].x,pts[j].y); cx.strokeStyle=`rgba(${C},${(1-d/MD)*.25})`; cx.lineWidth=.5; cx.stroke(); }
   }
+  requestAnimationFrame(tick);
+}
+tick();
 
-  // ── COUNTER ANIMATION ─────────────────────────────────────
-  function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-count'), 10);
-    const dur = 1400;
-    const start = performance.now();
-    const ease = t => 1 - Math.pow(1 - t, 3);
-    function tick(now) {
-      const p = Math.min((now - start) / dur, 1);
-      const val = Math.round(ease(p) * target);
-      el.textContent = val >= 1000 ? (val / 1000).toFixed(val >= 10000 ? 0 : 1) + 'K' : val + (el.getAttribute('data-suffix') || '');
-      if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = target >= 1000 ? (target / 1000).toFixed(target >= 10000 ? 0 : 1) + 'K' : target + (el.getAttribute('data-suffix') || '');
-    }
-    requestAnimationFrame(tick);
-  }
+/* COUNTER */
+function counter(el){
+  const t=parseInt(el.dataset.count); if(isNaN(t)) return;
+  const suffix=el.textContent.slice(-1)==='%'?'%':'';
+  const dur=1500, s=performance.now();
+  const e=t=>1-Math.pow(1-t,3);
+  const fmt=v=>v>=100000?(v/1000).toFixed(0)+'K':v>=1000?(v/1000).toFixed(1)+'K':v+suffix;
+  (function f(now){ const p=Math.min((now-s)/dur,1); el.textContent=fmt(Math.round(e(p)*t)); p<1?requestAnimationFrame(f):el.textContent=fmt(t); })(s);
+}
+setTimeout(()=>{ document.querySelectorAll('.hero-numbers [data-count]').forEach(counter); }, 700);
 
-  // run counters in hero immediately
-  document.querySelectorAll('.hero-content [data-count]').forEach(el => {
-    setTimeout(() => animateCounter(el), 600);
+/* INTERSECTION */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.classList.add('vis');
+    e.target.querySelectorAll('[data-count]').forEach(counter);
+    e.target.querySelectorAll('[data-w]').forEach(b=>{ setTimeout(()=>b.style.width=b.dataset.w, 100); });
+    io.unobserve(e.target);
   });
+},{threshold:.1});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
 
-  // ── 3D TILT ───────────────────────────────────────────────
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduced) {
-    const card = document.getElementById('tiltCard');
-    const glow = document.getElementById('tiltGlow');
-    const cursor = document.getElementById('cursor');
-    if (card) {
-      card.addEventListener('mouseenter', () => { cursor.style.display = 'block'; });
-      card.addEventListener('mouseleave', () => {
-        cursor.style.display = 'none';
-        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)';
-        if (glow) { glow.style.left = '-80px'; glow.style.top = '-80px'; }
-      });
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `perspective(900px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(20px)`;
-        if (glow) {
-          glow.style.left = (e.clientX - r.left - 150) + 'px';
-          glow.style.top  = (e.clientY - r.top  - 150) + 'px';
-        }
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    }
-  }
+/* BARS */
+const barsIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll('.p-bv').forEach((b,i)=>setTimeout(()=>b.classList.add('anim'),i*90));
+    barsIO.unobserve(e.target);
+  });
+},{threshold:.3});
+const pb=document.querySelector('.platform');
+if(pb) barsIO.observe(pb);
 
-  // ── NAV ACTIVE ────────────────────────────────────────────
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const navIo = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navLinks.forEach(a => a.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
+/* 3D TILT */
+const reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(!reduced){
+  const tc=document.getElementById('tiltCard'), tg=document.getElementById('tiltGlow');
+  if(tc){
+    tc.addEventListener('mousemove',e=>{
+      const r=tc.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      tc.style.transform=`perspective(900px) rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(18px)`;
+      if(tg){ tg.style.left=(e.clientX-r.left-130)+'px'; tg.style.top=(e.clientY-r.top-130)+'px'; }
     });
-  }, { rootMargin: '-40% 0px -40% 0px' });
-  sections.forEach(s => navIo.observe(s));
+    tc.addEventListener('mouseleave',()=>{ tc.style.transform='perspective(900px) rotateY(0deg) rotateX(0deg)'; if(tg){tg.style.left='-80px';tg.style.top='-80px';} });
+  }
+}
+
+/* RANGE */
+const ri=document.getElementById('rangeInput'), rv=document.getElementById('rangeVal');
+if(ri&&rv){
+  ri.addEventListener('input',()=>{
+    const v=parseInt(ri.value);
+    rv.textContent=v.toLocaleString('pt-BR')+' leads';
+    const pct=(v-3000)/(100000-3000)*100;
+    ri.style.setProperty('--val',pct+'%');
+  });
+}
+
 })();
 </script>
+</body>
+</html>
