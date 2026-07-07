@@ -916,6 +916,221 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   .r{opacity:1!important;transform:none!important}
 }
 
+/* ─── PÁGINAS & OFERTAS ─── */
+.offer-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--r-xl); padding:24px 22px;
+  display:flex; flex-direction:column;
+}
+
+/* Countdown */
+.countdown-wrap { display:flex; align-items:center; justify-content:center; gap:8px; }
+.cd-block { display:flex; flex-direction:column; align-items:center; }
+.cd-num {
+  font-family:var(--f-display); font-size:2.4rem; letter-spacing:2px;
+  color:var(--tx-1); background:rgba(21,195,160,.07);
+  border:1px solid rgba(21,195,160,.18); border-radius:8px;
+  padding:6px 14px; min-width:64px; text-align:center;
+  text-shadow:0 0 12px rgba(21,195,160,.3);
+}
+.cd-label { font-family:var(--f-mono); font-size:8px; letter-spacing:2px; color:var(--tx-3); margin-top:4px; }
+.cd-sep { font-family:var(--f-display); font-size:2rem; color:rgba(21,195,160,.5); margin-bottom:16px; }
+
+/* Guarantee Badge */
+.guarantee-badge { position:relative; width:120px; height:120px; display:flex; align-items:center; justify-content:center; }
+.gb-ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:2px solid rgba(21,195,160,.3);
+  box-shadow:0 0 20px rgba(21,195,160,.12), inset 0 0 20px rgba(21,195,160,.05);
+  animation:gbSpin 12s linear infinite;
+  background:conic-gradient(rgba(21,195,160,.15) 0deg, transparent 60deg, rgba(21,195,160,.08) 180deg, transparent 240deg, rgba(21,195,160,.15) 360deg);
+}
+@keyframes gbSpin { to { transform:rotate(360deg); } }
+.gb-inner { text-align:center; z-index:1; }
+.gb-days { font-family:var(--f-display); font-size:2.2rem; letter-spacing:1px; color:var(--teal); text-shadow:var(--neon-sm); line-height:1; }
+.gb-label { font-family:var(--f-mono); font-size:9px; letter-spacing:1.5px; color:var(--tx-2); line-height:1.4; }
+
+/* Price display */
+.price-badge {
+  display:inline-block; background:rgba(229,72,77,.15); border:1px solid rgba(229,72,77,.3);
+  color:#f87171; font-family:var(--f-mono); font-size:10px; letter-spacing:1px;
+  padding:3px 10px; border-radius:99px; margin-top:8px;
+}
+
+/* Testimonials */
+.testimonial-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl);
+  padding:22px 20px; display:flex; flex-direction:column; gap:12px;
+  transition:border-color .25s;
+}
+.testimonial-card:hover { border-color:rgba(21,195,160,.25); }
+.tc-stars { color:var(--teal); font-size:14px; letter-spacing:2px; text-shadow:var(--neon-sm); }
+.tc-quote { font-size:13px; color:var(--tx-2); line-height:1.7; font-style:italic; flex:1; }
+.tc-author { display:flex; align-items:center; gap:12px; }
+.tc-avatar {
+  width:36px; height:36px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--f-display); font-size:.7rem; color:#0A0E0D; letter-spacing:1px;
+}
+.tc-name { font-size:12px; color:var(--tx-1); font-weight:600; }
+.tc-role { font-family:var(--f-mono); font-size:10px; color:var(--tx-3); }
+
+/* Comparison table */
+.compare-table { width:100%; border-collapse:collapse; font-size:12px; }
+.compare-table th { font-family:var(--f-mono); font-size:10px; letter-spacing:1px; padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); }
+.compare-table td { padding:9px 10px; border-bottom:1px solid rgba(255,255,255,.04); color:var(--tx-2); }
+.compare-table tr:last-child td { border-bottom:none; }
+.ct-no  { color:rgba(242,247,245,.3)!important; }
+.ct-yes { color:var(--teal)!important; font-weight:600; }
+
+/* Checklist */
+.benefit-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.benefit-list li { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--tx-2); line-height:1.5; }
+.bl-check {
+  width:18px; height:18px; border-radius:50%; background:rgba(21,195,160,.15); border:1px solid rgba(21,195,160,.3);
+  color:var(--teal); font-size:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+}
+.bl-bonus { background:rgba(21,195,160,.25); font-weight:700; }
+
+/* Pricing */
+.pricing-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl);
+  padding:24px 20px; display:flex; flex-direction:column; gap:10px;
+  position:relative;
+}
+.pricing-featured {
+  border-color:rgba(21,195,160,.3);
+  box-shadow:0 0 0 1px rgba(21,195,160,.12), 0 8px 32px rgba(21,195,160,.08);
+  background:linear-gradient(160deg,rgba(21,195,160,.06),var(--card));
+}
+.pc-badge {
+  position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+  background:var(--teal); color:#0A0E0D; font-family:var(--f-mono); font-size:9px;
+  letter-spacing:1.5px; padding:3px 14px; border-radius:99px; white-space:nowrap;
+}
+.pc-name { font-family:var(--f-display); font-size:1rem; letter-spacing:2px; color:var(--tx-1); }
+.pc-price { display:flex; align-items:baseline; gap:2px; }
+.pc-cur { font-family:var(--f-mono); font-size:12px; color:var(--tx-2); }
+.pc-price { font-family:var(--f-display); font-size:1.8rem; letter-spacing:1px; color:var(--tx-1); }
+.pc-per { font-family:var(--f-mono); font-size:10px; color:var(--tx-3); margin-left:2px; }
+.pc-sub { font-family:var(--f-mono); font-size:10px; color:var(--tx-3); }
+.pc-features { list-style:none; display:flex; flex-direction:column; gap:6px; flex:1; }
+.pc-features li { font-size:12px; color:var(--tx-2); padding-left:14px; position:relative; }
+.pc-features li::before { content:'·'; position:absolute; left:0; color:var(--teal); }
+
+/* FAQ */
+.faq-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden; }
+.faq-item { border-bottom:1px solid var(--border); }
+.faq-item:last-child { border-bottom:none; }
+.faq-q {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 22px; font-size:14px; color:var(--tx-1); cursor:pointer;
+  list-style:none; gap:16px; user-select:none;
+  transition:background .2s;
+}
+.faq-q:hover { background:rgba(21,195,160,.04); }
+.faq-q::-webkit-details-marker { display:none; }
+.faq-icon { font-family:var(--f-mono); font-size:18px; color:var(--teal); flex-shrink:0; transition:transform .25s; }
+details[open] .faq-icon { transform:rotate(45deg); }
+.faq-a { padding:0 22px 18px; font-size:13px; color:var(--tx-2); line-height:1.7; }
+
+/* VSL */
+.vsl-wrap {
+  position:relative; background:rgba(0,0,0,.6); aspect-ratio:16/9;
+  display:flex; align-items:center; justify-content:center; min-height:180px;
+}
+.vsl-thumb {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(21,195,160,.08) 0%, #060a08 100%);
+}
+.vsl-play {
+  position:relative; z-index:2;
+  width:64px; height:64px; border-radius:50%;
+  background:var(--teal); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 0 8px rgba(21,195,160,.15), 0 0 30px rgba(21,195,160,.4);
+  transition:transform .2s, box-shadow .2s;
+  animation:vslPulse 2.4s ease-in-out infinite;
+}
+.vsl-play:hover { transform:scale(1.08); }
+@keyframes vslPulse {
+  0%,100% { box-shadow:0 0 0 8px rgba(21,195,160,.15), 0 0 30px rgba(21,195,160,.4); }
+  50%      { box-shadow:0 0 0 16px rgba(21,195,160,.08), 0 0 50px rgba(21,195,160,.3); }
+}
+.vsl-label {
+  position:absolute; bottom:12px; left:14px; z-index:2;
+  font-family:var(--f-mono); font-size:9px; letter-spacing:2px; color:rgba(242,247,245,.4);
+}
+
+/* Steps */
+.steps-list { display:flex; flex-direction:column; gap:0; }
+.step-item { display:flex; align-items:flex-start; gap:14px; padding:6px 0; }
+.step-num {
+  font-family:var(--f-display); font-size:.9rem; letter-spacing:2px;
+  color:var(--teal); text-shadow:var(--neon-sm);
+  width:32px; flex-shrink:0; padding-top:1px;
+}
+.step-title { font-size:13px; color:var(--tx-1); font-weight:500; }
+.step-desc { font-family:var(--f-mono); font-size:10px; color:var(--tx-3); margin-top:2px; }
+.step-line { width:1px; height:16px; background:rgba(21,195,160,.2); margin-left:15px; }
+
+/* Numbers band */
+.numbers-band {
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl);
+  padding:28px 20px;
+}
+.nb-stat { text-align:center; padding:0 28px; }
+.nb-num { font-family:var(--f-display); font-size:2.2rem; letter-spacing:3px; color:var(--teal); text-shadow:var(--neon-sm); }
+.nb-label { font-family:var(--f-mono); font-size:9px; letter-spacing:1.5px; color:var(--tx-3); margin-top:3px; }
+.nb-div { width:1px; height:40px; background:var(--border); }
+
+/* Logos band */
+.logos-band { overflow:hidden; position:relative; }
+.logos-band::before,.logos-band::after {
+  content:''; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none;
+}
+.logos-band::before { left:0; background:linear-gradient(90deg,var(--bg),transparent); }
+.logos-band::after  { right:0; background:linear-gradient(-90deg,var(--bg),transparent); }
+.logos-track {
+  display:flex; gap:12px; width:max-content;
+  animation:logosScroll 22s linear infinite;
+}
+.logo-pill {
+  padding:8px 20px; border:1px solid var(--border); border-radius:99px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:1px; color:var(--tx-3);
+  white-space:nowrap; background:rgba(21,195,160,.03);
+  flex-shrink:0;
+}
+@keyframes logosScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* Toast */
+.toast-wrap { position:fixed; bottom:80px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+.toast {
+  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  background:#111918; border:1px solid rgba(21,195,160,.25); border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4); font-size:12px; color:var(--tx-2);
+  animation:toastIn .35s ease-out;
+  pointer-events:auto; max-width:280px;
+}
+.toast-dot { width:8px; height:8px; border-radius:50%; background:var(--teal); flex-shrink:0; box-shadow:0 0 6px rgba(21,195,160,.7); }
+@keyframes toastIn { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:none; } }
+.toast.out { animation:toastOut .3s ease-in forwards; }
+@keyframes toastOut { to { opacity:0; transform:translateX(20px); } }
+
+/* Sticky CTA */
+.sticky-cta {
+  position:fixed; bottom:0; left:0; right:0; z-index:9998;
+  background:rgba(10,14,13,.95); border-top:1px solid rgba(21,195,160,.2);
+  backdrop-filter:blur(12px);
+  display:none; /* shown via JS on mobile */
+  align-items:center; justify-content:space-between;
+  padding:12px 20px; gap:16px;
+  box-shadow:0 -4px 24px rgba(0,0,0,.4);
+}
+@media(max-width:768px){ .sticky-cta { display:flex; } }
+/* ─── /PÁGINAS & OFERTAS ─── */
+
 /* ─── REDE & CONEXÃO ─── */
 .net-card {
   background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl);
@@ -1417,6 +1632,7 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
     <li><a href="#platform">Platform</a></li>
     <li><a href="#landing">Landing</a></li>
     <li><a href="#motion">Motion</a></li>
+    <li><a href="#offer">Oferta</a></li>
     <li><a href="#network">Rede</a></li>
     <li><a href="#neural">Neural</a></li>
     <li><a href="#textures">Wallpapers</a></li>
@@ -2721,6 +2937,284 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   </div>
 </section>
 
+<!-- PÁGINAS & OFERTAS -->
+<section class="sec sec-alt" id="offer">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">15 — Páginas & Ofertas</div>
+      <h2 class="sec-h">COMPONENTES DE CONVERSÃO</h2>
+      <p class="sec-desc">Tudo que uma landing page ou página de oferta precisa — prova social, urgência, pricing e estrutura.</p>
+    </div>
+
+    <!-- ROW 1: Countdown + Guarantee + Price Display -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;">
+
+      <!-- Countdown Timer -->
+      <div class="offer-card r">
+        <div class="sec-ey" style="margin-bottom:14px;">Countdown · Urgência</div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:2px;color:var(--tx-3);margin-bottom:10px;">OFERTA ENCERRA EM</div>
+          <div class="countdown-wrap">
+            <div class="cd-block"><span class="cd-num" id="cd-h">04</span><span class="cd-label">HORAS</span></div>
+            <span class="cd-sep">:</span>
+            <div class="cd-block"><span class="cd-num" id="cd-m">23</span><span class="cd-label">MIN</span></div>
+            <span class="cd-sep">:</span>
+            <div class="cd-block"><span class="cd-num" id="cd-s">59</span><span class="cd-label">SEG</span></div>
+          </div>
+          <div style="font-size:11px;color:rgba(229,72,77,.8);margin-top:10px;font-family:var(--f-mono);letter-spacing:1px;">⚠ ÚLTIMAS VAGAS</div>
+        </div>
+      </div>
+
+      <!-- Guarantee Badge -->
+      <div class="offer-card r" style="display:flex;align-items:center;justify-content:center;">
+        <div class="guarantee-badge">
+          <div class="gb-ring"></div>
+          <div class="gb-inner">
+            <div class="gb-days">7</div>
+            <div class="gb-label">DIAS DE<br>GARANTIA</div>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-top:6px;"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#15C3A0" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Display -->
+      <div class="offer-card r" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="sec-ey" style="margin-bottom:10px;">Preço Oferta</div>
+        <div style="font-family:var(--f-mono);font-size:11px;color:rgba(242,247,245,.3);text-decoration:line-through;margin-bottom:2px;">de R$ 497/mês</div>
+        <div style="display:flex;align-items:baseline;gap:4px;justify-content:center;">
+          <span style="font-family:var(--f-mono);font-size:14px;color:var(--teal);">R$</span>
+          <span style="font-family:var(--f-display);font-size:3rem;letter-spacing:2px;color:var(--tx-1);line-height:1;">0,12</span>
+        </div>
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--tx-3);margin-top:2px;">por ligação + SMS</div>
+        <div class="price-badge">-76% OFF</div>
+        <div style="margin-top:12px;width:100%;"><button class="btn btn-primary" style="width:100%;justify-content:center;">Garantir agora</button></div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Testimonials -->
+    <div class="r" style="margin-bottom:24px;">
+      <div class="sec-ey" style="margin-bottom:14px;">Prova Social · Testimonials</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+        <div class="testimonial-card">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-quote">"A presença na live foi de 8% para 41% na primeira vez que usei. Simplesmente absurdo."</p>
+          <div class="tc-author">
+            <div class="tc-avatar" style="background:linear-gradient(135deg,#0E7C66,#15C3A0);">MR</div>
+            <div><div class="tc-name">Marcos Ribeiro</div><div class="tc-role">Lançador · 15k leads</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-quote">"Só vim por causa da ligação — comentário real da minha audiência na live. R$180k em 4 dias."</p>
+          <div class="tc-author">
+            <div class="tc-avatar" style="background:linear-gradient(135deg,#15C3A0,#1FE6BC);">CA</div>
+            <div><div class="tc-name">Camila Alves</div><div class="tc-role">Infoprodutora · SaaS</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-quote">"70% de atendimento nas ligações. A lista que estava morta voltou a comprar."</p>
+          <div class="tc-author">
+            <div class="tc-avatar" style="background:linear-gradient(135deg,#0E7C66,#0A8C72);">PT</div>
+            <div><div class="tc-name">Pedro Torres</div><div class="tc-role">Expert · Mentoria</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Comparison Table + Checklist -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+      <!-- Comparison Table -->
+      <div class="offer-card r">
+        <div class="sec-ey" style="margin-bottom:14px;">Comparativo</div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th style="color:var(--tx-3);">Sem LL</th>
+              <th style="color:var(--teal);">Com LigueLead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Presença na live</td><td class="ct-no">8%</td><td class="ct-yes">35%+</td></tr>
+            <tr><td>Atendimento</td><td class="ct-no">Email morto</td><td class="ct-yes">70% ligação</td></tr>
+            <tr><td>Lista esquece</td><td class="ct-no">Sempre</td><td class="ct-yes">Nunca</td></tr>
+            <tr><td>Canais</td><td class="ct-no">1</td><td class="ct-yes">Ligação + SMS</td></tr>
+            <tr><td>Setup</td><td class="ct-no">Complexo</td><td class="ct-yes">15 minutos</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Checklist de benefícios -->
+      <div class="offer-card r">
+        <div class="sec-ey" style="margin-bottom:14px;">O que está incluso</div>
+        <ul class="benefit-list">
+          <li><span class="bl-check">✓</span>Ligações com voz humanizada</li>
+          <li><span class="bl-check">✓</span>SMS Shortcode dedicado</li>
+          <li><span class="bl-check">✓</span>Flow de automação visual</li>
+          <li><span class="bl-check">✓</span>Dashboard em tempo real</li>
+          <li><span class="bl-check">✓</span>Integração com +100 plataformas</li>
+          <li><span class="bl-check">✓</span>Suporte dedicado ao lançamento</li>
+          <li><span class="bl-check bl-bonus">+</span><strong style="color:var(--teal);">BÔNUS:</strong> Setup feito pela equipe</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ROW 4: Pricing Table -->
+    <div class="r" style="margin-bottom:24px;">
+      <div class="sec-ey" style="margin-bottom:14px;">Pricing · Planos</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <div class="pricing-card">
+          <div class="pc-name">Starter</div>
+          <div class="pc-price"><span class="pc-cur">R$</span>0,15<span class="pc-per">/ligação</span></div>
+          <div class="pc-sub">A partir de 3.000 leads</div>
+          <ul class="pc-features">
+            <li>Ligação com voz</li>
+            <li>SMS incluso</li>
+            <li>Dashboard básico</li>
+            <li style="color:var(--tx-3);text-decoration:line-through;">Flow automação</li>
+          </ul>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:auto;">Começar</button>
+        </div>
+        <div class="pricing-card pricing-featured">
+          <div class="pc-badge">MAIS POPULAR</div>
+          <div class="pc-name" style="color:var(--teal);">Growth</div>
+          <div class="pc-price"><span class="pc-cur">R$</span>0,12<span class="pc-per">/ligação+SMS</span></div>
+          <div class="pc-sub">A partir de 10.000 leads</div>
+          <ul class="pc-features">
+            <li>Ligação com voz</li>
+            <li>SMS Shortcode</li>
+            <li>Dashboard completo</li>
+            <li>Flow automação</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:auto;">Contratar</button>
+        </div>
+        <div class="pricing-card">
+          <div class="pc-name">Enterprise</div>
+          <div class="pc-price"><span class="pc-cur" style="font-size:14px;">Sob</span><span style="font-size:1.4rem;"> consulta</span></div>
+          <div class="pc-sub">+100k leads / lançamentos</div>
+          <ul class="pc-features">
+            <li>Tudo do Growth</li>
+            <li>Infraestrutura dedicada</li>
+            <li>SLA garantido</li>
+            <li>CS dedicado</li>
+          </ul>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:auto;">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 5: FAQ -->
+    <div class="r" style="margin-bottom:24px;">
+      <div class="sec-ey" style="margin-bottom:14px;">FAQ · Perguntas Frequentes</div>
+      <div class="faq-list">
+        <details class="faq-item"><summary class="faq-q">Como funciona a ligação com voz?<span class="faq-icon">+</span></summary><div class="faq-a">A LigueLead faz ligações automáticas com voz humanizada para toda a sua lista. O lead atende, ouve sua mensagem personalizada e pode ser transferido para você. Tudo configurável no painel em minutos.</div></details>
+        <details class="faq-item"><summary class="faq-q">Minha lista pode ser bloqueada?<span class="faq-icon">+</span></summary><div class="faq-a">Não. A LigueLead opera com infraestrutura própria, homologada e em conformidade. Zero risco de bloqueio de número como ocorre com WhatsApp em massa.</div></details>
+        <details class="faq-item"><summary class="faq-q">Quanto tempo leva para ativar?<span class="faq-icon">+</span></summary><div class="faq-a">Em média 15 minutos. Nossa equipe faz o setup com você, integra com sua plataforma de lançamento e já deixa o primeiro flow pronto para disparar.</div></details>
+        <details class="faq-item"><summary class="faq-q">Funciona com qual plataforma?<span class="faq-icon">+</span></summary><div class="faq-a">+100 plataformas: Hotmart, Kiwify, Eduzz, Monetizze, ActiveCampaign, RD Station, Hubspot e qualquer ferramenta com webhook ou API.</div></details>
+      </div>
+    </div>
+
+    <!-- ROW 6: Hero VSL + Steps + Logos band -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+      <!-- VSL Placeholder -->
+      <div class="offer-card r" style="padding:0;overflow:hidden;">
+        <div class="vsl-wrap">
+          <div class="vsl-thumb"></div>
+          <button class="vsl-play" aria-label="Play vídeo">
+            <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="vsl-label">VSL · Vídeo de Vendas</div>
+        </div>
+      </div>
+
+      <!-- Steps / Como funciona -->
+      <div class="offer-card r">
+        <div class="sec-ey" style="margin-bottom:16px;">Como funciona · Steps</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">01</div>
+            <div><div class="step-title">Conecta sua plataforma</div><div class="step-desc">Webhook ou integração nativa em 2 cliques</div></div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item">
+            <div class="step-num">02</div>
+            <div><div class="step-title">Monta seu flow</div><div class="step-desc">Ligação + SMS com sua voz e mensagem</div></div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item">
+            <div class="step-num">03</div>
+            <div><div class="step-title">Dispara antes da live</div><div class="step-desc">Lembrete automático para toda a lista</div></div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item">
+            <div class="step-num">04</div>
+            <div><div class="step-title">Audiência aparece</div><div class="step-desc">Presença de 8% → 35%+ na média</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats / Numbers band -->
+    <div class="numbers-band r" style="margin-bottom:24px;">
+      <div class="nb-stat"><div class="nb-num">18M</div><div class="nb-label">Ligações / dia</div></div>
+      <div class="nb-div"></div>
+      <div class="nb-stat"><div class="nb-num">25K+</div><div class="nb-label">Clientes ativos</div></div>
+      <div class="nb-div"></div>
+      <div class="nb-stat"><div class="nb-num">150K+</div><div class="nb-label">Lançamentos</div></div>
+      <div class="nb-div"></div>
+      <div class="nb-stat"><div class="nb-num">98%</div><div class="nb-label">Satisfação</div></div>
+      <div class="nb-div"></div>
+      <div class="nb-stat"><div class="nb-num">35%+</div><div class="nb-label">Presença média</div></div>
+    </div>
+
+    <!-- Logos band -->
+    <div class="r" style="margin-bottom:0;">
+      <div class="sec-ey" style="margin-bottom:12px;text-align:center;">Integra com +100 plataformas</div>
+      <div class="logos-band">
+        <div class="logos-track">
+          <span class="logo-pill">Hotmart</span>
+          <span class="logo-pill">Kiwify</span>
+          <span class="logo-pill">Eduzz</span>
+          <span class="logo-pill">Monetizze</span>
+          <span class="logo-pill">ActiveCampaign</span>
+          <span class="logo-pill">RD Station</span>
+          <span class="logo-pill">HubSpot</span>
+          <span class="logo-pill">Klicksend</span>
+          <span class="logo-pill">Leadlovers</span>
+          <span class="logo-pill">Zapier</span>
+          <!-- duplicate for seamless loop -->
+          <span class="logo-pill">Hotmart</span>
+          <span class="logo-pill">Kiwify</span>
+          <span class="logo-pill">Eduzz</span>
+          <span class="logo-pill">Monetizze</span>
+          <span class="logo-pill">ActiveCampaign</span>
+          <span class="logo-pill">RD Station</span>
+          <span class="logo-pill">HubSpot</span>
+          <span class="logo-pill">Klicksend</span>
+          <span class="logo-pill">Leadlovers</span>
+          <span class="logo-pill">Zapier</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOAST NOTIFICATION (fixed, global) -->
+<div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+
+<!-- STICKY CTA BAR (mobile) -->
+<div class="sticky-cta" id="sticky-cta">
+  <div style="display:flex;flex-direction:column;">
+    <span style="font-family:var(--f-display);font-size:.8rem;letter-spacing:2px;color:var(--tx-1);">FAÇA LIGUELEAD</span>
+    <span style="font-family:var(--f-mono);font-size:9px;color:var(--tx-3);">R$ 0,12 por ligação + SMS</span>
+  </div>
+  <button class="btn btn-primary" style="flex-shrink:0;">Começar agora</button>
+</div>
+
 <hr class="neon-rule">
 <footer>
   <div class="foot-inner">
@@ -3060,6 +3554,47 @@ document.head.appendChild(style);
     resizeTimer=setTimeout(()=>{ cancelAnimationFrame(raf); resize(); frame(); },200);
   });
   frame();
+})();
+
+/* ── Countdown ── */
+(function(){
+  let total = 4*3600 + 23*60 + 59;
+  function tick(){
+    if(total<=0) return;
+    total--;
+    const h=Math.floor(total/3600), m=Math.floor((total%3600)/60), s=total%60;
+    const pad=n=>String(n).padStart(2,'0');
+    const eh=document.getElementById('cd-h'), em=document.getElementById('cd-m'), es=document.getElementById('cd-s');
+    if(eh) eh.textContent=pad(h);
+    if(em) em.textContent=pad(m);
+    if(es) es.textContent=pad(s);
+  }
+  setInterval(tick,1000);
+})();
+
+/* ── Toast notifications ── */
+(function(){
+  const wrap=document.getElementById('toast-wrap'); if(!wrap) return;
+  const msgs=[
+    'João S. acabou de ativar',
+    'Camila A. fez o primeiro disparo',
+    'Pedro T. aumentou presença para 38%',
+    'Rafael M. integrou com Hotmart',
+    'Ana L. configurou flow de lançamento',
+    'Bruno K. ativou SMS Shortcode',
+  ];
+  let idx=0;
+  function showToast(){
+    const t=document.createElement('div'); t.className='toast';
+    t.innerHTML='<div class="toast-dot"></div><span>'+msgs[idx%msgs.length]+'</span>';
+    idx++;
+    wrap.appendChild(t);
+    setTimeout(()=>{
+      t.classList.add('out');
+      setTimeout(()=>t.remove(),350);
+    },3800);
+  }
+  setTimeout(()=>{ showToast(); setInterval(showToast,5500); },2000);
 })();
 
 /* ── Data Stream live feed ── */
