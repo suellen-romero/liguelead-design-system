@@ -593,6 +593,200 @@ tbody tr:hover { background: rgba(21,195,160,.03); }
 /* ═══ NEON RULE ═════════════════════════════════════════════ */
 .neon-rule { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--teal), transparent); box-shadow: 0 0 8px rgba(21,195,160,.5); margin: 0; }
 
+/* ═══ TEXTURES ══════════════════════════════════════════════ */
+.tex { position: relative; }
+.tex::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; border-radius: inherit; }
+.tex > * { position: relative; z-index: 1; }
+
+.tex-noise::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 300px 300px; opacity: .7; mix-blend-mode: overlay;
+}
+.tex-dots::before {
+  background-image: radial-gradient(circle, rgba(21,195,160,.18) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.tex-grid::before {
+  background-image: linear-gradient(rgba(21,195,160,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(21,195,160,.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.tex-lines::before {
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(21,195,160,.05) 18px, rgba(21,195,160,.05) 19px);
+}
+.tex-topo::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='none' stroke='rgba(21,195,160,0.07)' stroke-width='1'%3E%3Cellipse cx='200' cy='200' rx='180' ry='60'/%3E%3Cellipse cx='200' cy='200' rx='140' ry='45'/%3E%3Cellipse cx='200' cy='200' rx='100' ry='30'/%3E%3Cellipse cx='200' cy='200' rx='60' ry='18'/%3E%3Cellipse cx='200' cy='200' rx='160' ry='100'/%3E%3Cellipse cx='200' cy='200' rx='120' ry='75'/%3E%3Cellipse cx='200' cy='200' rx='80' ry='50'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+.tex-mesh::before {
+  background: radial-gradient(ellipse 80% 50% at 20% 40%, rgba(21,195,160,.08) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 60%, rgba(14,124,102,.06) 0%, transparent 60%);
+}
+
+/* ═══ QUIZ ══════════════════════════════════════════════════ */
+.quiz-wrap { max-width: 680px; margin: 0 auto; }
+.quiz-progress { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 36px; overflow: hidden; }
+.quiz-bar { height: 100%; background: linear-gradient(90deg, var(--teal-dark), var(--teal)); box-shadow: 0 0 8px rgba(21,195,160,.5); border-radius: 2px; transition: width .5s cubic-bezier(.16,1,.3,1); }
+.quiz-step { display: none; animation: qFade .35s cubic-bezier(.16,1,.3,1); }
+.quiz-step.active { display: block; }
+@keyframes qFade { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:none} }
+.quiz-q { font-family: var(--f-display); font-size: 1.8rem; letter-spacing: 2px; color: var(--tx-1); margin-bottom: 8px; line-height: 1.1; }
+.quiz-sub { font-size: 14px; color: var(--tx-2); margin-bottom: 28px; line-height: 1.6; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; border-radius: var(--r-md);
+  background: var(--card); border: 1px solid var(--border);
+  cursor: pointer; transition: all .2s cubic-bezier(.16,1,.3,1);
+  font-size: 14px; color: var(--tx-1);
+}
+.quiz-opt:hover { border-color: var(--border2); background: var(--card2); }
+.quiz-opt.selected { border-color: var(--teal); background: rgba(21,195,160,.06); box-shadow: var(--neon-sm); color: var(--teal); }
+.quiz-opt-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border2); flex-shrink: 0; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+.quiz-opt.selected .quiz-opt-dot { background: var(--teal); border-color: var(--teal); box-shadow: var(--neon-sm); }
+.quiz-opt.selected .quiz-opt-dot::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #030A08; }
+.quiz-nav { display: flex; align-items: center; justify-content: space-between; }
+.quiz-counter { font-family: var(--f-mono); font-size: 11px; color: var(--tx-3); letter-spacing: 1px; }
+.quiz-result { text-align: center; padding: 48px 24px; }
+.quiz-result-pct { font-family: var(--f-display); font-size: 6rem; letter-spacing: 4px; color: var(--teal); text-shadow: var(--neon-lg); line-height: 1; margin-bottom: 8px; }
+.quiz-result-label { font-size: 1.1rem; font-weight: 800; color: var(--tx-1); margin-bottom: 12px; }
+.quiz-result-desc { font-size: 14px; color: var(--tx-2); max-width: 420px; margin: 0 auto 32px; line-height: 1.7; }
+
+/* ═══ ANIMATED COMPONENTS ═══════════════════════════════════ */
+.anim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.anim-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl);
+  padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 20px;
+  position: relative; overflow: hidden;
+}
+.anim-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(21,195,160,.05) 0%, transparent 60%); pointer-events: none; }
+.anim-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-2); margin-top: 4px; }
+
+/* Phone ringing */
+.phone-anim { width: 80px; height: 80px; position: relative; }
+.phone-body {
+  width: 42px; height: 70px; border-radius: 8px; border: 2.5px solid var(--teal);
+  position: absolute; top: 5px; left: 19px;
+  box-shadow: var(--neon-sm);
+  animation: phoneRing 2s ease-in-out infinite;
+}
+.phone-body::before { content: ''; position: absolute; top: 8px; left: 6px; right: 6px; bottom: 8px; border-radius: 4px; background: rgba(21,195,160,.08); }
+.phone-body::after { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 14px; height: 3px; border-radius: 2px; background: var(--teal); opacity: .5; }
+@keyframes phoneRing {
+  0%,100%{transform:rotate(0deg)} 5%{transform:rotate(-8deg)} 10%{transform:rotate(8deg)} 15%{transform:rotate(-6deg)} 20%{transform:rotate(6deg)} 25%{transform:rotate(0deg)} 26%,99%{transform:rotate(0deg)}
+}
+.phone-ring-1, .phone-ring-2, .phone-ring-3 {
+  position: absolute; border-radius: 50%; border: 1.5px solid var(--teal);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  opacity: 0; animation: ringPulse 2s ease-out infinite;
+}
+.phone-ring-1 { width: 60px; height: 60px; animation-delay: .3s; }
+.phone-ring-2 { width: 74px; height: 74px; animation-delay: .6s; }
+.phone-ring-3 { width: 90px; height: 90px; animation-delay: .9s; }
+@keyframes ringPulse {
+  0%{opacity:.8;transform:translate(-50%,-50%) scale(.6)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}
+}
+
+/* Message bubbles */
+.msg-anim { width: 200px; height: 130px; position: relative; overflow: hidden; }
+.msg-bubble {
+  position: absolute; padding: 9px 14px; border-radius: 14px;
+  font-size: 11px; line-height: 1.4; max-width: 130px;
+  opacity: 0;
+}
+.msg-left { background: var(--surface); border: 1px solid var(--border); color: var(--tx-2); border-bottom-left-radius: 3px; left: 0; }
+.msg-right { background: linear-gradient(135deg, var(--teal-dark), var(--teal)); color: #030A08; font-weight: 700; border-bottom-right-radius: 3px; right: 0; }
+.msg-b1 { top: 4px; animation: msgPop 6s ease-in-out infinite; }
+.msg-b2 { top: 46px; animation: msgPop 6s ease-in-out infinite .8s; }
+.msg-b3 { top: 92px; animation: msgPop 6s ease-in-out infinite 1.6s; }
+@keyframes msgPop {
+  0%,100%{opacity:0;transform:scale(.8) translateY(6px)}
+  15%,75%{opacity:1;transform:scale(1) translateY(0)}
+  90%{opacity:0;transform:scale(.95) translateY(-4px)}
+}
+.msg-typing { position: absolute; bottom: 4px; left: 8px; display: flex; gap: 4px; align-items: center; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; border-bottom-left-radius: 3px; animation: typingShow 6s ease-in-out infinite 2.4s; opacity: 0; }
+.msg-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--tx-3); }
+.msg-typing span:nth-child(1) { animation: typDot 1s ease-in-out infinite .0s; }
+.msg-typing span:nth-child(2) { animation: typDot 1s ease-in-out infinite .2s; }
+.msg-typing span:nth-child(3) { animation: typDot 1s ease-in-out infinite .4s; }
+@keyframes typDot { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-4px);opacity:1} }
+@keyframes typingShow { 0%,100%{opacity:0} 10%,50%{opacity:1} 65%{opacity:0} }
+
+/* SMS Flash */
+.flash-anim { width: 80px; height: 130px; position: relative; }
+.flash-phone {
+  width: 72px; height: 120px; border-radius: 12px;
+  border: 2.5px solid rgba(21,195,160,.4); position: relative; overflow: hidden;
+  background: #0A0E0D;
+}
+.flash-screen {
+  position: absolute; inset: 6px 4px; border-radius: 8px;
+  background: #0A0E0D;
+  animation: flashScreen 3s ease-in-out infinite;
+}
+@keyframes flashScreen {
+  0%,35%,100%{background:#0A0E0D}
+  40%{background:rgba(21,195,160,.9)}
+  42%,98%{background:#0A0E0D}
+  45%{background:rgba(21,195,160,.7)}
+  47%{background:#0A0E0D}
+}
+.flash-text {
+  position: absolute; top: 30%; left: 6px; right: 6px;
+  font-family: var(--f-mono); font-size: 7px; color: #030A08; line-height: 1.4;
+  animation: flashText 3s ease-in-out infinite;
+  opacity: 0; font-weight: 700;
+}
+@keyframes flashText { 0%,38%,55%,100%{opacity:0} 41%,52%{opacity:1} }
+.flash-notch { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 20px; height: 4px; border-radius: 2px; background: rgba(21,195,160,.2); z-index: 1; }
+
+/* Flow diagram */
+.flow-anim { width: 220px; height: 130px; position: relative; }
+.flow-node {
+  position: absolute; width: 44px; height: 30px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono); font-size: 8px; letter-spacing: .5px; font-weight: 700;
+  border: 1.5px solid var(--border2); background: var(--surface);
+}
+.flow-node.start { color: var(--teal); border-color: var(--teal); box-shadow: var(--neon-sm); background: rgba(21,195,160,.08); top: 48px; left: 4px; }
+.flow-node.sms { color: var(--tx-2); top: 10px; left: 90px; }
+.flow-node.call { color: var(--tx-2); top: 50px; left: 90px; }
+.flow-node.flash { color: var(--tx-2); top: 90px; left: 90px; }
+.flow-node.done { color: var(--teal); border-color: var(--teal); box-shadow: var(--neon-sm); background: rgba(21,195,160,.08); top: 48px; right: 4px; }
+.flow-svg { position: absolute; inset: 0; overflow: visible; }
+.flow-path {
+  fill: none; stroke: rgba(21,195,160,.25); stroke-width: 1.5; stroke-dasharray: 4 4;
+}
+.flow-dot {
+  r: 3; fill: var(--teal);
+  filter: drop-shadow(0 0 4px rgba(21,195,160,.9));
+}
+.flow-dot-1 { animation: flowMove1 2s linear infinite; }
+.flow-dot-2 { animation: flowMove2 2s linear infinite .4s; }
+.flow-dot-3 { animation: flowMove3 2s linear infinite .8s; }
+.flow-dot-4 { animation: flowMove4 2s linear infinite 1.2s; }
+
+@keyframes flowMove1 {
+  0%{offset-path:path('M48 62 C65 62 75 25 90 25');offset-distance:0%}
+  100%{offset-distance:100%}
+}
+@keyframes flowMove2 {
+  0%{offset-path:path('M48 62 C65 62 75 65 90 65');offset-distance:0%}
+  100%{offset-distance:100%}
+}
+@keyframes flowMove3 {
+  0%{offset-path:path('M48 62 C65 62 75 105 90 105');offset-distance:0%}
+  100%{offset-distance:100%}
+}
+@keyframes flowMove4 {
+  0%{offset-path:path('M134 25 C155 25 165 62 176 62');offset-distance:0%}
+  100%{offset-distance:100%}
+}
+.fd1 { animation: flowMove1 2.2s linear infinite; }
+.fd2 { animation: flowMove2 2.2s linear infinite .5s; }
+.fd3 { animation: flowMove3 2.2s linear infinite 1s; }
+.fd4 { animation: flowMove4 2.2s linear infinite 1.5s; }
+
+
 /* ═══ CODE BLOCK ════════════════════════════════════════════ */
 .code {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
@@ -640,6 +834,9 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
     <li><a href="#platform">Platform</a></li>
     <li><a href="#landing">Landing</a></li>
     <li><a href="#motion">Motion</a></li>
+    <li><a href="#textures">Texturas</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#animations">Animações</a></li>
   </ul>
   <div class="nav-ver">DS v2 · 2026</div>
 </nav>
@@ -1260,6 +1457,251 @@ footer { padding: 48px 24px; border-top: 1px solid var(--border); position: rela
   </div>
 </section>
 
+<!-- TEXTURES -->
+<section class="sec sec-alt" id="textures">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">11 — Texturas</div>
+      <h2 class="sec-h">TEXTURAS DE FUNDO</h2>
+      <p class="sec-desc">Classes CSS para diferenciar blocos no site. Combine com fundo escuro — cada padrão tem personalidade distinta.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;" class="r">
+      <div class="tex tex-noise" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Noise · Grão</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">TEXTURA ORGÂNICA</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-noise</div>
+      </div>
+      <div class="tex tex-dots" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Dots · Pontos</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">MALHA DE PONTOS</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-dots</div>
+      </div>
+      <div class="tex tex-grid" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Grid · Grade</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">GRADE DIGITAL</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-grid</div>
+      </div>
+      <div class="tex tex-lines" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Lines · Diagonais</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">LINHAS 45°</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-lines</div>
+      </div>
+      <div class="tex tex-topo" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Topography · Curvas</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">TOPOGRÁFICO</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-topo</div>
+      </div>
+      <div class="tex tex-mesh" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;min-height:160px;">
+        <div class="sec-ey" style="margin-bottom:8px;">Mesh · Gradiente</div>
+        <div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:2px;color:var(--tx-1);">MESH GRADIENTE</div>
+        <div style="font-size:12px;color:var(--tx-3);margin-top:6px;font-family:var(--f-mono);">.tex-mesh</div>
+      </div>
+    </div>
+
+    <!-- Usage example -->
+    <div class="r" style="margin-top:32px;">
+      <div class="sec-ey" style="margin-bottom:12px;">Combinando texturas em seções</div>
+      <div class="tex tex-dots" style="background:linear-gradient(160deg,#08130F,#0D1A15);border:1px solid var(--border);border-radius:var(--r-xl);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
+        <div>
+          <div style="font-family:var(--f-display);font-size:2.2rem;letter-spacing:3px;color:var(--tx-1);line-height:1.05;margin-bottom:12px;">SEÇÃO COM <span style="color:var(--teal);text-shadow:var(--neon-sm);">TEXTURA</span></div>
+          <p style="font-size:14px;color:var(--tx-2);line-height:1.7;">Combine <code style="font-family:var(--f-mono);color:var(--teal);font-size:12px;">.tex .tex-dots</code> em qualquer bloco. Funciona em hero, features e CTAs.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span class="tag tag-teal">tex-dots</span>
+          <span class="tag tag-dim">tex-grid</span>
+          <span class="tag tag-dark">tex-noise</span>
+          <span class="tag tag-dim">tex-topo</span>
+          <span class="tag tag-dark">tex-lines</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="sec" id="quiz">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">12 — Quiz</div>
+      <h2 class="sec-h">COMPONENTE DE QUIZ</h2>
+      <p class="sec-desc">Multi-step com progress bar, seleção de opções e resultado. Pronto para diagnóstico de leads.</p>
+    </div>
+    <div class="quiz-wrap r">
+      <div class="quiz-progress"><div class="quiz-bar" id="qBar" style="width:25%"></div></div>
+
+      <!-- Step 1 -->
+      <div class="quiz-step active" data-step="1">
+        <div class="quiz-q">QUANTOS LEADS VOCÊ CAPTOU NO ÚLTIMO LANÇAMENTO?</div>
+        <div class="quiz-sub">Isso define qual infraestrutura de comunicação faz sentido para a sua operação.</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Menos de 3.000 leads</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>3.000 a 10.000 leads</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>10.000 a 30.000 leads</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Mais de 30.000 leads</div>
+        </div>
+        <div class="quiz-nav"><span class="quiz-counter">1 / 3</span><button class="btn btn-primary" onclick="nextStep()">Continuar</button></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="quiz-step" data-step="2">
+        <div class="quiz-q">QUAL FOI SUA PRESENÇA MÉDIA NAS LIVES?</div>
+        <div class="quiz-sub">Comparamos com o benchmark do mercado para medir o impacto real.</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Menos de 5% da base</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Entre 5% e 12%</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Entre 12% e 20%</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Acima de 20%</div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" onclick="prevStep()">← Voltar</button>
+          <span class="quiz-counter">2 / 3</span>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="quiz-step" data-step="3">
+        <div class="quiz-q">JÁ USOU LIGAÇÃO COM VOZ DO EXPERT?</div>
+        <div class="quiz-sub">A primeira vez que você ouvir "só vim por causa da ligação" na live, tudo muda.</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Nunca usei nenhum canal extra</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Só e-mail e WhatsApp</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Já testei ligação antes</div>
+          <div class="quiz-opt" onclick="selectOpt(this)"><span class="quiz-opt-dot"></span>Uso LigueLead atualmente</div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" onclick="prevStep()">← Voltar</button>
+          <span class="quiz-counter">3 / 3</span>
+          <button class="btn btn-primary" onclick="showResult()">Ver resultado</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="quiz-step" data-step="result">
+        <div class="quiz-result" style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r-xl);">
+          <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;">Diagnóstico LigueLead</div>
+          <div class="quiz-result-pct">35%</div>
+          <div class="quiz-result-label">Potencial de presença disponível</div>
+          <div class="quiz-result-desc">Sua operação está deixando atenção na mesa. Com multi-canal ativo, clientes com perfil similar chegam a 35%+ de presença ao vivo — sem mudar a oferta, só garantindo que os leads lembrem.</div>
+          <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-primary">Falar com o time</button>
+            <button class="btn btn-ghost" onclick="resetQuiz()">Refazer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANIMATIONS -->
+<section class="sec sec-alt" id="animations">
+  <div class="w">
+    <div class="sec-head r">
+      <div class="sec-ey">13 — Animações</div>
+      <h2 class="sec-h">GIFS CSS — CANAIS</h2>
+      <p class="sec-desc">Animações em CSS puro — sem arquivo externo. Use em landing pages, emails e social.</p>
+    </div>
+    <div class="anim-grid r">
+
+      <!-- Phone ringing -->
+      <div class="anim-card">
+        <div class="phone-anim">
+          <div class="phone-ring-1"></div>
+          <div class="phone-ring-2"></div>
+          <div class="phone-ring-3"></div>
+          <div class="phone-body"></div>
+        </div>
+        <div>
+          <div style="font-weight:800;color:var(--tx-1);margin-bottom:4px;">Ligação com voz</div>
+          <div style="font-size:13px;color:var(--tx-2);">O celular toca. O lead atende. A voz do expert no ouvido dele.</div>
+        </div>
+        <span class="tag tag-teal">CSS PURO</span>
+        <div class="anim-label">.phone-anim</div>
+      </div>
+
+      <!-- Message bubbles -->
+      <div class="anim-card">
+        <div class="msg-anim">
+          <div class="msg-bubble msg-left msg-b1">Oi! Lembra da live de hoje às 20h?</div>
+          <div class="msg-bubble msg-right msg-b2">Obrigada!! Quase esquecia 🙏</div>
+          <div class="msg-typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:800;color:var(--tx-1);margin-bottom:4px;">SMS Shortcode</div>
+          <div style="font-size:13px;color:var(--tx-2);">Mensagem certa, hora certa. Ela lembrou porque você mandou.</div>
+        </div>
+        <span class="tag tag-teal">CSS PURO</span>
+        <div class="anim-label">.msg-anim</div>
+      </div>
+
+      <!-- SMS Flash -->
+      <div class="anim-card">
+        <div class="flash-anim">
+          <div class="flash-phone">
+            <div class="flash-notch"></div>
+            <div class="flash-screen">
+              <div class="flash-text">🔴 LigueLead<br>Carrinho fecha<br>em 2 horas!</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:800;color:var(--tx-1);margin-bottom:4px;">SMS Flash</div>
+          <div style="font-size:13px;color:var(--tx-2);">A tela acende. Com o celular bloqueado. Impossível ignorar.</div>
+        </div>
+        <span class="tag tag-teal">CSS PURO</span>
+        <div class="anim-label">.flash-anim</div>
+      </div>
+
+      <!-- Flow diagram -->
+      <div class="anim-card">
+        <div class="flow-anim">
+          <svg class="flow-svg" viewBox="0 0 220 130">
+            <!-- Connection paths -->
+            <path class="flow-path" d="M48 62 C65 62 75 25 90 25"/>
+            <path class="flow-path" d="M48 62 C65 62 75 65 90 65"/>
+            <path class="flow-path" d="M48 62 C65 62 75 105 90 105"/>
+            <path class="flow-path" d="M134 25 C155 25 165 62 176 62"/>
+            <path class="flow-path" d="M134 65 C155 65 165 65 176 65"/>
+            <path class="flow-path" d="M134 105 C155 105 165 65 176 65"/>
+            <!-- Animated dots -->
+            <circle class="flow-dot fd1" cx="0" cy="0" r="3" style="offset-path:path('M48 62 C65 62 75 25 90 25');animation:fd1 2.2s linear infinite;"/>
+            <circle class="flow-dot fd2" cx="0" cy="0" r="3" style="offset-path:path('M48 62 C65 62 75 65 90 65');animation:fd2 2.2s linear infinite .5s;"/>
+            <circle class="flow-dot fd3" cx="0" cy="0" r="3" style="offset-path:path('M48 62 C65 62 75 105 90 105');animation:fd3 2.2s linear infinite 1s;"/>
+            <circle class="flow-dot fd4" cx="0" cy="0" r="3" style="offset-path:path('M134 25 C155 25 165 62 176 62');animation:fd4 2.2s linear infinite 1.5s;"/>
+          </svg>
+          <div class="flow-node start">LEAD</div>
+          <div class="flow-node sms" style="animation:nodeGlow 2.2s ease-in-out infinite;">SMS</div>
+          <div class="flow-node call" style="animation:nodeGlow 2.2s ease-in-out infinite .5s;">CALL</div>
+          <div class="flow-node flash" style="animation:nodeGlow 2.2s ease-in-out infinite 1s;">FLASH</div>
+          <div class="flow-node done">LIVE</div>
+        </div>
+        <div>
+          <div style="font-weight:800;color:var(--tx-1);margin-bottom:4px;">Flow Automatizado</div>
+          <div style="font-size:13px;color:var(--tx-2);">Régua automática — cada canal no momento certo da jornada.</div>
+        </div>
+        <span class="tag tag-teal">CSS + SVG</span>
+        <div class="anim-label">.flow-anim</div>
+      </div>
+    </div>
+
+    <!-- Usage note -->
+    <div class="r" style="margin-top:32px;padding:24px 28px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);">
+      <div class="sec-ey" style="margin-bottom:10px;">Como usar</div>
+      <div class="code">
+<span class="d">/* Cole o HTML + CSS de qualquer animação no seu projeto */</span>
+<span class="d">/* Funciona em: React, HTML puro, email (parcial), landing pages */</span>
+
+<span class="t">.phone-anim</span>  <span class="d">→</span>  Ligação com voz (vibração + ondas)
+<span class="t">.msg-anim</span>    <span class="d">→</span>  Bolhas de mensagem aparecendo
+<span class="t">.flash-anim</span>  <span class="d">→</span>  SMS Flash acendendo a tela
+<span class="t">.flow-anim</span>   <span class="d">→</span>  Flow com nós e pontos animados
+      </div>
+    </div>
+  </div>
+</section>
+
 <hr class="neon-rule">
 <footer>
   <div class="foot-inner">
@@ -1373,6 +1815,52 @@ if(ri&&rv){
     ri.style.setProperty('--val',pct+'%');
   });
 }
+
+/* QUIZ */
+let currentStep=1, totalSteps=3;
+window.selectOpt=function(el){
+  el.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+};
+window.nextStep=function(){
+  if(currentStep<totalSteps){
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep++;
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+    document.getElementById('qBar').style.width=((currentStep/totalSteps)*100)+'%';
+  }
+};
+window.prevStep=function(){
+  if(currentStep>1){
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep--;
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+    document.getElementById('qBar').style.width=((currentStep/totalSteps)*100)+'%';
+  }
+};
+window.showResult=function(){
+  document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+  document.querySelector('.quiz-step[data-step="result"]').classList.add('active');
+  document.getElementById('qBar').style.width='100%';
+};
+window.resetQuiz=function(){
+  document.querySelector('.quiz-step.active').classList.remove('active');
+  currentStep=1;
+  document.querySelector('.quiz-step[data-step="1"]').classList.add('active');
+  document.getElementById('qBar').style.width='25%';
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+};
+
+/* FLOW NODE GLOW */
+const style=document.createElement('style');
+style.textContent=`
+  @keyframes nodeGlow{0%,100%{box-shadow:none;border-color:rgba(21,195,160,.2)}50%{box-shadow:0 0 8px rgba(21,195,160,.6),0 0 20px rgba(21,195,160,.3);border-color:var(--teal)}}
+  @keyframes fd1{0%{offset-distance:0%;opacity:1}80%{opacity:1}100%{offset-distance:100%;opacity:0}}
+  @keyframes fd2{0%{offset-distance:0%;opacity:1}80%{opacity:1}100%{offset-distance:100%;opacity:0}}
+  @keyframes fd3{0%{offset-distance:0%;opacity:1}80%{opacity:1}100%{offset-distance:100%;opacity:0}}
+  @keyframes fd4{0%{offset-distance:0%;opacity:1}80%{opacity:1}100%{offset-distance:100%;opacity:0}}
+`;
+document.head.appendChild(style);
 
 })();
 </script>
